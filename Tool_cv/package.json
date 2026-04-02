@@ -1,0 +1,31 @@
+{
+  "name": "tho-pro-profile",
+  "version": "1.0.0",
+  "description": "Zalo Mini App for Tradespeople",
+  "scripts": {
+    "start": "zmp-cli start",
+    "build": "zmp-cli build",
+    "deploy": "zmp-cli deploy"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zmp-ui": "^1.11.0",
+    "zmp-sdk": "^2.49.0",
+    "firebase": "^10.8.0",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.17",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "zmp-cli": "^4.0.0",
+    "zmp-vite-plugin": "^1.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.3.0"
+  }
+}

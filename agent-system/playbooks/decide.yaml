@@ -1,0 +1,95 @@
+name: decide
+description: "DECIDE phase — week 8 final assessment, CEO GO/NO-GO preparation"
+trigger: "event:experiment_week_8 OR manual:ceo_request_assessment"
+
+steps:
+  - id: final_metrics
+    agent: analytics
+    skill: A4_content_performance
+    input:
+      task: "Final comprehensive metrics collection"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "youtube", "email"]
+    output_key: final_metrics
+
+  - id: final_cmf
+    agent: analytics
+    skill: A6_cmf_scoring
+    input:
+      task: "Final CMF Score calculation"
+      metrics: "{{final_metrics}}"
+    output_key: final_cmf
+    depends_on: [final_metrics]
+
+  - id: final_traction
+    agent: analytics
+    skill: A5_traction_scoring
+    input:
+      task: "Final Traction Score"
+      metrics: "{{final_metrics}}"
+    output_key: final_traction
+    parallel_with: final_cmf
+
+  - id: unit_economics
+    agent: analytics
+    skill: A3_unit_economics
+    input:
+      task: "Calculate unit economics"
+      metrics: "{{final_metrics}}"
+    output_key: economics
+    depends_on: [final_metrics]
+
+  - id: opportunity_score
+    agent: analytics
+    skill: A2_opportunity_scoring
+    input:
+      task: "Calculate final Opportunity Score"
+      cmf: "{{final_cmf}}"
+      traction: "{{final_traction}}"
+      economics: "{{economics}}"
+    output_key: opportunity
+    depends_on: [final_cmf, final_traction, unit_economics]
+
+  - id: final_stress_test
+    agent: devils_advocate
+    skill: A1_stress_testing
+    input:
+      task: "Final stress test before CEO decision"
+      opportunity: "{{opportunity}}"
+      cmf: "{{final_cmf}}"
+      traction: "{{final_traction}}"
+      economics: "{{economics}}"
+    output_key: final_da
+    depends_on: [opportunity_score]
+
+  - id: pivot_analysis
+    agent: analytics
+    skill: D5_strategy_pivot
+    input:
+      task: "Analyze pivot options if not proceeding"
+      metrics: "{{final_metrics}}"
+      cmf: "{{final_cmf}}"
+      traction: "{{final_traction}}"
+    output_key: pivot_options
+    depends_on: [final_stress_test]
+    condition: "final_da.verdict != 'proceed'"
+
+  - id: resource_recommendation
+    agent: strategy
+    skill: D2_resource_allocation
+    input:
+      task: "Resource allocation recommendation"
+      opportunity: "{{opportunity}}"
+      da_verdict: "{{final_da}}"
+    output_key: resources
+    depends_on: [final_stress_test]
+
+gates:
+  - after: resource_recommendation
+    type: ceo_decision
+    message: |
+      EXPERIMENT COMPLETE — CEO GO/NO-GO
+      Opportunity Score: {{opportunity.score}}
+      CMF: {{final_cmf.cmf_score}} | Traction: {{final_traction.traction_score}}
+      DA Verdict: {{final_da.verdict}} (confidence: {{final_da.confidence}})
+      Unit Economics: LTV/CAC = {{economics.ltv_cac_ratio}}
+      Recommendation: {{resources.recommendation}}

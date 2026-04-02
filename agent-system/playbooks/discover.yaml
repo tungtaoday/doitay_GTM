@@ -1,0 +1,60 @@
+name: discover
+description: "DISCOVER phase — scan market signals, social listening, competitive intel"
+trigger: "weekly_cron OR event:new_vertical_added"
+
+steps:
+  - id: scan_signals
+    agent: research
+    skill: R1_market_scanning
+    input:
+      task: "Scan market signals cho active verticals"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "reddit", "youtube"]
+    output_key: signals
+
+  - id: social_listening
+    agent: research
+    skill: R2_social_listening
+    input:
+      task: "Monitor conversations về pain points trong target verticals"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "reddit"]
+    output_key: listening
+    parallel_with: scan_signals
+
+  - id: competitive_scan
+    agent: research
+    skill: R4_competitive_intelligence
+    input:
+      task: "Update competitive landscape"
+    output_key: competitive
+    parallel_with: scan_signals
+
+  - id: content_benchmark
+    agent: research
+    skill: R5_content_benchmarking
+    input:
+      task: "Benchmark our content vs competitors across all platforms"
+    output_key: benchmarks
+    depends_on: [competitive_scan]
+
+  - id: stress_test
+    agent: devils_advocate
+    skill: A1_stress_testing
+    input:
+      task: "Stress test any positive signals found"
+      signals: "{{signals}}"
+    output_key: stress_test
+    depends_on: [scan_signals, social_listening]
+    condition: "signals.signal_strength_score >= 100"
+
+  - id: update_hypothesis_backlog
+    agent: strategy
+    skill: S1_thesis_formation
+    input:
+      task: "Evaluate signals and update hypothesis backlog"
+      signals: "{{signals}}"
+      listening: "{{listening}}"
+      stress_test: "{{stress_test}}"
+    output_key: backlog_update
+    depends_on: [stress_test, content_benchmark]
+
+gates: []

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GTM AI - System Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;600;700&amp;family=Syne:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-background": "#e1e2eb",
+              "tertiary-container": "#c9b2ff",
+              "on-primary-fixed": "#00201c",
+              "secondary-fixed-dim": "#ffb95f",
+              "secondary-fixed": "#ffddb8",
+              "primary-fixed-dim": "#3cddc7",
+              "primary-fixed": "#62fae3",
+              "surface-container-lowest": "#0b0e14",
+              "tertiary": "#e2d3ff",
+              "surface-container": "#1d2026",
+              "surface-variant": "#32353c",
+              "error": "#ffb4ab",
+              "on-secondary": "#472a00",
+              "surface-tint": "#3cddc7",
+              "surface-container-highest": "#32353c",
+              "on-surface-variant": "#bacac5",
+              "secondary": "#ffb95f",
+              "inverse-primary": "#006b5f",
+              "error-container": "#93000a",
+              "on-error-container": "#ffdad6",
+              "surface-bright": "#363940",
+              "surface-container-high": "#272a31",
+              "on-secondary-container": "#5b3800",
+              "surface-dim": "#10131a",
+              "surface": "#10131a",
+              "on-primary": "#003731",
+              "on-secondary-fixed": "#2a1700",
+              "secondary-container": "#ee9800",
+              "outline-variant": "#3c4a46",
+              "primary-container": "#2dd4bf",
+              "on-surface": "#e1e2eb",
+              "background": "#10131a",
+              "on-secondary-fixed-variant": "#653e00",
+              "on-primary-fixed-variant": "#005047",
+              "primary": "#57f1db",
+              "outline": "#859490",
+              "surface-container-low": "#191c22",
+              "on-error": "#690005",
+              "on-tertiary": "#3c0091",
+              "tertiary-fixed-dim": "#d0bcff",
+              "inverse-on-surface": "#2e3037",
+              "inverse-surface": "#e1e2eb",
+              "on-primary-container": "#00574d",
+              "on-tertiary-container": "#5b22c4",
+              "tertiary-fixed": "#e9ddff",
+              "on-tertiary-fixed-variant": "#5516be",
+              "on-tertiary-fixed": "#23005c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "mono": ["IBM Plex Mono"],
+              "syne": ["Syne"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { background-color: #10131a; color: #e1e2eb; font-family: 'Inter', sans-serif; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .glass-panel { background: rgba(50, 53, 60, 0.6); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col items-center pt-20 pb-6 bg-[#0b0e14] border-r border-[#3c4a46]/15 w-20">
+<nav class="flex flex-col items-center gap-2 w-full">
+<div class="flex flex-col items-center justify-center text-slate-500 py-4 w-full hover:bg-[#1d2026] hover:text-[#2dd4bf] transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">terminal</span>
+<span class="font-['IBM_Plex_Mono'] text-[10px] uppercase tracking-widest">Command</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 py-4 w-full hover:bg-[#1d2026] hover:text-[#2dd4bf] transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">insights</span>
+<span class="font-['IBM_Plex_Mono'] text-[10px] uppercase tracking-widest">Strategy</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 py-4 w-full hover:bg-[#1d2026] hover:text-[#2dd4bf] transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">smart_toy</span>
+<span class="font-['IBM_Plex_Mono'] text-[10px] uppercase tracking-widest">Agents</span>
+</div>
+<!-- Active State: Analytics -->
+<div class="flex flex-col items-center justify-center bg-[#1d2026] text-[#2dd4bf] border-l-4 border-[#2dd4bf] py-4 w-full active:translate-x-1 duration-150 cursor-default">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-['IBM_Plex_Mono'] text-[10px] uppercase tracking-widest">Analytics</span>
+</div>
+</nav>
+<div class="mt-auto flex flex-col items-center gap-4 w-full">
+<div class="flex flex-col items-center justify-center text-slate-500 py-4 w-full hover:bg-[#1d2026] transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">help</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 py-4 w-full hover:bg-[#1d2026] transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">description</span>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#10131a] flex justify-between items-center px-6 py-3 w-full border-none">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#2dd4bf] font-['Syne']">GTM AI System</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 font-medium font-['Space_Grotesk'] text-sm hover:text-[#2dd4bf] transition-colors" href="#">System Status</a>
+<a class="text-slate-400 font-medium font-['Space_Grotesk'] text-sm hover:text-[#2dd4bf] transition-colors" href="#">Neural Link</a>
+<a class="text-slate-400 font-medium font-['Space_Grotesk'] text-sm hover:text-[#2dd4bf] transition-colors" href="#">API</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-mono text-primary uppercase">Core Active</span>
+</div>
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">settings</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqI2J7SakKhB6FIVgxQ0FVcpoJPKxoMbH3MZaQopjzkk_98yfvMQnSQZwuofP-7ubx2xOkcqy0TEzEtcJlCrHFzoBfRU4TrGJXW4wNtrFiQqJPfPacalQZnC4XOBwtXeps9OzkLhe1oyYFAzFpGS3hODeMOdhj1SoxTFOfoMRZ-rJyrhimj4nMdMAMj04FuwA5ia9hjq1Pnd0Wq6hpXe7DRFtK14VmmXBQHtU9PmNzcnRAKb05XV2Idwmtjhue9LcgguyhWgMdcJg"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-20 pt-20 p-8 min-h-screen">
+<!-- Dashboard Header -->
+<header class="mb-10">
+<h1 class="font-syne font-extrabold text-4xl tracking-tighter uppercase text-on-background">SYSTEM ANALYTICS &amp; <span class="text-primary-container">CLOSED-LOOP LEARNING</span></h1>
+<p class="font-mono text-xs text-outline mt-2 tracking-widest uppercase">Environment: Production-Sigma-9 // Latency: 24ms // Learnings: +1,244 today</p>
+</header>
+<!-- Top Section: Core Metrics -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- CMF SCORE -->
+<div class="bg-surface-container-low p-6 rounded-lg border-l-2 border-primary-container flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-mono uppercase tracking-[0.2em] text-outline">CMF SCORE</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-4xl font-mono font-semibold text-primary">0.45</span>
+<span class="text-xs font-mono text-primary-container flex items-center">
+<span class="material-symbols-outlined text-xs">arrow_upward</span> 15%
+                        </span>
+</div>
+</div>
+<div class="mt-4 h-12 w-full opacity-60">
+<svg class="w-full h-full stroke-primary fill-none stroke-2" viewbox="0 0 100 30">
+<path d="M0,25 Q15,22 25,24 T50,18 T75,22 T100,5" stroke-linecap="round"></path>
+</svg>
+</div>
+</div>
+<!-- TRACTION SCORE -->
+<div class="bg-surface-container-low p-6 rounded-lg border-l-2 border-primary-container flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-mono uppercase tracking-[0.2em] text-outline">TRACTION SCORE</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-4xl font-mono font-semibold text-primary">0.38</span>
+<span class="text-xs font-mono text-primary-container flex items-center">
+<span class="material-symbols-outlined text-xs">arrow_upward</span> 15%
+                        </span>
+</div>
+</div>
+<div class="mt-4 h-12 w-full opacity-60">
+<svg class="w-full h-full stroke-primary-container fill-none stroke-2" viewbox="0 0 100 30">
+<path d="M0,28 Q15,10 25,15 T50,12 T75,8 T100,2" stroke-linecap="round"></path>
+</svg>
+</div>
+</div>
+<!-- ROI AGGREGATE -->
+<div class="bg-surface-container-low p-6 rounded-lg border-l-2 border-tertiary-container flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-mono uppercase tracking-[0.2em] text-outline">CONVERSION PEAK</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-4xl font-mono font-semibold text-tertiary-container">82%</span>
+<span class="text-xs font-mono text-tertiary-container flex items-center">
+<span class="material-symbols-outlined text-xs">trending_up</span> HIGH
+                        </span>
+</div>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1 flex-1 bg-tertiary-container/40 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[82%]"></div>
+</div>
+</div>
+</div>
+<!-- AGENT UPTIME -->
+<div class="bg-surface-container-low p-6 rounded-lg border-l-2 border-outline flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-mono uppercase tracking-[0.2em] text-outline">AGENT STABILITY</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-4xl font-mono font-semibold text-on-surface">99.8</span>
+<span class="text-xs font-mono text-outline">NODE STATUS</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<div class="flex-1 flex gap-1 items-end h-6">
+<div class="w-2 h-3 bg-primary-container/20"></div>
+<div class="w-2 h-4 bg-primary-container/40"></div>
+<div class="w-2 h-5 bg-primary-container/60"></div>
+<div class="w-2 h-6 bg-primary-container/80"></div>
+<div class="w-2 h-4 bg-primary-container"></div>
+</div>
+<span class="text-[10px] font-mono text-primary">OPTIMAL</span>
+</div>
+</div>
+</section>
+<!-- Center Section -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
+<!-- Center Left (60%) -->
+<div class="lg:col-span-6 flex flex-col gap-8">
+<!-- Metric Decomposition -->
+<div class="bg-surface-container p-8 rounded-lg">
+<div class="flex justify-between items-center mb-10">
+<h2 class="font-headline font-bold text-xl tracking-tight uppercase">METRIC DECOMPOSITION</h2>
+<span class="material-symbols-outlined text-outline">tune</span>
+</div>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono uppercase tracking-wider text-on-surface-variant">Engagement Quality</span>
+<span class="text-xs font-mono text-primary">0.78 / 1.0</span>
+</div>
+<div class="h-2 w-full bg-surface-variant/30 rounded-full">
+<div class="h-full bg-gradient-to-r from-primary/50 to-primary w-[78%] rounded-full shadow-[0_0_12px_rgba(87,241,219,0.3)]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono uppercase tracking-wider text-on-surface-variant">Audience Relevance</span>
+<span class="text-xs font-mono text-primary">0.64 / 1.0</span>
+</div>
+<div class="h-2 w-full bg-surface-variant/30 rounded-full">
+<div class="h-full bg-gradient-to-r from-primary/50 to-primary w-[64%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono uppercase tracking-wider text-on-surface-variant">Conversion Signal</span>
+<span class="text-xs font-mono text-primary">0.42 / 1.0</span>
+</div>
+<div class="h-2 w-full bg-surface-variant/30 rounded-full">
+<div class="h-full bg-gradient-to-r from-primary/50 to-primary w-[42%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- CMF Heatmap -->
+<div class="bg-surface-container p-8 rounded-lg">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline font-bold text-xl tracking-tight uppercase">CMF HEATMAP</h2>
+<div class="flex gap-4 text-[10px] font-mono text-outline">
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-surface-container-highest"></span> LOW</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-primary/40"></span> MED</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-primary"></span> HIGH</span>
+</div>
+</div>
+<div class="grid grid-cols-8 gap-2">
+<!-- W8 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary rounded-sm" title="W8-D1"></div>
+<div class="h-12 bg-primary/80 rounded-sm"></div>
+<div class="h-12 bg-primary/60 rounded-sm"></div>
+<div class="h-12 bg-primary/40 rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2">W1</span>
+</div>
+<!-- W7 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-surface-container-highest rounded-sm"></div>
+<div class="h-12 bg-primary/20 rounded-sm"></div>
+<div class="h-12 bg-primary/40 rounded-sm"></div>
+<div class="h-12 bg-primary/10 rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W2</span>
+</div>
+<!-- W6 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary/50 rounded-sm"></div>
+<div class="h-12 bg-primary/90 rounded-sm"></div>
+<div class="h-12 bg-primary/30 rounded-sm"></div>
+<div class="h-12 bg-primary/20 rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W3</span>
+</div>
+<!-- W5 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary/10 rounded-sm"></div>
+<div class="h-12 bg-surface-container-highest rounded-sm"></div>
+<div class="h-12 bg-primary/20 rounded-sm"></div>
+<div class="h-12 bg-surface-container-highest rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W4</span>
+</div>
+<!-- W4 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary/40 rounded-sm"></div>
+<div class="h-12 bg-primary/70 rounded-sm"></div>
+<div class="h-12 bg-primary/80 rounded-sm"></div>
+<div class="h-12 bg-primary rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W5</span>
+</div>
+<!-- W3 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary/30 rounded-sm"></div>
+<div class="h-12 bg-primary/20 rounded-sm"></div>
+<div class="h-12 bg-primary/40 rounded-sm"></div>
+<div class="h-12 bg-primary/60 rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W6</span>
+</div>
+<!-- W2 -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary/90 rounded-sm"></div>
+<div class="h-12 bg-primary rounded-sm"></div>
+<div class="h-12 bg-primary rounded-sm"></div>
+<div class="h-12 bg-primary/80 rounded-sm"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-outline">W7</span>
+</div>
+<!-- W1 (Current) -->
+<div class="flex flex-col gap-2">
+<div class="h-12 bg-primary rounded-sm border-2 border-white/20"></div>
+<div class="h-12 bg-primary rounded-sm border-2 border-white/20"></div>
+<div class="h-12 bg-primary/90 rounded-sm border-2 border-white/20"></div>
+<div class="h-12 bg-primary/70 rounded-sm border-2 border-white/20"></div>
+<span class="text-center font-mono text-[10px] mt-2 text-primary">CURR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Center Right (40%) -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-lowest border border-outline-variant/10 p-8 rounded-lg h-full">
+<div class="mb-8">
+<h2 class="font-headline font-bold text-xl tracking-tight uppercase">PATTERN EXTRACTION <span class="text-tertiary">(CLOSED-LOOP)</span></h2>
+<p class="text-[10px] font-mono text-outline mt-1">ANALYTICS AGENT: SEED-7221</p>
+</div>
+<div class="space-y-6">
+<!-- Winning Pattern 1 -->
+<div class="glass-panel p-5 rounded-lg border-l-4 border-primary">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-primary-container text-on-primary-container font-mono text-[9px] px-2 py-0.5 rounded-full uppercase font-bold tracking-widest">Winning Pattern</span>
+<div class="text-right">
+<span class="block text-[10px] font-mono text-outline">Confidence</span>
+<span class="block text-sm font-mono text-primary">94.2%</span>
+</div>
+</div>
+<p class="text-sm font-medium leading-relaxed mb-4">Vietnamese SME lending: question-hooks + pain-phrase CTAs = 3x avg</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">bolt</span>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase">Applicability: GLOBAL</span>
+</div>
+<button class="text-[10px] font-mono text-primary underline underline-offset-4 uppercase">View Agent Logs</button>
+</div>
+</div>
+<!-- Winning Pattern 2 -->
+<div class="bg-surface-container-high/40 p-5 rounded-lg border-l-4 border-outline-variant">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-surface-variant text-on-surface-variant font-mono text-[9px] px-2 py-0.5 rounded-full uppercase font-bold tracking-widest">Emerging Pattern</span>
+<div class="text-right">
+<span class="block text-[10px] font-mono text-outline">Confidence</span>
+<span class="block text-sm font-mono text-on-surface">68.5%</span>
+</div>
+</div>
+<p class="text-sm font-medium leading-relaxed mb-4">Financial SaaS NorthAm: 'Efficiency' vs 'Compliance' - Compliance triggers 22% higher open rate.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline">query_stats</span>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase">Applicability: REGIONAL</span>
+</div>
+<button class="text-[10px] font-mono text-outline underline underline-offset-4 uppercase">Monitoring</button>
+</div>
+</div>
+<!-- Winning Pattern 3 -->
+<div class="bg-surface-container-high/40 p-5 rounded-lg border-l-4 border-outline-variant">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-surface-variant text-on-surface-variant font-mono text-[9px] px-2 py-0.5 rounded-full uppercase font-bold tracking-widest">System Signal</span>
+<div class="text-right">
+<span class="block text-[10px] font-mono text-outline">Confidence</span>
+<span class="block text-sm font-mono text-on-surface">81.0%</span>
+</div>
+</div>
+<p class="text-sm font-medium leading-relaxed mb-4">Neural Overlap: Content generated with 70/30 machine-to-human edit ratio performs best in BioTech niche.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline">psychology</span>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase">Applicability: NICHE</span>
+</div>
+<button class="text-[10px] font-mono text-outline underline underline-offset-4 uppercase">Apply Logic</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Agent Cost & Performance -->
+<section class="mt-8">
+<div class="bg-surface-container p-8 rounded-lg">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline font-bold text-xl tracking-tight uppercase">AGENT COST &amp; PERFORMANCE</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-[10px] font-mono rounded">LAST 24H</span>
+<span class="px-3 py-1 bg-surface-container-highest text-[10px] font-mono rounded text-primary">REAL-TIME DATA</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono">
+<thead class="border-b border-outline-variant/20">
+<tr class="text-[10px] text-outline tracking-widest">
+<th class="pb-4 uppercase font-medium">AGENT ID</th>
+<th class="pb-4 uppercase font-medium">OPERATION TYPE</th>
+<th class="pb-4 uppercase font-medium">API TOKENS</th>
+<th class="pb-4 uppercase font-medium">UNIT COST</th>
+<th class="pb-4 uppercase font-medium text-right">ROI SCALE</th>
+</tr>
+</thead>
+<tbody class="text-xs">
+<tr class="border-b border-outline-variant/10">
+<td class="py-4 font-semibold text-on-surface">STRAT-EXE-01</td>
+<td class="py-4">Market Discovery</td>
+<td class="py-4">1,240,119</td>
+<td class="py-4">$42.40</td>
+<td class="py-4 text-right text-primary">12.4x</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-4 font-semibold text-on-surface">CONT-GEN-V2</td>
+<td class="py-4">Iterative Content</td>
+<td class="py-4">4,812,001</td>
+<td class="py-4">$156.90</td>
+<td class="py-4 text-right text-primary">8.1x</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-4 font-semibold text-on-surface">ANAL-REASON-X</td>
+<td class="py-4">Pattern Synthesis</td>
+<td class="py-4">890,442</td>
+<td class="py-4">$12.10</td>
+<td class="py-4 text-right text-primary">42.9x</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-4 font-semibold text-on-surface">QA-VALIDATOR</td>
+<td class="py-4">Compliance Check</td>
+<td class="py-4">215,000</td>
+<td class="py-4">$4.50</td>
+<td class="py-4 text-right text-primary">INF</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="pt-6 font-bold text-on-surface uppercase text-sm" colspan="2">Aggregated Operations</td>
+<td class="pt-6 text-outline">7,157,562</td>
+<td class="pt-6 font-bold text-on-surface">$215.90</td>
+<td class="pt-6 text-right font-bold text-primary text-sm">18.6x Avg ROI</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual Information Overlay (Subtle) -->
+<div class="fixed bottom-6 right-8 flex items-center gap-4">
+<div class="glass-panel px-4 py-2 rounded-full border border-primary/20 flex items-center gap-3">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-[10px] font-mono text-primary uppercase tracking-widest">Closed-loop optimizing...</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,120 @@
+name: define
+description: "DEFINE phase — segment, form thesis, design CVP, plan experiment"
+trigger: "event:hypothesis_promoted_to_tier3 OR manual:ceo_selected_hypothesis"
+
+steps:
+  - id: customer_research
+    agent: research
+    skill: R6_customer_research
+    input:
+      task: "Deep research target customers cho hypothesis"
+      hypothesis: "{{hypothesis}}"
+    output_key: customer_intel
+
+  - id: pricing_research
+    agent: research
+    skill: R7_pricing_research
+    input:
+      task: "Research pricing landscape"
+      hypothesis: "{{hypothesis}}"
+    output_key: pricing
+    parallel_with: customer_research
+
+  - id: segmentation
+    agent: research
+    skill: S2_segmentation
+    input:
+      task: "Identify và prioritize segments"
+      customer_intel: "{{customer_intel}}"
+    output_key: segments
+    depends_on: [customer_research]
+
+  - id: thesis_formation
+    agent: strategy
+    skill: S1_thesis_formation
+    input:
+      task: "Form thesis cho selected hypothesis"
+      segments: "{{segments}}"
+      customer_intel: "{{customer_intel}}"
+    output_key: thesis
+    depends_on: [segmentation]
+
+  - id: value_proposition
+    agent: strategy
+    skill: S3_value_proposition
+    input:
+      task: "Design CVP"
+      thesis: "{{thesis}}"
+      segments: "{{segments}}"
+      pricing: "{{pricing}}"
+    output_key: cvp
+    depends_on: [thesis_formation, pricing_research]
+
+  - id: offer_design
+    agent: strategy
+    skill: S4_offer_design
+    input:
+      task: "Design offer package"
+      cvp: "{{cvp}}"
+      pricing: "{{pricing}}"
+    output_key: offer
+    depends_on: [value_proposition]
+
+  - id: channel_strategy
+    agent: strategy
+    skill: S6_channel_strategy
+    input:
+      task: "Define channel strategy — Twitter, Instagram, Facebook, LinkedIn, Reddit, YouTube, Email"
+      segments: "{{segments}}"
+      cvp: "{{cvp}}"
+    output_key: channels
+    depends_on: [value_proposition]
+
+  - id: content_pillars
+    agent: strategy
+    skill: S5_content_pillars
+    input:
+      task: "Define content pillars"
+      cvp: "{{cvp}}"
+      segments: "{{segments}}"
+      channels: "{{channels}}"
+    output_key: pillars
+    depends_on: [channel_strategy]
+
+  - id: experiment_design
+    agent: strategy
+    skill: S7_experiment_design
+    input:
+      task: "Design 8-week experiment"
+      cvp: "{{cvp}}"
+      offer: "{{offer}}"
+      channels: "{{channels}}"
+      pillars: "{{pillars}}"
+    output_key: experiment
+    depends_on: [offer_design, content_pillars]
+
+  - id: gtm_plan
+    agent: strategy
+    skill: S8_go_to_market
+    input:
+      task: "Create go-to-market plan"
+      experiment: "{{experiment}}"
+      channels: "{{channels}}"
+    output_key: gtm
+    depends_on: [experiment_design]
+
+  - id: devils_advocate_review
+    agent: devils_advocate
+    skill: A1_stress_testing
+    input:
+      task: "Stress test thesis + CVP + experiment design"
+      thesis: "{{thesis}}"
+      cvp: "{{cvp}}"
+      experiment: "{{experiment}}"
+    output_key: da_review
+    depends_on: [gtm_plan]
+
+gates:
+  - after: devils_advocate_review
+    type: ceo_approval
+    message: "DEFINE phase complete. Thesis, CVP, Experiment designed. DA verdict: {{da_review.verdict}}. Approve to start BUILD_TEST?"

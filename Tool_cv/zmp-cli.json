@@ -1,0 +1,8 @@
+{
+    "appId": "",
+    "version": "1.0.0",
+    "appName": "Thợ Pro Profile",
+    "source": {
+        "entryPath": "src/main.tsx"
+    }
+}

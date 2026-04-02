@@ -1,0 +1,135 @@
+# ══════════════════════════════════════════════════
+# DOITAY.VN — Project Context
+# File này được inject vào MỌI agent, MỌI content generation
+# Sửa file này = thay đổi cách AI hiểu về dự án
+# ══════════════════════════════════════════════════
+
+name: Doitay.vn
+tagline: "Tìm Thợ Chuyên Nghiệp Nhanh & Tin Cậy"
+description: >
+  Marketplace kết nối chủ nhà với thợ sửa chữa chuyên nghiệp.
+  Từ điện nước, sơn sửa đến thi công xây dựng.
+  100% miễn phí cho khách hàng.
+
+geography: Hà Nội
+website: https://doitay.vn
+phone: "0327 834 490"
+
+# ── Target Audience (Supply-side — ưu tiên #1) ──
+primary_audience:
+  who: "Thợ sửa chữa chuyên nghiệp tại Hà Nội"
+  trades:
+    - Thợ Điện (16 thợ hiện có)
+    - Thợ Sơn (14)
+    - Thợ Nước (12)
+    - Thợ Xây Dựng (12)
+    - Thợ Điều Hòa (11)
+    - Thợ Ốp Lát (11)
+    - Thợ Sửa Chữa Tổng Hợp (9)
+    - Thợ Mộc (7)
+    - Thợ Hàn (7)
+    - Thợ Vệ Sinh (6)
+  pain_points:
+    - "Bị so sánh giá với thợ cỏ (thợ tay ngang, không nghề)"
+    - "Ế cục bộ theo mùa — mưa bão không ai gọi"
+    - "Khách bom kèo — hẹn rồi hủy, mất công đi"
+    - "Không có cách chứng minh tay nghề cho khách mới"
+    - "Bị khách chê đắt vì không biết giá thị trường"
+    - "Phụ thuộc mối quen, không có kênh tìm khách mới"
+  desires:
+    - "Có việc đều, không phụ thuộc thời tiết hay mối quen"
+    - "Được khách trả đúng giá, không bị ép"
+    - "Có profile chuyên nghiệp để khách tin tưởng"
+    - "Được gọi là THỢ GIỎI, không phải thợ vặt"
+
+secondary_audience:
+  who: "Chủ nhà tại Hà Nội cần sửa chữa"
+  pain_points:
+    - "Không biết tìm thợ ở đâu ngoài hỏi hàng xóm"
+    - "Sợ gặp thợ tay ngang, làm hỏng thêm"
+    - "Không biết giá đúng, sợ bị chặt chém"
+
+# ── Content Strategy ──
+content_angles:
+  - name: "Cái Uy"
+    description: "Nâng tầm nghề thợ — thợ giỏi là nghệ nhân, không phải lao động phổ thông"
+    examples:
+      - "Thợ điện 15 năm: 'Tôi tự hào mỗi khi khách gọi lại lần 2'"
+      - "Anh Hùng — từ thợ phụ đến chủ đội 8 người"
+    emotion: "Tự hào nghề"
+
+  - name: "Sĩ Diện"
+    description: "Có profile đẹp = có mặt mũi với khách. CV thợ chuyên nghiệp."
+    examples:
+      - "Profile thợ 5 sao vs thợ không có gì — khách chọn ai?"
+      - "Bạn có 10 năm kinh nghiệm nhưng khách không biết"
+    emotion: "Muốn được nhìn nhận"
+
+  - name: "Cơ Hội"
+    description: "Cơ hội việc làm thực tế — số liệu, case study"
+    examples:
+      - "1,200 khách đã đặt lịch trên Doitay.vn"
+      - "Thợ Minh nhận 5 việc/tuần chỉ sau 2 tuần tạo profile"
+    emotion: "FOMO — sợ bỏ lỡ"
+
+content_pillars:
+  - "Câu chuyện thợ giỏi (Cái Uy — trust building)"
+  - "Tips nghề & kinh nghiệm (Education — thu hút thợ)"
+  - "Cơ hội việc làm trên Doitay (Cơ Hội — conversion)"
+  - "Khách hàng nói gì (Social Proof)"
+  - "Behind the scenes — đội ngũ Doitay (Authenticity)"
+
+# ── Tone & Voice ──
+tone: >
+  Nói chuyện như đồng nghiệp, không phải như công ty.
+  Dùng ngôn ngữ thợ: "bơm gas đểu", "thợ đụng", "thợ cỏ", "kèo", "bom kèo".
+  KHÔNG dùng giọng doanh nghiệp, KHÔNG dùng buzzword marketing.
+  Ấm áp, thực tế, tôn trọng nghề thợ.
+
+avoid:
+  - "Giọng bán hàng, quảng cáo lộ liễu"
+  - "Ngôn ngữ corporate: 'giải pháp toàn diện', 'nền tảng số'"
+  - "So sánh tiêu cực với thợ khác"
+  - "Hứa hẹn quá mức ('kiếm triệu mỗi ngày')"
+
+# ── Channels ──
+channels:
+  primary:
+    - platform: Facebook
+      page_id: "663482443525186"
+      posting_times: ["10:00", "14:00", "20:00"]
+      content_types: ["post", "reel", "story"]
+
+    - platform: Zalo
+      type: "OA + ZNS + Ads"
+      posting_times: ["06:00", "11:30", "20:00"]
+      note: "Kênh chính tiếp cận thợ"
+
+  secondary:
+    - platform: TikTok
+      content_types: ["drama video", "day-in-the-life"]
+      posting_times: ["11:30", "20:00"]
+      note: "Cold audience — video drama thu hút"
+
+# ── Business Metrics ──
+current_stats:
+  registered_contractors: 105
+  appointments_created: 1200
+  completed_projects: 745
+  avg_rating: 4.0
+  response_time_minutes: 15
+
+competitors:
+  - "bTaskee (610K+ khách, cleaning-focused, HCM)"
+  - "JupViec (1M+ khách, cleaning, 5 thành phố)"
+  - "Tho Viet (mô hình thuê thợ, HCM)"
+  - "Vua Tho (AI matching, toàn quốc)"
+
+competitive_advantage: >
+  Đối thủ lớn tập trung HCM và cleaning.
+  Doitay.vn focus Hà Nội + đa ngành (điện/nước/xây dựng).
+  Lợi thế: hiểu thợ Hà Nội, nói ngôn ngữ thợ.
+
+# ── CTA mặc định ──
+default_cta: "Tạo Profile Thợ miễn phí tại doitay.vn"
+cta_link: "https://doitay.vn"

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Syne:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#005047",
+              "on-tertiary-fixed-variant": "#5516be",
+              "surface-variant": "#32353c",
+              "secondary-container": "#ee9800",
+              "on-error": "#690005",
+              "on-secondary-fixed-variant": "#653e00",
+              "on-secondary-fixed": "#2a1700",
+              "error-container": "#93000a",
+              "surface-bright": "#363940",
+              "tertiary-container": "#c9b2ff",
+              "on-primary-fixed": "#00201c",
+              "on-surface-variant": "#bacac5",
+              "on-primary": "#003731",
+              "tertiary-fixed-dim": "#d0bcff",
+              "inverse-on-surface": "#2e3037",
+              "secondary-fixed": "#ffddb8",
+              "surface": "#10131a",
+              "error": "#ffb4ab",
+              "surface-container-low": "#191c22",
+              "on-primary-container": "#00574d",
+              "on-secondary": "#472a00",
+              "background": "#10131a",
+              "tertiary-fixed": "#e9ddff",
+              "surface-container-lowest": "#0b0e14",
+              "on-surface": "#e1e2eb",
+              "on-secondary-container": "#5b3800",
+              "surface-container-highest": "#32353c",
+              "secondary-fixed-dim": "#ffb95f",
+              "secondary": "#ffb95f",
+              "primary-fixed": "#62fae3",
+              "on-tertiary-fixed": "#23005c",
+              "primary-fixed-dim": "#3cddc7",
+              "surface-tint": "#3cddc7",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#1d2026",
+              "on-background": "#e1e2eb",
+              "inverse-primary": "#006b5f",
+              "on-tertiary-container": "#5b22c4",
+              "primary-container": "#2dd4bf",
+              "surface-container-high": "#272a31",
+              "outline-variant": "#3c4a46",
+              "surface-dim": "#10131a",
+              "primary": "#57f1db",
+              "outline": "#859490",
+              "tertiary": "#e2d3ff",
+              "on-tertiary": "#3c0091",
+              "inverse-surface": "#e1e2eb"
+            },
+            fontFamily: {
+              "headline": ["Syne", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"],
+              "mono": ["IBM Plex Mono", "monospace"],
+              "space": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(50, 53, 60, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-teal { box-shadow: 0 0 15px rgba(87, 241, 219, 0.3); }
+        .glow-amber { box-shadow: 0 0 15px rgba(238, 152, 0, 0.3); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- Left Side Rail -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest flex flex-col z-50">
+<div class="p-6">
+<div class="text-xl font-bold tracking-tighter text-primary-container font-headline">GTM Cockpit</div>
+<div class="text-[10px] font-mono text-outline uppercase tracking-[0.2em] mt-1">v2.4 Neural Link</div>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<!-- Active: Command/Dashboard -->
+<div class="flex items-center text-primary-container bg-surface-container rounded-lg mx-2 my-1 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-space font-medium text-sm">Command</span>
+</div>
+<div class="flex items-center text-outline-variant hover:text-primary-container px-4 py-3 transition-all duration-200 cursor-pointer group">
+<span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">psychology</span>
+<span class="font-space font-medium text-sm">Strategy</span>
+</div>
+<div class="flex items-center text-outline-variant hover:text-primary-container px-4 py-3 transition-all duration-200 cursor-pointer group">
+<span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">smart_toy</span>
+<span class="font-space font-medium text-sm">Agents</span>
+</div>
+<div class="flex items-center text-outline-variant hover:text-primary-container px-4 py-3 transition-all duration-200 cursor-pointer group">
+<span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">account_tree</span>
+<span class="font-space font-medium text-sm">Pipelines</span>
+</div>
+<div class="flex items-center text-outline-variant hover:text-primary-container px-4 py-3 transition-all duration-200 cursor-pointer group">
+<span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">analytics</span>
+<span class="font-space font-medium text-sm">Intelligence</span>
+</div>
+<div class="flex items-center text-outline-variant hover:text-primary-container px-4 py-3 transition-all duration-200 cursor-pointer group">
+<span class="material-symbols-outlined mr-3 group-hover:scale-110 transition-transform">settings</span>
+<span class="font-space font-medium text-sm">Settings</span>
+</div>
+</nav>
+<div class="p-4 mt-auto space-y-4">
+<button class="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-xs uppercase tracking-widest rounded-lg active:scale-95 transition-transform shadow-lg shadow-primary/20">
+                New Experiment
+            </button>
+<div class="pt-4 border-t border-outline-variant/15 space-y-2">
+<div class="flex items-center px-4 py-2 text-outline-variant text-xs font-mono">
+<span class="material-symbols-outlined text-sm mr-2">dns</span>
+                    System Health
+                </div>
+<div class="flex items-center px-4 py-2 text-outline-variant text-xs font-mono">
+<span class="material-symbols-outlined text-sm mr-2">support_agent</span>
+                    Support
+                </div>
+</div>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface/60 backdrop-blur-xl flex justify-between items-center px-8 z-40 border-b border-outline-variant/15">
+<div class="flex items-center gap-8">
+<h1 class="font-headline font-bold text-white uppercase tracking-widest text-sm">Synthetic Intelligence Cockpit</h1>
+<div class="flex gap-6">
+<span class="text-outline-variant font-mono text-[10px] tracking-widest cursor-pointer hover:text-white transition-colors">Q3 Expansion</span>
+<span class="text-outline-variant font-mono text-[10px] tracking-widest cursor-pointer hover:text-white transition-colors">Week 42</span>
+<span class="text-primary-container font-mono text-[10px] tracking-widest border-b-2 border-primary-container pb-1">Active: Project Phoenix</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-primary transition-colors">notifications_active</span>
+<div class="absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<span class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-primary transition-colors">bolt</span>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<div class="text-[10px] font-headline text-white leading-none">CEO PROFILE</div>
+<div class="text-[9px] font-mono text-outline-variant">ADMIN_CORE</div>
+</div>
+<span class="material-symbols-outlined text-primary-container text-3xl">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Content Grid -->
+<main class="ml-64 mt-16 p-8 grid grid-cols-12 gap-6 min-h-[calc(100vh-4rem)] bg-surface">
+<!-- Left Column: Pipeline & Hypothesis -->
+<section class="col-span-3 flex flex-col gap-6">
+<!-- Pipeline Progress -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10">
+<h3 class="font-headline text-xs font-bold text-outline-variant uppercase tracking-widest mb-6">Pipeline Progress</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group">
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="text-xs font-mono text-outline">Discover</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="text-xs font-mono text-outline">Define</div>
+</div>
+<!-- ACTIVE PHASE -->
+<div class="relative flex items-center gap-4 py-3 px-4 bg-surface-container rounded-lg border-l-4 border-primary shadow-lg shadow-black/40">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<div>
+<div class="text-xs font-mono font-bold text-primary">Build/Test</div>
+<div class="text-[10px] font-mono text-outline-variant">Week 4 · Active Sprint</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group opacity-40">
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="text-xs font-mono text-outline-variant">Decide</div>
+</div>
+<div class="flex items-center gap-4 group opacity-40">
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="text-xs font-mono text-outline-variant">Extract</div>
+</div>
+</div>
+</div>
+<!-- Hypothesis Backlog -->
+<div class="bg-surface-container p-6 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-xs font-bold text-white uppercase tracking-widest">Hypothesis Backlog</h3>
+<span class="font-mono text-[10px] text-outline-variant">08 UNITS</span>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-surface-container-low border-b border-outline-variant/10 rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="text-[10px] font-mono text-secondary mb-1">STRATEGY_H04</div>
+<div class="text-xs font-body leading-relaxed text-on-surface-variant">Loom video responses for top 5% lead segment vs static email.</div>
+</div>
+<div class="p-3 bg-surface-container-low border-b border-outline-variant/10 rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="text-[10px] font-mono text-tertiary mb-1">PRODUCT_H12</div>
+<div class="text-xs font-body leading-relaxed text-on-surface-variant">Pricing page variant with 'Risk Reversal' neural anchoring.</div>
+</div>
+<div class="p-3 bg-surface-container-low border-b border-outline-variant/10 rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer opacity-60">
+<div class="text-[10px] font-mono text-outline-variant mb-1">DIST_H02</div>
+<div class="text-xs font-body leading-relaxed text-on-surface-variant">Reddit thread seeding via AI persona 'The Skeptic'.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Center Column: Main Work Area -->
+<section class="col-span-6 flex flex-col gap-6">
+<!-- Global Stats -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container p-6 rounded-xl flex items-end justify-between border-b-2 border-primary/20">
+<div>
+<div class="text-[10px] font-headline text-outline-variant uppercase tracking-widest mb-1">CMF Score</div>
+<div class="text-3xl font-mono font-bold text-white">0.45</div>
+</div>
+<div class="flex items-center text-primary-container text-xs font-mono">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +12%
+                    </div>
+</div>
+<div class="bg-surface-container p-6 rounded-xl flex items-end justify-between border-b-2 border-secondary/20">
+<div>
+<div class="text-[10px] font-headline text-outline-variant uppercase tracking-widest mb-1">Traction Score</div>
+<div class="text-3xl font-mono font-bold text-white">0.38</div>
+</div>
+<div class="flex items-center text-secondary text-xs font-mono">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +04%
+                    </div>
+</div>
+</div>
+<!-- Content Work Area -->
+<div class="bg-surface-container rounded-xl flex-1 flex flex-col overflow-hidden">
+<div class="flex border-b border-outline-variant/10">
+<button class="flex-1 py-4 text-[10px] font-headline uppercase tracking-[0.2em] bg-surface-container-high text-primary-container border-b-2 border-primary">Content Queue</button>
+<button class="flex-1 py-4 text-[10px] font-headline uppercase tracking-[0.2em] text-outline-variant hover:text-white transition-colors">Metrics Scorecard</button>
+<button class="flex-1 py-4 text-[10px] font-headline uppercase tracking-[0.2em] text-outline-variant hover:text-white transition-colors">Timeline</button>
+</div>
+<div class="p-6 space-y-6 overflow-y-auto">
+<!-- Draft 1 -->
+<div class="bg-surface-container-low p-5 rounded-lg border border-outline-variant/10 relative group">
+<div class="absolute top-4 right-4 flex gap-2">
+<button class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-outline-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-105 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline-variant">brand_awareness</span>
+<span class="text-[10px] font-mono text-outline-variant">TWITTER_X · POST_ID_442</span>
+</div>
+<div class="space-y-4">
+<div>
+<span class="text-[10px] font-mono text-primary uppercase block mb-1">Hook</span>
+<p class="text-sm font-space leading-snug text-white font-medium">Why 90% of AI implementations fail in the first 30 days — and the 1 neural link they’re missing.</p>
+</div>
+<div>
+<span class="text-[10px] font-mono text-outline uppercase block mb-1">Body</span>
+<p class="text-xs font-body leading-relaxed text-on-surface-variant">The gap isn't technology, it's orchestration. Our latest benchmark shows that autonomous agents without a centralized cockpit are just expensive noise generators.</p>
+</div>
+<div>
+<span class="text-[10px] font-mono text-outline uppercase block mb-1">CTA</span>
+<p class="text-xs font-body text-primary-container italic underline decoration-dotted">Download the Orchestration Blueprint →</p>
+</div>
+</div>
+</div>
+<!-- Draft 2 -->
+<div class="bg-surface-container-low p-5 rounded-lg border border-outline-variant/10 relative group">
+<div class="absolute top-4 right-4 flex gap-2">
+<button class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-outline-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline-variant">social_leaderboard</span>
+<span class="text-[10px] font-mono text-outline-variant">FACEBOOK · AD_SET_B</span>
+</div>
+<div class="space-y-4">
+<div>
+<span class="text-[10px] font-mono text-primary uppercase block mb-1">Hook</span>
+<p class="text-sm font-space leading-snug text-white font-medium">Meet your new Marketing Department. They don't sleep, they don't guess, and they just doubled our lead velocity.</p>
+</div>
+<div>
+<span class="text-[10px] font-mono text-outline uppercase block mb-1">Body</span>
+<p class="text-xs font-body leading-relaxed text-on-surface-variant">Leveraging the Synthetic Intelligence Cockpit, we've automated the entire funnel from Discovery to Extraction. The results? A 0.45 CMF score in week 4.</p>
+</div>
+<div>
+<span class="text-[10px] font-mono text-outline uppercase block mb-1">CTA</span>
+<p class="text-xs font-body text-primary-container italic underline decoration-dotted">See the Live Dashboard Case Study</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Agents & Decision -->
+<section class="col-span-3 flex flex-col gap-6">
+<!-- CEO Decision Required -->
+<div class="glass-panel p-6 rounded-xl border border-secondary/30 relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary animate-pulse">priority_high</span>
+<h3 class="font-headline text-xs font-bold text-secondary uppercase tracking-[0.15em]">CEO Decision Required</h3>
+</div>
+<div class="p-3 bg-surface/40 rounded-lg border border-outline-variant/10 mb-4">
+<div class="text-[10px] font-mono text-outline mb-2">AGENT RECOMMENDATION: STRATEGY_01</div>
+<p class="text-xs font-body text-white leading-relaxed">"Pivot budget from LinkedIn Sponsored Content to X-Platform Neural Targeting. Predicted 24% uplift in CMF."</p>
+</div>
+<div class="space-y-2">
+<div class="text-[9px] font-mono text-outline-variant uppercase mb-1">Rationale</div>
+<p class="text-[11px] font-body text-on-surface-variant italic">Data indicates 82% of target demographic has shifted interaction patterns toward short-form synthesis hubs.</p>
+</div>
+<div class="mt-6 flex gap-2">
+<button class="flex-1 py-2 bg-secondary text-on-secondary font-headline font-bold text-[10px] uppercase tracking-widest rounded hover:brightness-110 transition-all">APPROVE</button>
+<button class="flex-1 py-2 border border-outline-variant/30 text-outline-variant font-headline font-bold text-[10px] uppercase tracking-widest rounded hover:bg-surface transition-all">REJECT</button>
+</div>
+</div>
+<!-- Agents Status -->
+<div class="bg-surface-container p-6 rounded-xl">
+<h3 class="font-headline text-xs font-bold text-white uppercase tracking-widest mb-6">Active Agents</h3>
+<div class="space-y-4">
+<!-- Agent Item -->
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary glow-teal"></div>
+<span class="text-xs font-space font-medium text-white">Research</span>
+</div>
+<span class="font-mono text-[9px] text-primary/60">ANALYZING_CORE</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary glow-teal"></div>
+<span class="text-xs font-space font-medium text-white">Strategy</span>
+</div>
+<span class="font-mono text-[9px] text-primary/60">SIMULATING</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary glow-amber"></div>
+<span class="text-xs font-space font-medium text-white">Content</span>
+</div>
+<span class="font-mono text-[9px] text-secondary/60">DRAFTING</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary glow-teal"></div>
+<span class="text-xs font-space font-medium text-white">Distribution</span>
+</div>
+<span class="font-mono text-[9px] text-primary/60">AWAITING_CONTENT</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<span class="text-xs font-space font-medium text-outline-variant">Product</span>
+</div>
+<span class="font-mono text-[9px] text-outline-variant">SLEEP</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary glow-teal"></div>
+<span class="text-xs font-space font-medium text-white">Analytics</span>
+</div>
+<span class="font-mono text-[9px] text-primary/60">MONITORING</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_10px_rgba(226,211,255,0.4)]"></div>
+<span class="text-xs font-space font-medium text-white">Devil's Advocate</span>
+</div>
+<span class="font-mono text-[9px] text-tertiary/60">STRESS_TESTING</span>
+</div>
+</div>
+</div>
+<!-- Mini Telemetry Card -->
+<div class="mt-auto bg-surface-container-highest/30 p-4 rounded-lg border border-outline-variant/5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[9px] font-mono text-outline">LATENCY_SYNC</span>
+<span class="text-[9px] font-mono text-primary">12ms</span>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-4/5"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Background Decoration Overlay -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[100px] rounded-full"></div>
+</div>
+</body></html>

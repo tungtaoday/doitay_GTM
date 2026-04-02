@@ -1,0 +1,62 @@
+name: build_test_daily
+description: "BUILD_TEST daily ops — create content, post, engage, respond"
+trigger: "daily_cron:09:00"
+
+steps:
+  - id: check_trends
+    agent: distribution
+    skill: G10_trend_riding
+    input:
+      task: "Scan trends across all platforms"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "reddit"]
+    output_key: trends
+
+  - id: create_content
+    agent: content
+    skill: C3_shortform_writing
+    input:
+      task: "Create daily content batch"
+      pillars: "from_db:content_pillars"
+      audience_intel: "from_db:audience_intel"
+      trends: "{{trends}}"
+      platforms: ["twitter", "instagram", "facebook", "linkedin"]
+    output_key: content_batch
+
+  - id: create_visuals
+    agent: content
+    skill: C5_visual_content
+    input:
+      task: "Create visual direction for today's content"
+      content_batch: "{{content_batch}}"
+    output_key: visuals
+    depends_on: [create_content]
+
+  - id: schedule_posts
+    agent: distribution
+    skill: G9_scheduling_ops
+    input:
+      task: "Schedule approved content"
+      content_batch: "{{content_batch}}"
+      visuals: "{{visuals}}"
+    output_key: schedule
+    depends_on: [create_visuals]
+
+  - id: strategic_engagement
+    agent: distribution
+    skill: G1_strategic_engagement
+    input:
+      task: "9 strategic replies per active platform"
+      platforms: ["twitter", "instagram", "facebook", "linkedin"]
+    output_key: engagement
+    parallel_with: create_content
+
+  - id: community_interaction
+    agent: distribution
+    skill: G2_community_building
+    input:
+      task: "Respond to comments, DMs, mentions"
+      platforms: ["twitter", "instagram", "facebook", "linkedin"]
+    output_key: community
+    parallel_with: strategic_engagement
+
+gates: []

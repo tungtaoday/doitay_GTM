@@ -1,0 +1,109 @@
+name: build_test_weekly
+description: "BUILD_TEST weekly review — analytics, repurpose top content, adjust strategy"
+trigger: "weekly_cron:monday:10:00"
+
+steps:
+  - id: collect_metrics
+    agent: analytics
+    skill: A4_content_performance
+    input:
+      task: "Collect performance metrics from all platforms"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "youtube", "email"]
+    output_key: metrics
+
+  - id: cmf_scoring
+    agent: analytics
+    skill: A6_cmf_scoring
+    input:
+      task: "Calculate CMF Score"
+      metrics: "{{metrics}}"
+    output_key: cmf
+    depends_on: [collect_metrics]
+
+  - id: traction_scoring
+    agent: analytics
+    skill: A5_traction_scoring
+    input:
+      task: "Calculate Traction Score"
+      metrics: "{{metrics}}"
+    output_key: traction
+    parallel_with: cmf_scoring
+
+  - id: customer_analytics
+    agent: analytics
+    skill: A8_customer_analytics
+    input:
+      task: "Analyze customer behavior and segments"
+      metrics: "{{metrics}}"
+    output_key: customer
+    depends_on: [collect_metrics]
+
+  - id: pattern_extraction
+    agent: analytics
+    skill: A7_pattern_extraction
+    input:
+      task: "Extract patterns from this week's data"
+      metrics: "{{metrics}}"
+      cmf: "{{cmf}}"
+      traction: "{{traction}}"
+    output_key: patterns
+    depends_on: [cmf_scoring, traction_scoring]
+
+  - id: repurpose_top_content
+    agent: content
+    skill: C10_repurposing
+    input:
+      task: "Repurpose top performing content to other platforms"
+      metrics: "{{metrics}}"
+      platforms: ["twitter", "instagram", "facebook", "linkedin", "youtube", "email"]
+    output_key: repurposed
+    depends_on: [collect_metrics]
+
+  - id: weekly_email
+    agent: distribution
+    skill: G5_email_newsletter
+    input:
+      task: "Create and send weekly newsletter"
+      top_content: "{{metrics.top_content}}"
+    output_key: email
+    depends_on: [collect_metrics]
+
+  - id: kill_signal_check
+    agent: analytics
+    skill: A1_stress_testing
+    input:
+      task: "Check kill signals"
+      cmf: "{{cmf}}"
+      traction: "{{traction}}"
+    output_key: kill_check
+    depends_on: [cmf_scoring, traction_scoring]
+
+  - id: strategy_adjustment
+    agent: strategy
+    skill: S6_channel_strategy
+    input:
+      task: "Adjust channel strategy based on weekly data"
+      metrics: "{{metrics}}"
+      patterns: "{{patterns}}"
+      cmf: "{{cmf}}"
+    output_key: adjustment
+    depends_on: [pattern_extraction]
+    condition: "cmf.cmf_score < 0.3 OR traction.trend == 'down'"
+
+  - id: midpoint_review
+    agent: devils_advocate
+    skill: A1_stress_testing
+    input:
+      task: "Midpoint review — stress test experiment progress"
+      cmf: "{{cmf}}"
+      traction: "{{traction}}"
+      patterns: "{{patterns}}"
+    output_key: midpoint
+    depends_on: [kill_signal_check]
+    condition: "experiment.week == 4"
+
+gates:
+  - after: kill_signal_check
+    type: ceo_alert
+    condition: "kill_check.kill_signal == true"
+    message: "KILL SIGNAL detected. CMF: {{cmf.cmf_score}}, Traction: {{traction.traction_score}}. CEO review required."

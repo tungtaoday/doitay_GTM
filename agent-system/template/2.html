@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GTM_UX_ARCHITECTURE_V1.0</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#006b5f",
+              "error-container": "#93000a",
+              "outline": "#859490",
+              "on-tertiary-container": "#5b22c4",
+              "on-tertiary": "#3c0091",
+              "inverse-surface": "#e1e2eb",
+              "secondary-container": "#ee9800",
+              "on-secondary": "#472a00",
+              "tertiary-container": "#c9b2ff",
+              "surface-container-highest": "#32353c",
+              "background": "#10131a",
+              "secondary": "#ffb95f",
+              "surface-container-low": "#191c22",
+              "surface": "#10131a",
+              "primary-fixed-dim": "#3cddc7",
+              "primary-container": "#2dd4bf",
+              "on-tertiary-fixed-variant": "#5516be",
+              "surface-tint": "#3cddc7",
+              "on-tertiary-fixed": "#23005c",
+              "on-secondary-fixed-variant": "#653e00",
+              "on-error-container": "#ffdad6",
+              "primary-fixed": "#62fae3",
+              "on-error": "#690005",
+              "outline-variant": "#3c4a46",
+              "on-surface": "#e1e2eb",
+              "on-surface-variant": "#bacac5",
+              "tertiary-fixed": "#e9ddff",
+              "primary": "#57f1db",
+              "on-secondary-container": "#5b3800",
+              "surface-container": "#1d2026",
+              "secondary-fixed": "#ffddb8",
+              "surface-variant": "#32353c",
+              "on-secondary-fixed": "#2a1700",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#0b0e14",
+              "on-background": "#e1e2eb",
+              "on-primary-fixed-variant": "#005047",
+              "on-primary": "#003731",
+              "on-primary-fixed": "#00201c",
+              "tertiary": "#e2d3ff",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-primary-container": "#00574d",
+              "inverse-on-surface": "#2e3037",
+              "tertiary-fixed-dim": "#d0bcff",
+              "surface-container-high": "#272a31",
+              "surface-bright": "#363940",
+              "surface-dim": "#10131a"
+            },
+            fontFamily: {
+              "headline": ["Syne", "sans-serif"],
+              "body": ["Space Grotesk", "sans-serif"],
+              "label": ["Inter", "sans-serif"],
+              "data": ["IBM Plex Mono", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .circuit-line {
+            stroke: #3c4a46;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 4 4;
+        }
+        .circuit-line-active {
+            stroke: #2dd4bf;
+            stroke-width: 2;
+            fill: none;
+        }
+        .glass-panel {
+            background: rgba(50, 53, 60, 0.6);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar (from JSON) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 z-40 bg-[#0b0e14] w-20 border-r border-[#3c4a46]/15">
+<div class="flex flex-col items-center gap-8 h-full">
+<div class="flex flex-col items-center">
+<span class="text-lg font-bold tracking-tighter text-[#2dd4bf] font-[Syne]">A</span>
+<span class="text-[8px] font-data text-[#3c4a46] mt-1 uppercase">v1.0.4</span>
+</div>
+<nav class="flex flex-col gap-6 flex-grow">
+<button class="flex flex-col items-center justify-center p-3 text-[#2dd4bf] bg-[#1d2026] rounded-lg transition-all border-l-2 border-[#2dd4bf] group">
+<span class="material-symbols-outlined">power_settings_new</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 text-[#3c4a46] hover:text-[#2dd4bf]/70 hover:bg-[#1d2026] transition-colors duration-200">
+<span class="material-symbols-outlined">account_tree</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 text-[#3c4a46] hover:text-[#2dd4bf]/70 hover:bg-[#1d2026] transition-colors duration-200">
+<span class="material-symbols-outlined">biotech</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 text-[#3c4a46] hover:text-[#2dd4bf]/70 hover:bg-[#1d2026] transition-colors duration-200">
+<span class="material-symbols-outlined">query_stats</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 text-[#3c4a46] hover:text-[#2dd4bf]/70 hover:bg-[#1d2026] transition-colors duration-200">
+<span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</nav>
+<div class="flex flex-col gap-4 mt-auto">
+<button class="flex items-center justify-center p-3 text-[#3c4a46] hover:text-[#2dd4bf]/70">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="System Architect" data-alt="User avatar for System Architect profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5f9UEwkK1lywKEy1M2nca8T78maCJVgElziHHiuwWzYV5mSYQYLZZeA_TwNPbHU4seXHewglzbZVGFL4E5vzT-JoCdWX8789MR8dapaG3OnDE1v0TWsR7A6A72agPi2EX7tAOEhPByVF_JgiRMJ-U85WVklq38zaApDqrV17vxIAS5OrsfnefON6SOPggc6enNjh5lqk3RN4kstouOOFzRIYYEQ4SCIL0oXfsrSeyx0fPz-bhk1oMmDe901pgbbeb6YS7aGnB19A"/>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (from JSON) -->
+<header class="fixed top-0 left-20 right-0 h-16 flex justify-between items-center px-8 z-50 bg-[#10131a]/60 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-black text-[#2dd4bf] tracking-widest uppercase font-headline">AETHER_GTM_FLOW</h1>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#2dd4bf] border-b border-[#2dd4bf] pb-1 font-data text-sm" href="#">Global View</a>
+<a class="text-[#3c4a46] hover:text-white transition-all font-data text-sm" href="#">Agent Logs</a>
+<span class="text-[#3c4a46] font-data text-xs px-2 py-1 bg-surface-container rounded">Latency: 14ms</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-sm text-outline mr-2">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 text-on-surface w-48 font-body" placeholder="Search signals..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#3c4a46] hover:text-[#57f1db] cursor-pointer">notifications_active</span>
+<span class="material-symbols-outlined text-[#3c4a46] hover:text-[#57f1db] cursor-pointer">terminal</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-20 mt-16 p-10 min-h-screen bg-surface relative overflow-hidden">
+<!-- Background Grid Effect -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#2dd4bf 1px, transparent 1px); background-size: 40px 40px;"></div>
+<!-- Hero Title Section -->
+<div class="mb-12 relative z-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="h-[1px] w-12 bg-primary"></span>
+<span class="text-primary font-data text-xs tracking-[0.3em]">SYSTEM ARCHITECTURE</span>
+</div>
+<h2 class="text-5xl font-extrabold font-headline tracking-tighter text-on-surface">GTM_UX_ARCHITECTURE_V1.0</h2>
+</div>
+<!-- Flow Architecture Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-8 relative z-10">
+<!-- Phase 1: INITIATION -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-lg font-bold text-on-surface uppercase tracking-tight">01. INITIATION</h3>
+<span class="font-data text-[10px] text-primary bg-primary/10 px-2 py-0.5 rounded">DISCOVER</span>
+</div>
+<!-- Step Card -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 relative group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">input</span>
+<span class="font-data text-xs text-on-surface-variant">INPUT MODULE</span>
+</div>
+<p class="text-sm font-body text-on-surface">Context / Product / Vertical defined by Architect.</p>
+<button class="w-full mt-2 bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-bold py-3 rounded-lg flex items-center justify-center gap-2 text-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                            New Mission
+                        </button>
+</div>
+</div>
+<!-- Agent Node -->
+<div class="bg-surface-container p-5 rounded-xl border border-primary/20 relative">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-headline font-bold text-sm">Research Agent</span>
+</div>
+<span class="font-data text-[10px] text-outline">R1-R7</span>
+</div>
+<div class="space-y-3">
+<div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%]"></div>
+</div>
+<p class="text-[11px] font-body text-on-surface-variant italic">Scanning market signals for real-time validation...</p>
+</div>
+</div>
+<!-- Output Node -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-highest/30 rounded border-l-2 border-primary">
+<span class="material-symbols-outlined text-primary text-lg">hub</span>
+<span class="font-data text-xs text-on-surface">Signals &amp; Audience Intel</span>
+</div>
+</section>
+<!-- Phase 2: ORCHESTRATION -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-lg font-bold text-on-surface uppercase tracking-tight">02. ORCHESTRATION</h3>
+<span class="font-data text-[10px] text-secondary bg-secondary/10 px-2 py-0.5 rounded">DEFINE</span>
+</div>
+<div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 relative">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-headline font-bold text-sm">Strategy Agent</span>
+</div>
+<span class="font-data text-[10px] text-outline">S1-S8</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[9px] font-data bg-surface-container-high px-2 py-1 rounded">CVP Design</span>
+<span class="text-[9px] font-data bg-surface-container-high px-2 py-1 rounded">Pillar Mapping</span>
+</div>
+</div>
+<!-- Decision Point -->
+<div class="glass-panel p-6 rounded-xl border-2 border-secondary/40 shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-secondary px-3 py-1 text-[8px] font-black text-on-secondary uppercase">Priority Action</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-headline font-bold text-sm">CEO Decision Required</span>
+</div>
+<div class="grid grid-cols-1 gap-2">
+<button class="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 py-2 rounded font-data text-xs transition-colors">Approve Strategy</button>
+<button class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/30 py-2 rounded font-data text-xs transition-colors">Adjust Parameters</button>
+<button class="bg-error/10 hover:bg-error/20 text-error border border-error/30 py-2 rounded font-data text-xs transition-colors">Reject Mission</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Phase 3: DEPLOYMENT -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-lg font-bold text-on-surface uppercase tracking-tight">03. DEPLOYMENT</h3>
+<span class="font-data text-[10px] text-primary-fixed-dim bg-primary/10 px-2 py-0.5 rounded">BUILD/TEST</span>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline font-bold text-sm">Content Agent</span>
+<span class="font-data text-[10px] text-outline">C1-C10</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-[10px] font-data text-on-surface-variant">Generating Artifacts...</span>
+</div>
+</div>
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline font-bold text-sm">Distribution Agent</span>
+<span class="font-data text-[10px] text-outline">G1-G10</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="text-[10px] font-data text-on-surface-variant">Engaging Channels...</span>
+</div>
+</div>
+</div>
+<!-- Content Queue UI -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/15 overflow-hidden">
+<div class="bg-surface-container-high px-4 py-2 border-b border-outline-variant/10">
+<span class="font-data text-[10px] text-on-surface uppercase tracking-widest">Content Queue</span>
+</div>
+<div class="p-3 space-y-2">
+<div class="flex items-center justify-between text-[11px] p-2 bg-surface-container rounded">
+<span class="font-body text-on-surface-variant">Artifact_092.pdf</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant text-outline text-[9px] uppercase">Draft</span>
+</div>
+<div class="flex items-center justify-between text-[11px] p-2 bg-surface-container rounded border-l-2 border-primary">
+<span class="font-body text-on-surface">Venture_Pitch_Deck</span>
+<span class="px-2 py-0.5 rounded bg-primary/20 text-primary text-[9px] uppercase">Approved</span>
+</div>
+<div class="flex items-center justify-between text-[11px] p-2 bg-surface-container rounded border-l-2 border-primary">
+<span class="font-body text-on-surface">Twitter_Thread_04</span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary text-[9px] uppercase">Posted</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Phase 4: INTELLIGENCE -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-lg font-bold text-on-surface uppercase tracking-tight">04. INTELLIGENCE</h3>
+<span class="font-data text-[10px] text-tertiary bg-tertiary/10 px-2 py-0.5 rounded">EXTRACT</span>
+</div>
+<div class="bg-surface-container p-5 rounded-xl border border-tertiary/20 relative">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(226,211,255,0.6)]"></div>
+<span class="font-headline font-bold text-sm">Analytics Agent</span>
+</div>
+<span class="font-data text-[10px] text-outline">A1-A9</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-[10px] font-data text-outline">CMF TRACKING</span>
+<span class="text-xs font-data text-primary">82.4%</span>
+</div>
+<div class="flex gap-1 h-8 items-end">
+<div class="w-full bg-primary/20 h-3 rounded-t-sm"></div>
+<div class="w-full bg-primary/30 h-5 rounded-t-sm"></div>
+<div class="w-full bg-primary/40 h-4 rounded-t-sm"></div>
+<div class="w-full bg-primary/60 h-7 rounded-t-sm"></div>
+<div class="w-full bg-primary/80 h-8 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Pattern Extraction Node -->
+<div class="flex flex-col gap-4 p-5 bg-surface-container-low rounded-xl border border-dashed border-outline-variant relative">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full border border-tertiary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-sm">psychology</span>
+</div>
+<span class="font-headline font-bold text-xs uppercase tracking-tight">Pattern Extraction</span>
+</div>
+<p class="text-[11px] font-body text-on-surface-variant">Extracting traction variables to optimize next mission parameters.</p>
+<!-- Feedback Loop Indicator -->
+<div class="flex items-center gap-2 mt-2 text-primary">
+<span class="material-symbols-outlined text-sm">sync_alt</span>
+<span class="font-data text-[10px] uppercase">Feeding to Initiation</span>
+</div>
+</div>
+</section>
+</div>
+<!-- SVG Connection Layer (Simulated Figma Lines) -->
+<svg class="absolute inset-0 pointer-events-none w-full h-full opacity-30" style="z-index: 0;">
+<defs>
+<marker id="arrowhead" markerheight="7" markerwidth="10" orient="auto" refx="0" refy="3.5">
+<polygon fill="#2dd4bf" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+<!-- Flow 1 to 2 -->
+<path class="circuit-line-active" d="M 320 300 Q 400 300 400 400 T 480 400" marker-end="url(#arrowhead)"></path>
+<!-- Flow 2 to 3 -->
+<path class="circuit-line" d="M 780 400 Q 850 400 850 300 T 920 300"></path>
+<!-- Flow 3 to 4 -->
+<path class="circuit-line-active" d="M 1220 300 Q 1300 300 1300 450 T 1380 450" marker-end="url(#arrowhead)"></path>
+<!-- Feedback Loop Circular Arrow -->
+<path class="circuit-line" d="M 1500 800 Q 1500 950 800 950 T 150 700" marker-end="url(#arrowhead)" stroke-dasharray="8 4"></path>
+</svg>
+<!-- Floating Telemetry Overlay -->
+<div class="fixed bottom-10 right-10 flex flex-col gap-2 z-30">
+<div class="glass-panel p-4 rounded-xl border border-outline-variant/20 flex flex-col gap-1 min-w-[200px]">
+<div class="flex justify-between items-center">
+<span class="font-data text-[10px] text-outline uppercase tracking-widest">System Vitality</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#2dd4bf]"></span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-data text-2xl font-bold text-on-surface">0.992</span>
+<span class="font-data text-[10px] text-primary">ALPHA_READY</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full mt-2">
+<div class="w-[88%] h-full bg-primary"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Meta-Bar -->
+<footer class="ml-20 border-t border-outline-variant/10 bg-surface-container-lowest px-8 py-3 flex justify-between items-center text-[10px] font-data text-outline relative z-50">
+<div class="flex gap-6">
+<span class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-primary"></span> GTM-CORE-v1.0.4-LATEST</span>
+<span>BUILD_ID: 0x229AF02</span>
+</div>
+<div class="flex gap-4 uppercase tracking-[0.2em]">
+<a class="hover:text-primary" href="#">Docs</a>
+<a class="hover:text-primary" href="#">Security</a>
+<a class="hover:text-primary" href="#">Log_Archive</a>
+</div>
+</footer>
+</body></html>

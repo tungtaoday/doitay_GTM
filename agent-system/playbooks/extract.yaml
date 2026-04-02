@@ -1,0 +1,74 @@
+name: extract
+description: "EXTRACT phase — extract patterns from completed experiment into Pattern Library"
+trigger: "event:experiment_completed OR event:experiment_killed"
+
+steps:
+  - id: collect_all_data
+    agent: analytics
+    skill: A4_content_performance
+    input:
+      task: "Collect all experiment data for pattern extraction"
+      experiment_id: "{{experiment_id}}"
+    output_key: all_data
+
+  - id: content_patterns
+    agent: analytics
+    skill: A7_pattern_extraction
+    input:
+      task: "Extract content patterns — what content types, hooks, formats worked"
+      data: "{{all_data}}"
+      focus: "content"
+    output_key: content_patterns
+    depends_on: [collect_all_data]
+
+  - id: distribution_patterns
+    agent: analytics
+    skill: A7_pattern_extraction
+    input:
+      task: "Extract distribution patterns — channels, timing, engagement tactics"
+      data: "{{all_data}}"
+      focus: "distribution"
+    output_key: dist_patterns
+    parallel_with: content_patterns
+
+  - id: marketplace_patterns
+    agent: analytics
+    skill: A7_pattern_extraction
+    input:
+      task: "Extract marketplace patterns — cold start, liquidity, trust, monetization"
+      data: "{{all_data}}"
+      focus: "marketplace"
+    output_key: mkt_patterns
+    parallel_with: content_patterns
+
+  - id: customer_patterns
+    agent: analytics
+    skill: A8_customer_analytics
+    input:
+      task: "Extract customer behavior patterns"
+      data: "{{all_data}}"
+    output_key: customer_patterns
+    parallel_with: content_patterns
+
+  - id: compile_patterns
+    agent: analytics
+    skill: A7_pattern_extraction
+    input:
+      task: "Compile all patterns into Pattern Library entry"
+      content: "{{content_patterns}}"
+      distribution: "{{dist_patterns}}"
+      marketplace: "{{mkt_patterns}}"
+      customer: "{{customer_patterns}}"
+    output_key: pattern_library_entry
+    depends_on: [content_patterns, distribution_patterns, marketplace_patterns, customer_patterns]
+
+  - id: update_system
+    agent: strategy
+    skill: S1_thesis_formation
+    input:
+      task: "Update thesis and hypothesis backlog based on patterns learned"
+      patterns: "{{pattern_library_entry}}"
+    output_key: system_update
+    depends_on: [compile_patterns]
+
+gates: []

@@ -1,0 +1,17 @@
+{
+    "app": {
+        "appId": "1317662049636919940",
+        "title": "Thợ Tốt Doitay",
+        "headerTitle": "Thợ Tốt Doitay",
+        "headerColor": "transparent",
+        "textColor": "white",
+        "statusBar": "transparent",
+        "hideHeader": true,
+        "hideAndroidBottomNavigationBar": true,
+        "hideIOSSafeAreaBottom": false
+    },
+    "pages": [
+        "pages/index"
+    ],
+    "entry": "main.tsx"
+}
