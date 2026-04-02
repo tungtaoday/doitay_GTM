@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+Tool_cv/config.txt
 
 # Python
 __pycache__/
