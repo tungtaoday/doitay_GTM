@@ -86,19 +86,14 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLo
                         className="w-full flex items-center justify-center gap-2 rounded-2xl h-[56px] bg-primary text-white text-[15px] font-bold active:scale-[0.98] transition-all shadow-[0_8px_20px_rgba(0,104,255,0.25)] hover:shadow-[0_10px_25px_rgba(0,104,255,0.35)] hover:bg-[#005AEB]"
                     >
                         <Icon name="smartphone" size={22} color="white" />
-                        ĐĂNG KÝ BẰNG SỐ ĐIỆN THOẠI
+                        TẠO HỒ SƠ MIỄN PHÍ
                     </button>
-                    <div className="flex items-center justify-center gap-1.5 text-[14px]">
-                        <span className="text-slate-500 font-medium">Đã có tài khoản?</span>
-                        <button className="font-bold text-primary hover:text-[#005AEB] transition-colors underline-offset-4 decoration-2">
-                            Đăng nhập
-                        </button>
-                    </div>
                     <p className="text-[11px] text-center text-slate-400 mt-2">
                         Bằng việc tiếp tục, bạn đồng ý với{' '}
-                        <a className="text-primary hover:underline" href="#">Điều khoản</a>
+                        <a className="text-primary hover:underline" href="https://doitay.vn/dieu-khoan">Điều khoản</a>
                         {' '}và{' '}
-                        <a className="text-primary hover:underline" href="#">Bảo mật</a>.
+                        <a className="text-primary hover:underline" href="https://doitay.vn/bao-mat">Bảo mật</a>
+                        {' '}của Doitay.
                     </p>
                 </div>
             </div>

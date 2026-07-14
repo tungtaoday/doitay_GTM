@@ -96,7 +96,7 @@ export const TipsPage: React.FC<TipsPageProps> = ({ onBack }) => {
                 '## Mẹo để được duyệt nhanh',
                 '• Chụp ảnh giấy tờ dưới ánh sáng tốt, không bị mờ hoặc che khuất',
                 '• Ảnh selfie: nhìn thẳng vào camera, giữ CCCD ngang mặt',
-                '• Đảm bảo thông tin trên giấy tờ khớp với hồ sơ đăng ký',
+                '• Đảm bảo thông tin trên giấy tờ khớp với hồ sơ đã tạo',
                 '• Nếu bị từ chối, đọc kỹ lý do và chụp lại đúng yêu cầu',
             ],
         },

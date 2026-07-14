@@ -4,10 +4,10 @@ import { Page, Header, Box, Text } from 'zmp-ui';
 const HomePage = () => {
     return (
         <Page className="page">
-            <Header title="Thợ Pro" showBackIcon={false} />
+            <Header title="Thợ Tốt Doitay" showBackIcon={false} />
             <Box className="p-4 flex flex-center flex-col">
                 <Text.Title className="text-primary font-bold text-xl">
-                    Chào mừng Thợ Pro!
+                    Chào mừng đến Thợ Tốt Doitay!
                 </Text.Title>
                 <Box className="mt-4 bg-white p-4 rounded-lg shadow-md w-full">
                     <Text className="text-gray-600">
