@@ -1,4 +1,4 @@
-# Thợ Pro Profile (CV Online)
+# Thợ Tốt Doitay (CV Online)
 
 Zalo Mini App for Tradespeople to showcase their profile and portfolio.
 

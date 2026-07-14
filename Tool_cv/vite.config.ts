@@ -7,8 +7,8 @@ export default defineConfig({
         react(),
         zaloMiniApp({
             app: {
-                title: 'Thợ Pro Profile',
-                headerTitle: 'Thợ Pro Profile',
+                title: 'Thợ Tốt Doitay',
+                headerTitle: 'Thợ Tốt Doitay',
                 headerColor: '#0f172a',
                 textColor: 'white',
                 statusBar: 'transparent',
