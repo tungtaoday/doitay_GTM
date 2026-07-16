@@ -23,7 +23,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLo
                         className="w-20 h-20 bg-white rounded-[24px] shadow-[0_8px_20px_rgba(0,104,255,0.15)] flex items-center justify-center mb-5 border border-primary/10 relative overflow-hidden group cursor-pointer"
                         onClick={onLogoTap}
                     >
-                        <img src={logoIcon} alt="Thợ Tốt Doitay" className="w-[85%] h-[85%] object-contain group-hover:scale-105 transition-transform duration-300 relative z-10" />
+                        <img src={logoIcon} alt="Doitay - Hồ Sơ Thợ" className="w-[85%] h-[85%] object-contain group-hover:scale-105 transition-transform duration-300 relative z-10" />
                     </div>
                     <h1 className="text-3xl font-[900] text-slate-800 tracking-tight uppercase leading-none">
                         DOITAY.VN <span className="text-primary block mt-1">TẠO HỒ SƠ CỦA BẠN</span>

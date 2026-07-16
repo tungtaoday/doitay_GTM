@@ -157,7 +157,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             </div>
 
                             <p className="relative mt-4 text-[13px] text-[#0068FF] font-bold text-center bg-white/80 px-4 py-1.5 rounded-full border border-blue-100 backdrop-blur-sm shadow-sm">
-                                Thợ Tốt Doitay.vn
+                                Doitay.vn — Hồ Sơ Thợ
                             </p>
                             <p className="text-[11px] text-slate-500 mt-2 font-medium text-center px-4">
                                 Khách hàng quét mã này bằng Zalo để xem ngay hồ sơ và bảng giá của bạn!

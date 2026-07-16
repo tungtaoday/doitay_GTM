@@ -52,8 +52,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {/* Top App Bar */}
             <div className="sticky top-0 z-40 glass border-b border-gray-200 flex items-center justify-between px-4 h-16 transition-all duration-300">
                 <div className="flex items-center gap-2 text-primary cursor-pointer" onClick={onBack}>
-                    <img src={logoIcon} alt="Thợ Tốt Doitay" className="h-8 w-8 object-contain" />
-                    <span className="font-bold text-xl tracking-tight text-gray-900">Thợ Tốt<span className="text-primary"> Doitay</span></span>
+                    <img src={logoIcon} alt="Doitay - Hồ Sơ Thợ" className="h-8 w-8 object-contain" />
+                    <span className="font-bold text-xl tracking-tight text-gray-900">Doitay<span className="text-primary"> Hồ Sơ Thợ</span></span>
                 </div>
                 <div className="flex items-center gap-3">
                     <button

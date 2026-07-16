@@ -1,7 +1,7 @@
 {
     "appId": "",
     "version": "1.0.0",
-    "appName": "Thợ Tốt Doitay",
+    "appName": "Doitay - Hồ Sơ Thợ",
     "source": {
         "entryPath": "src/main.tsx"
     }

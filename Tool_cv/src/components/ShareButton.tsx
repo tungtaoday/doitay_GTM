@@ -17,7 +17,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ profile, onShare }) =>
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: `${profile.displayName} - Thợ Tốt Doitay`,
+                    title: `${profile.displayName} - Doitay Hồ Sơ Thợ`,
                     text: shareText,
                     url: window.location.href,
                 });
