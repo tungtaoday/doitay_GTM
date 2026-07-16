@@ -231,26 +231,30 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                         <Icon name="arrow_back_ios" size={24} color="#1279B8" />
                     </button>
                 )}
-                <h2 className="text-[#1279B8] text-lg font-bold leading-tight flex-1 text-center pr-10">
-                    Hồ sơ thợ chuyên nghiệp
+                <h2 className="text-navy text-[18px] font-extrabold leading-tight flex-1 text-center pr-10">
+                    Làm thẻ thợ
                 </h2>
             </div>
 
-            {/* Progress Bar */}
-            <div className="flex flex-col gap-2 p-4 bg-gray-50">
+            {/* Tiến độ — chữ to, nói rõ đang ở đâu */}
+            <div className="flex flex-col gap-2.5 px-5 py-4 bg-paper">
                 <div className="flex justify-between items-center">
-                    <p className="text-[#1279B8] text-xs font-bold uppercase tracking-wider">Bước {step}/{totalSteps}</p>
-                    <p className="text-slate-500 text-xs font-medium">{Math.round((step / totalSteps) * 100)}% hoàn thành</p>
+                    <p className="text-navy text-[16px] font-extrabold">
+                        {step === 1 && 'Thông tin của anh'}
+                        {step === 2 && 'Nghề và bảng giá'}
+                        {step === 3 && 'Ảnh công việc đã làm'}
+                        {step === 4 && 'Lời khen của khách cũ'}
+                    </p>
+                    <p className="text-ink/60 text-[14px] font-bold">Bước {step}/{totalSteps}</p>
                 </div>
-                <div className="rounded-full bg-slate-200 h-2 w-full overflow-hidden">
-                    <div className="h-2 rounded-full bg-[#1279B8] transition-all duration-300" style={{ width: `${(step / totalSteps) * 100}%` }}></div>
+                <div className="flex gap-1.5">
+                    {Array.from({ length: totalSteps }, (_, i) => (
+                        <div
+                            key={i}
+                            className={`h-2 flex-1 rounded-full transition-colors duration-300 ${i < step ? 'bg-green' : 'bg-slate-200'}`}
+                        ></div>
+                    ))}
                 </div>
-                <p className="text-slate-600 text-[11px] mt-1 italic">
-                    {step === 1 && 'Thông tin cơ bản'}
-                    {step === 2 && 'Chuyên môn & Bảng giá'}
-                    {step === 3 && 'Dự án tiêu biểu'}
-                    {step === 4 && 'Đánh giá khách hàng'}
-                </p>
             </div>
 
             {/* Form Content */}
@@ -266,7 +270,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                             <div className="flex flex-col gap-5">
                                 {/* Avatar Upload */}
                                 <div className="flex flex-col gap-2 items-center">
-                                    <label className="text-sm font-semibold text-slate-700 self-start">Ảnh đại diện</label>
+                                    <label className="text-[15px] font-bold text-navy self-start">Ảnh đại diện</label>
                                     <div
                                         className="relative group cursor-pointer"
                                         onClick={() => avatarInputRef.current?.click()}
@@ -302,17 +306,17 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                 </div>
 
                                 <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-semibold text-slate-700">Họ và tên</label>
+                                    <label className="text-[15px] font-bold text-navy">Họ và tên</label>
                                     <input
                                         type="text"
                                         value={formData.displayName}
                                         onChange={(e) => handleChange('displayName', e.target.value)}
-                                        className="w-full rounded-lg border border-gray-200 bg-white p-3.5 text-slate-900 placeholder:text-slate-400 shadow-sm"
+                                        className="w-full rounded-xl border border-border-light bg-white p-4 text-[16px] text-ink placeholder:text-slate-400 shadow-sm"
                                         placeholder="Nguyễn Văn A"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-semibold text-slate-700">Số điện thoại</label>
+                                    <label className="text-[15px] font-bold text-navy">Số điện thoại</label>
                                     <div className="relative">
                                         <div className="absolute left-3.5 top-1/2 -translate-y-1/2">
                                             <Icon name="call" size={20} color="#94a3b8" />
@@ -321,13 +325,13 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                             type="tel"
                                             value={formData.phoneNumber || ''}
                                             onChange={(e) => handleChange('phoneNumber', e.target.value)}
-                                            className="w-full rounded-lg border border-gray-200 bg-white pl-11 pr-4 py-3.5 text-slate-900 placeholder:text-slate-400 shadow-sm"
+                                            className="w-full rounded-xl border border-border-light bg-white pl-11 pr-4 py-4 text-[16px] text-ink placeholder:text-slate-400 shadow-sm"
                                             placeholder="0912 345 678"
                                         />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1.5">
-                                    <label className="text-sm font-semibold text-slate-700">Số năm kinh nghiệm</label>
+                                    <label className="text-[15px] font-bold text-navy">Số năm kinh nghiệm</label>
                                     <div className="flex items-center gap-3">
                                         <button
                                             type="button"
@@ -445,7 +449,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     </select>
                                     <div className="flex gap-2">
                                         <div className="flex-1">
-                                            <label className="text-xs text-slate-500 mb-1 block">Giá từ (VNĐ)</label>
+                                            <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Giá từ (VNĐ)</label>
                                             <input
                                                 type="number"
                                                 value={newPrice.minPrice || ''}
@@ -455,7 +459,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <label className="text-xs text-slate-500 mb-1 block">Đến (VNĐ)</label>
+                                            <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Đến (VNĐ)</label>
                                             <input
                                                 type="number"
                                                 value={newPrice.maxPrice || ''}
@@ -661,7 +665,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                             <h4 className="text-sm font-bold text-slate-700 mb-3">Thêm đánh giá mới</h4>
                             <div className="flex flex-col gap-3">
                                 <div>
-                                    <label className="text-xs text-slate-500 mb-1 block">Tên khách hàng *</label>
+                                    <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Tên khách hàng *</label>
                                     <input
                                         type="text"
                                         value={newReview.customerName}
@@ -671,7 +675,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-xs text-slate-500 mb-1 block">Số điện thoại khách hàng * (để xác minh)</label>
+                                    <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Số điện thoại khách hàng * (để xác minh)</label>
                                     <div className="relative">
                                         <div className="absolute left-3 top-1/2 -translate-y-1/2">
                                             <Icon name="call" size={20} color="#94a3b8" />
@@ -686,7 +690,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="text-xs text-slate-500 mb-1 block">Địa chỉ khách hàng * (để xác minh)</label>
+                                    <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Địa chỉ khách hàng * (để xác minh)</label>
                                     <div className="relative">
                                         <div className="absolute left-3 top-1/2 -translate-y-1/2">
                                             <Icon name="location_on" size={20} color="#94a3b8" />
@@ -701,7 +705,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="text-xs text-slate-500 mb-1 block">Đánh giá (sao)</label>
+                                    <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Đánh giá (sao)</label>
                                     <div className="flex gap-2">
                                         {[1, 2, 3, 4, 5].map(star => (
                                             <button
@@ -720,7 +724,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="text-xs text-slate-500 mb-1 block">Nội dung đánh giá *</label>
+                                    <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Nội dung đánh giá *</label>
                                     <textarea
                                         value={newReview.comment}
                                         onChange={(e) => setNewReview(prev => ({ ...prev, comment: e.target.value }))}
@@ -762,7 +766,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                         )}
                         <button
                             onClick={() => setStep(step + 1)}
-                            className={`${step > 1 ? 'flex-1' : 'w-full'} flex items-center justify-center rounded-xl h-14 bg-[#1279B8] text-white text-base font-bold active:scale-[0.98] transition-all shadow-lg hover:bg-[#0E5F91]`}
+                            className={`${step > 1 ? 'flex-[1.4]' : 'w-full'} flex items-center justify-center rounded-xl h-14 bg-primary text-white text-[17px] font-extrabold active:scale-[0.98] transition-all shadow-lg`}
                         >
                             Tiếp tục
                             <Icon name="arrow_forward" size={24} color="white" className="ml-2" />
@@ -779,9 +783,9 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                         </button>
                         <button
                             onClick={handleSubmit}
-                            className="flex-1 flex items-center justify-center rounded-xl h-14 bg-[#1279B8] text-white text-base font-bold active:scale-[0.98] transition-all shadow-lg hover:bg-[#0E5F91]"
+                            className="flex-[1.4] flex items-center justify-center rounded-xl h-14 bg-green text-white text-[17px] font-extrabold active:scale-[0.98] transition-all shadow-lg"
                         >
-                            Hoàn thành
+                            Xong — tạo thẻ thợ
                             <Icon name="check" size={24} color="white" className="ml-2" />
                         </button>
                     </div>
