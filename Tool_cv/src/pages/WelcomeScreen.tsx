@@ -1,10 +1,10 @@
 import React from 'react';
 import { Icon } from '../components/Icon';
 import logoIcon from '../assets/logo-icon.png';
+import { QRCanvas } from '../components/QRCanvas';
 
 interface WelcomeScreenProps {
     onGetStarted: () => void;
-    onLogoTap?: () => void;
 }
 
 /**
@@ -12,13 +12,13 @@ interface WelcomeScreenProps {
  * Hero = bản xem trước tấm thẻ thợ (thứ người thợ sẽ nhận được), không dùng stock photo.
  * Chữ to, một nút hành động duy nhất, giọng "anh".
  */
-export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLogoTap }) => {
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
     return (
         <div className="relative flex h-full min-h-screen w-full max-w-[430px] mx-auto flex-col bg-paper overflow-hidden font-display">
             {/* Nội dung */}
             <div className="flex flex-col items-center flex-1 px-5 pt-10 pb-4 overflow-y-auto">
                 {/* Logo + tên */}
-                <div className="flex items-center gap-3 mb-7" onClick={onLogoTap}>
+                <div className="flex items-center gap-3 mb-7">
                     <img src={logoIcon} alt="Doitay - Hồ Sơ Thợ" className="w-12 h-12 object-contain" />
                     <div className="leading-tight">
                         <p className="text-[13px] font-bold uppercase tracking-[0.18em] text-primary">Doitay.vn</p>
@@ -33,7 +33,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLo
                     <span className="text-primary">Đưa thẻ thợ ra là xong.</span>
                 </h1>
                 <p className="text-[16px] leading-relaxed text-ink/70 text-center mb-7 max-w-[320px]">
-                    Khách quét mã là thấy ảnh công việc, bảng giá và đánh giá của anh.
+                    Danh thiếp điện tử có ảnh việc, bảng giá — khách quét mã là nhắn Zalo được cho anh ngay.
                 </p>
 
                 {/* HERO — thẻ thợ mẫu (signature) */}
@@ -55,14 +55,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLo
                         </div>
 
                         <div className="flex items-center gap-4 bg-white rounded-2xl p-4">
-                            <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://doitay.vn&margin=0"
-                                alt="Mã QR mẫu"
-                                className="w-[88px] h-[88px] shrink-0"
-                            />
+                            <QRCanvas value="https://doitay.vn" size={88} className="shrink-0" />
                             <div>
                                 <p className="text-[15px] font-bold text-navy leading-snug">Khách quét bằng Zalo</p>
-                                <p className="text-[14px] text-ink/60 leading-snug mt-1">là thấy ngay hồ sơ nghề</p>
+                                <p className="text-[14px] text-ink/60 leading-snug mt-1">là nhắn được cho anh ngay</p>
                                 <div className="flex items-center gap-1 mt-2 text-amber">
                                     <Icon name="star" size={16} color="#F5A623" />
                                     <Icon name="star" size={16} color="#F5A623" />
@@ -122,6 +118,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onLo
                     {' '}và{' '}
                     <a className="text-primary underline" href="https://doitay.vn/bao-mat">Bảo mật</a>
                     {' '}của Doitay.
+                </p>
+                <p className="text-[12px] text-center text-ink/40 mt-1.5">
+                    Sản phẩm của Hộ kinh doanh Ground Truth — vận hành doitay.vn
                 </p>
             </div>
         </div>

@@ -62,57 +62,35 @@ export interface PortfolioProject {
     afterImage?: string;   // URL or base64
 }
 
-// Expanded skill options with icons
+// Expanded skill options with icons matching Doitay.vn categories
 export const SKILL_OPTIONS_WITH_ICONS: { name: string; icon: string }[] = [
-    // Điện
-    { name: 'Điện dân dụng', icon: 'bolt' },
-    { name: 'Điện công nghiệp', icon: 'factory' },
-    { name: 'Điện 3 pha', icon: 'electric_bolt' },
-    // Nước
-    { name: 'Sửa ống nước', icon: 'water_drop' },
-    { name: 'Thông tắc cống', icon: 'plumbing' },
-    { name: 'Lắp bồn cầu', icon: 'bathroom' },
-    // Điện lạnh
-    { name: 'Điều hòa', icon: 'ac_unit' },
-    { name: 'Tủ lạnh', icon: 'kitchen' },
-    { name: 'Máy giặt', icon: 'local_laundry_service' },
-    // Xây dựng
-    { name: 'Thợ mộc', icon: 'handyman' },
-    { name: 'Sơn nhà', icon: 'format_paint' },
-    { name: 'Ốp lát gạch', icon: 'grid_view' },
-    { name: 'Thạch cao', icon: 'dashboard' },
-    { name: 'Hàn xì', icon: 'hardware' },
-    // An ninh & Khác
-    { name: 'Camera an ninh', icon: 'videocam' },
-    { name: 'Khóa cửa', icon: 'lock' },
-    { name: 'Sửa cửa cuốn', icon: 'garage' },
-    { name: 'Chống thấm', icon: 'water_damage' },
-    // Khác
-    { name: 'Sửa TV/Màn hình', icon: 'tv' },
-    { name: 'Sửa máy tính', icon: 'computer' },
-    { name: 'Sửa điện thoại', icon: 'smartphone' },
-    { name: 'Khác', icon: 'more_horiz' },
+    { name: 'Thợ Điện', icon: 'bolt' },
+    { name: 'Thợ Nước', icon: 'water_drop' },
+    { name: 'Thợ Xây Dựng', icon: 'hardware' },
+    { name: 'Thợ Sơn', icon: 'format_paint' },
+    { name: 'Thợ Mộc', icon: 'park' },
+    { name: 'Thợ Điều Hòa', icon: 'ac_unit' },
+    { name: 'Thợ Ốp Lát', icon: 'grid_view' },
+    { name: 'Thợ Hàn', icon: 'local_fire_department' },
+    { name: 'Thợ Vệ Sinh', icon: 'cleaning_services' },
+    { name: 'Thợ Sửa Chữa Tổng Hợp', icon: 'home_repair_service' },
 ];
 
 // Simple skill names list
 export const SKILL_OPTIONS = SKILL_OPTIONS_WITH_ICONS.map(s => s.name);
 
-// Job title options - expanded
+// Job title options - synced with main categories
 export const JOB_TITLES = [
     'Thợ Điện',
     'Thợ Nước',
-    'Thợ Điều Hòa',
-    'Thợ Điện Lạnh',
+    'Thợ Xây Dựng',
     'Thợ Sơn',
-    'Thợ Thạch Cao',
     'Thợ Mộc',
-    'Thợ Hàn',
-    'Thợ Camera',
-    'Thợ Khóa',
-    'Thợ Chống Thấm',
+    'Thợ Điều Hòa',
     'Thợ Ốp Lát',
-    'Kỹ thuật viên IT',
-    'Thợ Đa Năng',
+    'Thợ Hàn',
+    'Thợ Vệ Sinh',
+    'Thợ Sửa Chữa Tổng Hợp',
 ];
 
 // Common service examples for pricing

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Icon } from '../components/Icon';
-import tip1Image from '../assets/tip1.png';
-import tip2Image from '../assets/tip2.png';
-import tip3Image from '../assets/tip3.png';
+import tip1Image from '../assets/tip1.jpg';
+import tip2Image from '../assets/tip2.jpg';
+import tip3Image from '../assets/tip3.jpg';
 
 interface TipsPageProps {
     onBack?: () => void;

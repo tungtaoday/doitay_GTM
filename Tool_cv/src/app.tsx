@@ -5,28 +5,29 @@ import { ProfileInput } from './pages/ProfileInput';
 import { ProfileView } from './pages/ProfileView';
 import { HomePage } from './pages/HomePage';
 import { TipsPage } from './pages/TipsPage';
-import { AdminDashboard } from './pages/AdminDashboard';
 import { QRShareModal } from './components/QRShareModal';
-import { Icon } from './components/Icon';
+import { ToastProvider, useToast } from './components/Toast';
 import { UserProfile, ProjectImage } from './types';
+import { getShareText, getZaloChatUrl } from './utils';
 import logoIcon from './assets/logo-icon.png';
 import './css/app.css';
 
-type AppScreen = 'welcome' | 'input' | 'home' | 'profile' | 'tips' | 'admin';
+type AppScreen = 'welcome' | 'input' | 'home' | 'profile' | 'tips';
 
 const AppContent: React.FC = () => {
     const { user, setUser, isLoading } = useUser();
+    const toast = useToast();
     const [currentScreen, setCurrentScreen] = useState<AppScreen | null>(null);
     const [portfolioImages, setPortfolioImages] = useState<ProjectImage[]>([]);
     const [showQRModal, setShowQRModal] = useState(false);
-    const [adminTapCount, setAdminTapCount] = useState(0);
+    // Tên/ảnh lấy từ tài khoản Zalo (nếu thợ đồng ý) — điền sẵn vào form
+    const [zaloPrefill, setZaloPrefill] = useState<{ displayName?: string; avatarUrl?: string } | null>(null);
 
     // Initialize screen based on user state AFTER loading
     useEffect(() => {
         if (!isLoading) {
             if (user) {
-                setCurrentScreen('home'); // Go to home dashboard when logged in
-                // Load portfolio images from localStorage
+                setCurrentScreen('home');
                 const savedImages = localStorage.getItem('portfolioImages');
                 if (savedImages) {
                     try {
@@ -41,103 +42,94 @@ const AppContent: React.FC = () => {
         }
     }, [isLoading, user]);
 
-    // Secret admin access: tap 5 times on logo
-    useEffect(() => {
-        if (adminTapCount >= 5) {
-            setCurrentScreen('admin');
-            setAdminTapCount(0);
-        }
-        const timer = setTimeout(() => setAdminTapCount(0), 2000);
-        return () => clearTimeout(timer);
-    }, [adminTapCount]);
-
-    // Show loading while determining initial screen
     if (isLoading || currentScreen === null) {
         return (
-            <div className="min-h-screen bg-[#F4F5F7] flex items-center justify-center">
+            <div className="min-h-screen bg-paper flex items-center justify-center">
                 <div className="text-center flex flex-col items-center">
-                    <div
-                        className="w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-200 flex items-center justify-center mb-5 cursor-pointer"
-                        onClick={() => setAdminTapCount(prev => prev + 1)}
-                    >
+                    <div className="w-20 h-20 bg-white rounded-2xl shadow-card flex items-center justify-center mb-5">
                         <img src={logoIcon} alt="Logo" className="w-14 h-14 object-contain" />
                     </div>
-                    <h1 className="text-xl font-black mb-4 text-slate-800 tracking-tight">DOITAY.VN</h1>
+                    <h1 className="text-xl font-black mb-4 text-navy tracking-tight">HỒ SƠ THỢ</h1>
                     <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-3"></div>
-                    <p className="text-slate-500 text-sm font-medium">Đang tải cấu hình...</p>
-                    {adminTapCount > 0 && (
-                        <p className="text-xs text-slate-400 mt-3">{5 - adminTapCount} taps to admin</p>
-                    )}
+                    <p className="text-ink/50 text-sm font-medium">Đang tải...</p>
                 </div>
             </div>
         );
     }
 
-    const handleGetStarted = () => {
+    /**
+     * Bắt đầu tạo hồ sơ: xin tên + ảnh từ tài khoản Zalo để điền sẵn
+     * (danh tính do Zalo cung cấp — thợ đỡ phải gõ). Từ chối/lỗi → form trống.
+     */
+    const handleGetStarted = async () => {
+        try {
+            const { getUserInfo } = await import('zmp-sdk/apis');
+            const { userInfo } = await getUserInfo({ autoRequestPermission: true });
+            if (userInfo) {
+                setZaloPrefill({ displayName: userInfo.name, avatarUrl: userInfo.avatar });
+            }
+        } catch {
+            // Ngoài Zalo (trình duyệt thường) hoặc thợ từ chối — vẫn tiếp tục bình thường
+        }
         setCurrentScreen('input');
     };
 
     const handleFormSubmit = (profile: UserProfile, images: ProjectImage[]) => {
-        console.log('Form submitted:', profile, images);
         setUser(profile);
         setPortfolioImages(images);
         localStorage.setItem('portfolioImages', JSON.stringify(images));
         setCurrentScreen('home');
     };
 
+    /**
+     * Gửi thẻ cho khách qua Zalo: dùng share sheet CHÍNH CHỦ của Zalo Mini App.
+     * Ngoài môi trường Zalo → chép lời giới thiệu vào clipboard.
+     */
     const handleShare = async () => {
-        if (navigator.share) {
+        if (!user) return;
+        const text = getShareText(user);
+        const zaloUrl = getZaloChatUrl(user.phoneNumber);
+        try {
+            const { openShareSheet } = await import('zmp-sdk/apis');
+            await openShareSheet({
+                type: 'link',
+                data: {
+                    link: zaloUrl || 'https://doitay.vn/tuyen-dung-tho',
+                    chatOnly: false,
+                },
+            });
+        } catch {
             try {
-                await navigator.share({
-                    title: `${user?.displayName} - ${user?.jobTitle}`,
-                    text: `Xem hồ sơ của ${user?.displayName} - ${user?.jobTitle} tại ${user?.location?.district}, ${user?.location?.city}`,
-                    url: `https://doitay.vn/tho/${user?.uid}`,
-                });
-            } catch (err) {
-                console.log('Share cancelled or failed');
-            }
-        } else {
-            try {
-                await navigator.clipboard.writeText(`https://doitay.vn/tho/${user?.uid}`);
-                alert('Đã sao chép link hồ sơ!');
-            } catch (err) {
-                alert('Tính năng chia sẻ qua Zalo sẽ hoạt động đầy đủ khi deploy lên Zalo Mini App!');
+                await navigator.clipboard.writeText(text);
+                toast('Đã chép lời giới thiệu — anh dán vào Zalo gửi khách nhé!');
+            } catch {
+                toast('Anh chụp màn hình thẻ gửi khách cũng được nhé!');
             }
         }
         setShowQRModal(false);
     };
 
     const handleLogout = () => {
-        // Clear user data from localStorage
         localStorage.removeItem('user');
         localStorage.removeItem('portfolioImages');
-        // Reset state
         setUser(null);
         setPortfolioImages([]);
         setCurrentScreen('welcome');
     };
 
-    // Render based on current screen
     switch (currentScreen) {
         case 'welcome':
-            return (
-                <>
-                    <WelcomeScreen
-                        onGetStarted={handleGetStarted}
-                        onLogoTap={() => setAdminTapCount(prev => prev + 1)}
-                    />
-                    {adminTapCount > 0 && adminTapCount < 5 && (
-                        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs px-3 py-1 rounded-full">
-                            {5 - adminTapCount} taps to admin
-                        </div>
-                    )}
-                </>
-            );
+            return <WelcomeScreen onGetStarted={handleGetStarted} />;
 
         case 'input':
             return (
                 <ProfileInput
-                    initialData={user || undefined}
+                    initialData={
+                        user ||
+                        (zaloPrefill
+                            ? ({ displayName: zaloPrefill.displayName || '', avatarUrl: zaloPrefill.avatarUrl } as Partial<UserProfile> as UserProfile)
+                            : undefined)
+                    }
                     onSubmit={handleFormSubmit}
                     onBack={user ? () => setCurrentScreen('home') : undefined}
                 />
@@ -181,7 +173,11 @@ const AppContent: React.FC = () => {
                         onBack={() => setCurrentScreen('home')}
                         onShare={() => setShowQRModal(true)}
                         onEdit={() => setCurrentScreen('input')}
-                        onContact={() => alert('Liên hệ qua Zalo!')}
+                        onContact={() => {
+                            // Màn "khách xem": nút gọi quay số thật của thợ
+                            if (user.phoneNumber) window.location.href = `tel:${user.phoneNumber}`;
+                            else toast('Hồ sơ chưa có số điện thoại');
+                        }}
                     />
                     {showQRModal && (
                         <QRShareModal
@@ -194,18 +190,7 @@ const AppContent: React.FC = () => {
             );
 
         case 'tips':
-            return (
-                <TipsPage
-                    onBack={() => setCurrentScreen('home')}
-                />
-            );
-
-        case 'admin':
-            return (
-                <AdminDashboard
-                    onBack={() => setCurrentScreen(user ? 'home' : 'welcome')}
-                />
-            );
+            return <TipsPage onBack={() => setCurrentScreen('home')} />;
 
         default:
             return <WelcomeScreen onGetStarted={handleGetStarted} />;
@@ -215,7 +200,9 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
     return (
         <UserProvider>
-            <AppContent />
+            <ToastProvider>
+                <AppContent />
+            </ToastProvider>
         </UserProvider>
     );
 };

@@ -159,3 +159,35 @@ export const debounce = <T extends (...args: any[]) => any>(
 export const cn = (...classes: (string | boolean | undefined | null)[]): string => {
     return classes.filter(Boolean).join(' ');
 };
+
+/**
+ * Link Zalo chat của thợ — ĐÍCH của mã QR trên thẻ.
+ * Khách quét → mở thẳng khung chat Zalo với thợ. Hoạt động NGAY, không cần
+ * hồ sơ tồn tại trên web (uid cục bộ dạng user_<timestamp> KHÔNG phải id
+ * trên doitay.vn — link doitay.vn/tho/<uid> cũ luôn 404).
+ */
+export const getZaloChatUrl = (phone?: string): string | null => {
+    const digits = (phone || '').replace(/\D/g, '');
+    if (!digits) return null;
+    // 09xxxxxxxx -> 849xxxxxxxx (định dạng zalo.me chuẩn)
+    const intl = digits.startsWith('0') ? '84' + digits.slice(1) : digits;
+    return `https://zalo.me/${intl}`;
+};
+
+/** Nội dung tin nhắn giới thiệu thợ — dùng cho nút chia sẻ/chép. */
+export const getShareText = (profile: {
+    displayName: string;
+    jobTitle?: string;
+    phoneNumber?: string;
+    location?: { city?: string; district?: string };
+}): string => {
+    const area = [profile.location?.district, profile.location?.city].filter(Boolean).join(', ');
+    const zalo = getZaloChatUrl(profile.phoneNumber);
+    return [
+        `🔧 ${profile.displayName}${profile.jobTitle ? ' — ' + profile.jobTitle : ''}`,
+        area ? `📍 ${area}` : '',
+        profile.phoneNumber ? `📞 ${profile.phoneNumber}` : '',
+        zalo ? `💬 Nhắn Zalo: ${zalo}` : '',
+        '— Thẻ thợ tạo trên Hồ Sơ Thợ (doitay.vn)',
+    ].filter(Boolean).join('\n');
+};

@@ -72,3 +72,15 @@ lh3.googleusercontent.com / via.placeholder.com / doitay.vn
 ## GHI CHÚ
 - Chính sách bảo mật doitay.vn/bao-mat đã đề cập app + thu thập SĐT (vòng 1) — nếu đổi tên chính thức, nên sửa câu "Zalo Mini App \"Thợ Tốt Doitay\"" thành "Ground Truth - Hồ Sơ Thợ" cho khớp.
 - DEFERRED-001 (bỏ Firebase → đọc doitay API) vẫn hoãn đến sau khi QUA DUYỆT.
+
+## Cập nhật kỹ thuật 2026-07-24 (trước submit)
+
+- QR sinh CỤC BỘ (lib qrcode), trỏ tới **zalo.me/<SĐT thợ>** — khách quét là mở chat
+  Zalo với thợ NGAY (bỏ link doitay.vn/tho/<uid> cũ vốn 404 + bỏ api.qrserver.com).
+- Tích hợp **zmp-sdk**: getUserInfo (điền sẵn tên/ảnh từ Zalo — đúng lời khai "danh
+  tính do Zalo cung cấp") + openShareSheet (nút Gửi qua Zalo chuẩn Mini App).
+- Gỡ: trang admin ẩn 5-tap (rủi ro kiểm duyệt), firebase (dead code), alert() → toast.
+- Ảnh tips nén 1.9MB → 0.24MB; footer thẻ bỏ link chết; thêm attribution
+  "Sản phẩm của Hộ KD Ground Truth — vận hành doitay.vn" ở màn chào.
+- Link Điều khoản/Bảo mật đã verify sống (200).
+

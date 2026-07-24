@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { UserProfile } from '../types';
 import { Icon } from '../components/Icon';
 import logoIcon from '../assets/logo-icon.png';
-import tip1Image from '../assets/tip1.png';
-import tip2Image from '../assets/tip2.png';
-import tip3Image from '../assets/tip3.png';
+import { QRCanvas } from '../components/QRCanvas';
+import { getZaloChatUrl } from '../utils';
+import tip1Image from '../assets/tip1.jpg';
+import tip2Image from '../assets/tip2.jpg';
+import tip3Image from '../assets/tip3.jpg';
 
 interface HomePageProps {
     profile: UserProfile;
@@ -137,20 +139,22 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                         {/* QR */}
                         <div className="bg-white rounded-2xl p-5 flex flex-col items-center">
-                            <img
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://doitay.vn/tho/${profile.uid}&margin=0`}
-                                className="w-44 h-44 object-contain"
-                                alt="Mã QR hồ sơ của bạn"
-                            />
+                            {getZaloChatUrl(profile.phoneNumber) ? (
+                                <QRCanvas value={getZaloChatUrl(profile.phoneNumber)!} size={176} className="w-44 h-44" />
+                            ) : (
+                                <p className="text-[14px] font-semibold text-ink/60 text-center py-10">
+                                    Thêm số điện thoại để tạo mã QR
+                                </p>
+                            )}
                             <p className="text-[15px] font-bold text-navy text-center mt-3.5 leading-snug">
                                 Khách quét mã bằng Zalo
                                 <br />
-                                <span className="font-medium text-ink/60 text-[14px]">là thấy hồ sơ và bảng giá của anh</span>
+                                <span className="font-medium text-ink/60 text-[14px]">là nhắn tin được cho anh ngay</span>
                             </p>
                         </div>
 
                         <p className="text-center text-[13px] font-semibold tracking-wide text-white/60 mt-4">
-                            doitay.vn/tho — Tự hào thợ Việt
+                            Hồ Sơ Thợ — Tự hào thợ Việt
                         </p>
                     </div>
 
@@ -201,10 +205,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                     </div>
                 </section>
 
-                {/* Hồ sơ trên web — thật, không giả lập */}
+                {/* Lên chợ thợ doitay.vn — link THẬT (trang tuyển thợ), không phải hồ sơ ảo */}
                 <section className="w-full">
                     <a
-                        href={`https://doitay.vn/tho/${profile.uid}`}
+                        href="https://doitay.vn/tuyen-dung-tho"
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-card active:scale-[0.98] transition-transform"
@@ -213,8 +217,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                             <Icon name="public" size={24} color="#1279B8" />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-[16px] font-bold text-navy">Hồ sơ của anh trên doitay.vn</p>
-                            <p className="text-[14px] text-ink/60 truncate">Khách tìm thợ trên mạng cũng thấy anh</p>
+                            <p className="text-[16px] font-bold text-navy">Đưa hồ sơ lên chợ thợ doitay.vn</p>
+                            <p className="text-[14px] text-ink/60 truncate">Khách tìm thợ trên mạng sẽ thấy anh — miễn phí</p>
                         </div>
                         <Icon name="arrow_forward" size={22} color="#1279B8" />
                     </a>

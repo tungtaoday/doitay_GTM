@@ -1,6 +1,9 @@
 import React from 'react';
 import { UserProfile } from '../types';
 import { Icon } from './Icon';
+import { QRCanvas } from './QRCanvas';
+import { useToast } from './Toast';
+import { getZaloChatUrl, getShareText } from '../utils';
 import logoIcon from '../assets/logo-icon.png';
 
 interface QRShareModalProps {
@@ -11,17 +14,26 @@ interface QRShareModalProps {
 
 /**
  * Modal "Gửi thẻ cho khách" — design "Thẻ Thợ".
- * Hiện đúng tấm thẻ navy (đồng bộ với HomePage) + 2 hành động rõ ràng.
+ * QR sinh cục bộ, trỏ tới ZALO CHAT của thợ (khách quét → nhắn Zalo ngay).
  */
 export const QRShareModal: React.FC<QRShareModalProps> = ({
     profile,
     onClose,
     onShare,
 }) => {
-    const profileUrl = `https://doitay.vn/tho/${profile.uid}`;
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(profileUrl)}&bgcolor=ffffff&color=14324F`;
+    const toast = useToast();
+    const zaloUrl = getZaloChatUrl(profile.phoneNumber);
     const trade = profile.jobTitle || 'Thợ chuyên nghiệp';
     const area = profile.location?.district || profile.location?.city || '';
+
+    const copyShareText = async () => {
+        try {
+            await navigator.clipboard.writeText(getShareText(profile));
+            toast('Đã chép. Anh dán vào tin nhắn gửi khách nhé!');
+        } catch {
+            toast('Không chép được — anh dùng nút Gửi qua Zalo nhé');
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-navy/60 p-0 sm:p-4">
@@ -51,32 +63,34 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                                 {trade}{area ? ` • ${area}` : ''}
                             </p>
                         </div>
-                        <img src={logoIcon} alt="Doitay" className="w-9 h-9 object-contain shrink-0 ml-3" />
+                        <img src={logoIcon} alt="Logo" className="w-9 h-9 object-contain shrink-0 ml-3" />
                     </div>
 
                     <div className="bg-white rounded-2xl p-4 flex flex-col items-center">
-                        <div className="relative">
-                            <img
-                                src={qrCodeUrl}
-                                alt="Mã QR hồ sơ"
-                                className="w-40 h-40"
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x200/14324F/ffffff?text=QR';
-                                }}
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="bg-white rounded-lg p-1 shadow-md">
-                                    <img src={logoIcon} alt="" className="w-7 h-7 object-contain" />
+                        {zaloUrl ? (
+                            <>
+                                <div className="relative">
+                                    <QRCanvas value={zaloUrl} size={160} />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="bg-white rounded-lg p-1 shadow-md">
+                                            <img src={logoIcon} alt="" className="w-7 h-7 object-contain" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <p className="text-[14px] font-bold text-navy text-center mt-3">
-                            Khách quét bằng Zalo là thấy hồ sơ
-                        </p>
+                                <p className="text-[14px] font-bold text-navy text-center mt-3">
+                                    Khách quét là nhắn Zalo cho anh ngay
+                                </p>
+                                <p className="text-[13px] font-semibold text-ink/50 mt-0.5">{profile.phoneNumber}</p>
+                            </>
+                        ) : (
+                            <p className="text-[14px] font-semibold text-ink/60 text-center py-8">
+                                Thêm số điện thoại vào hồ sơ để tạo mã QR
+                            </p>
+                        )}
                     </div>
 
                     <p className="text-center text-[12px] font-semibold tracking-wide text-white/60 mt-3.5">
-                        doitay.vn/tho — Tự hào thợ Việt
+                        Hồ Sơ Thợ — Tự hào thợ Việt
                     </p>
                 </div>
 
@@ -84,20 +98,17 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                 <div className="space-y-3">
                     <button
                         onClick={onShare}
-                        className="w-full flex items-center justify-center gap-2.5 h-[56px] bg-green text-white rounded-2xl text-[17px] font-extrabold active:scale-[0.98] transition-transform"
+                        className="w-full flex items-center justify-center gap-2.5 h-[56px] bg-primary text-white rounded-2xl text-[17px] font-extrabold active:scale-[0.98] transition-transform"
                     >
                         <Icon name="share" size={22} color="white" />
                         Gửi qua Zalo
                     </button>
                     <button
-                        onClick={() => {
-                            navigator.clipboard.writeText(profileUrl);
-                            alert('Đã chép link. Anh dán vào tin nhắn gửi khách nhé!');
-                        }}
+                        onClick={copyShareText}
                         className="w-full flex items-center justify-center gap-2.5 h-[52px] bg-white text-navy rounded-2xl text-[16px] font-bold shadow-card active:scale-[0.98] transition-transform"
                     >
                         <Icon name="content_copy" size={22} color="#14324F" />
-                        Chép link gửi tin nhắn
+                        Chép lời giới thiệu gửi khách
                     </button>
                 </div>
             </div>
