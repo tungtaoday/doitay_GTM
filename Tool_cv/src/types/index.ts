@@ -32,6 +32,8 @@ export interface UserProfile {
     experienceYears: number;
     bio: string;
     isVerified: boolean;
+    /** Thợ đã đồng ý chia sẻ/đồng bộ hồ sơ lên chợ thợ doitay.vn */
+    syncConsent?: boolean;
     servicePrices?: ServicePrice[]; // Bảng giá dịch vụ
     customerReviews?: CustomerReview[]; // NEW: Đánh giá từ khách hàng
     portfolioProjects?: PortfolioProject[]; // Dự án ảnh trước/sau

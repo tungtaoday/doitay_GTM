@@ -28,7 +28,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
         ...initialData,
     });
     const [portfolioImages, setPortfolioImages] = useState<ProjectImage[]>([]);
-    const [syncConsent, setSyncConsent] = useState(true);
+    const [syncConsent, setSyncConsent] = useState(initialData?.syncConsent ?? true);
     const [showAllSkills, setShowAllSkills] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const avatarInputRef = useRef<HTMLInputElement>(null);
@@ -206,6 +206,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
             bio: formData.bio || '',
             avatarUrl: formData.avatarUrl,
             isVerified: false,
+            syncConsent,
             servicePrices: formData.servicePrices || [],
             customerReviews: customerReviews,
             portfolioProjects: projects,

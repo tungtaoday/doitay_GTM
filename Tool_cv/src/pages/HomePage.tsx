@@ -33,9 +33,15 @@ export const HomePage: React.FC<HomePageProps> = ({
 }) => {
     const toast = useToast();
 
-    /** Đưa hồ sơ lên chợ thợ doitay.vn: mở trang đăng ký web với SĐT điền sẵn. */
+    /**
+     * Nút chợ thợ doitay.vn — phân nhánh theo consent lúc làm thẻ:
+     * - ĐÃ đồng ý chia sẻ  → chỉ XEM hồ sơ trên chợ (tìm theo tên thợ).
+     * - CHƯA đồng ý        → dẫn vào trang đăng ký (SĐT + vai trò thợ điền sẵn).
+     */
     const openMarketplace = async () => {
-        const url = `https://doitay.vn/dang-ky?sdt=${encodeURIComponent(profile.phoneNumber || '')}&role=contractor&utm_source=miniapp`;
+        const url = profile.syncConsent
+            ? `https://doitay.vn/tho?q=${encodeURIComponent(profile.displayName || '')}&utm_source=miniapp`
+            : `https://doitay.vn/dang-ky?sdt=${encodeURIComponent(profile.phoneNumber || '')}&role=contractor&utm_source=miniapp`;
         // Trong Zalo: mo webview chinh chu. Ngoai Zalo (trinh duyet): window.open truc tiep
         // — zmp openWebview ngoai Zalo co the resolve "im lang" khong lam gi.
         const inZalo = /zalo/i.test(navigator.userAgent) || Boolean((window as any).ZaloJavaScriptInterface);
@@ -244,8 +250,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                             <Icon name="public" size={24} color="#006781" />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-[16px] font-bold text-navy">Đưa hồ sơ lên chợ thợ doitay.vn</p>
-                            <p className="text-[14px] text-ink/60 truncate">Đăng ký nhanh bằng SĐT của anh — miễn phí, khách trên mạng cũng tìm thấy</p>
+                            <p className="text-[16px] font-bold text-navy">
+                                {profile.syncConsent ? 'Xem hồ sơ của anh trên doitay.vn' : 'Đưa hồ sơ lên chợ thợ doitay.vn'}
+                            </p>
+                            <p className="text-[14px] text-ink/60 truncate">
+                                {profile.syncConsent
+                                    ? 'Anh đã đồng ý chia sẻ — xem khách thấy anh thế nào trên chợ'
+                                    : 'Đăng ký nhanh bằng SĐT của anh — miễn phí, khách trên mạng cũng tìm thấy'}
+                            </p>
                         </div>
                         <Icon name="arrow_forward" size={22} color="#006781" />
                     </button>
