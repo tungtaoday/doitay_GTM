@@ -1,7 +1,7 @@
 {
-    "appId": "",
+    "appId": "1317662049636919940",
     "version": "1.0.0",
-    "appName": "Doitay - Hồ Sơ Thợ",
+    "appName": "Ground Truth - Hồ Sơ Thợ",
     "source": {
         "entryPath": "src/main.tsx"
     }
