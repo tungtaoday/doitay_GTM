@@ -603,7 +603,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                 />
                             </div>
                             <label className="text-sm text-slate-600 leading-tight select-none" htmlFor="sync-consent">
-                                Tôi đồng ý đồng bộ thông tin với hệ thống <span className="text-[#1279B8] font-bold">Doitay</span> để nhận thông báo việc làm từ khách hàng mới nhất.
+                                Tôi đồng ý đồng bộ thông tin với chợ thợ <span className="text-[#1279B8] font-bold">doitay.vn</span> để nhận thông báo việc làm từ khách hàng mới nhất.
                             </label>
                         </div>
                     </section>

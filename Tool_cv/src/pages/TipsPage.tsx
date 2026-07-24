@@ -61,7 +61,7 @@ export const TipsPage: React.FC<TipsPageProps> = ({ onBack }) => {
                 'Đánh giá 5 sao từ khách hàng thực sự là "vàng" trong ngành dịch vụ. 92% người dùng đọc đánh giá trước khi quyết định chọn thợ. Đây là cách thu thập đánh giá hiệu quả nhất.',
                 '## Tại sao đánh giá quan trọng?',
                 '**1. Bằng chứng xã hội (Social Proof)**\nKhi nhiều người khen ngợi bạn, khách hàng mới sẽ tin tưởng hơn. Đây là hiệu ứng tâm lý mạnh mẽ trong kinh doanh.',
-                '**2. Tăng vị trí hiển thị**\nTrên Doitay, hồ sơ có nhiều đánh giá tốt sẽ được ưu tiên hiển thị cho khách hàng đang tìm kiếm.',
+                '**2. Tăng vị trí hiển thị**\nTrên chợ thợ doitay.vn, hồ sơ có nhiều đánh giá tốt sẽ được ưu tiên hiển thị cho khách hàng đang tìm kiếm.',
                 '**3. Khách hàng sẵn sàng trả cao hơn**\nThợ có nhiều đánh giá 5 sao có thể báo giá cao hơn 10-20% mà khách vẫn chấp nhận.',
                 '## Cách xin đánh giá không ngại ngùng',
                 '**Thời điểm vàng:** Ngay sau khi hoàn thành và khách hàng tỏ ra hài lòng',
@@ -83,7 +83,7 @@ export const TipsPage: React.FC<TipsPageProps> = ({ onBack }) => {
             image: tip3Image,
             readTime: '2 phút đọc',
             fullContent: [
-                'Huy hiệu "Đã xác thực" là dấu hiệu nhận biết thợ uy tín trên Doitay. Khách hàng sẽ ưu tiên chọn thợ có huy hiệu này vì họ biết thông tin đã được kiểm chứng.',
+                'Huy hiệu "Đã xác thực" là dấu hiệu nhận biết thợ uy tín trên doitay.vn. Khách hàng sẽ ưu tiên chọn thợ có huy hiệu này vì họ biết thông tin đã được kiểm chứng.',
                 '## Lợi ích của việc xác thực',
                 '**1. Tăng 200% lượt liên hệ**\nKhách hàng tin tưởng và liên hệ nhiều hơn với thợ đã xác thực.',
                 '**2. Được ưu tiên hiển thị**\nHồ sơ có huy hiệu xác thực luôn xuất hiện đầu tiên trong kết quả tìm kiếm.',

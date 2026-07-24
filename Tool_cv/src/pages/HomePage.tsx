@@ -134,7 +134,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                                     {trade}{area ? ` • ${area}` : ''}
                                 </p>
                             </div>
-                            <img src={logoIcon} alt="Doitay" className="w-10 h-10 object-contain shrink-0 ml-3" />
+                            <img src={logoIcon} alt="Logo" className="w-10 h-10 object-contain shrink-0 ml-3" />
                         </div>
 
                         {/* QR */}

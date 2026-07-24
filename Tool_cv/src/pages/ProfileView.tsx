@@ -56,9 +56,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {/* Thanh trên */}
             <div className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border-light flex items-center justify-between px-4 h-16">
                 <div className="flex items-center gap-2.5 cursor-pointer" onClick={onBack}>
-                    <img src={logoIcon} alt="Doitay - Hồ Sơ Thợ" className="h-9 w-9 object-contain" />
+                    <img src={logoIcon} alt="Hồ Sơ Thợ" className="h-9 w-9 object-contain" />
                     <span className="font-extrabold text-[18px] tracking-tight text-navy">
-                        Doitay<span className="text-primary"> Hồ Sơ Thợ</span>
+                        Hồ Sơ<span className="text-primary"> Thợ</span>
                     </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -101,7 +101,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 {profile.isVerified && (
                     <div className="flex items-center gap-1.5 bg-green-soft px-3.5 py-1.5 rounded-full mt-2.5">
                         <Icon name="verified" size={18} color="#1E8849" />
-                        <span className="text-green text-[14px] font-bold">Doitay đã xác minh</span>
+                        <span className="text-green text-[14px] font-bold">Hồ sơ đã xác thực</span>
                     </div>
                 )}
 
