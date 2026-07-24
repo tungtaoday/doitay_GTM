@@ -63,7 +63,7 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                                 {trade}{area ? ` • ${area}` : ''}
                             </p>
                         </div>
-                        <img src={logoIcon} alt="Logo" className="w-9 h-9 object-contain shrink-0 ml-3" />
+                        <span className="shrink-0 ml-3 bg-white rounded-xl p-1.5 shadow-sm flex items-center justify-center"><img src={logoIcon} alt="Logo" className="w-7 h-7 object-contain" /></span>
                     </div>
 
                     <div className="bg-white rounded-2xl p-4 flex flex-col items-center">

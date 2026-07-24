@@ -3,6 +3,7 @@ import { UserProfile } from '../types';
 import { Icon } from '../components/Icon';
 import logoIcon from '../assets/logo-icon.png';
 import { QRCanvas } from '../components/QRCanvas';
+import { useToast } from '../components/Toast';
 import { getZaloChatUrl } from '../utils';
 import tip1Image from '../assets/tip1.jpg';
 import tip2Image from '../assets/tip2.jpg';
@@ -30,6 +31,33 @@ export const HomePage: React.FC<HomePageProps> = ({
     onViewTips,
     onLogout,
 }) => {
+    const toast = useToast();
+
+    /** Đưa hồ sơ lên chợ thợ doitay.vn: mở trang đăng ký web với SĐT điền sẵn. */
+    const openMarketplace = async () => {
+        const url = `https://doitay.vn/dang-ky?sdt=${encodeURIComponent(profile.phoneNumber || '')}&role=contractor&utm_source=miniapp`;
+        // Trong Zalo: mo webview chinh chu. Ngoai Zalo (trinh duyet): window.open truc tiep
+        // — zmp openWebview ngoai Zalo co the resolve "im lang" khong lam gi.
+        const inZalo = /zalo/i.test(navigator.userAgent) || Boolean((window as any).ZaloJavaScriptInterface);
+        try {
+            if (!inZalo) throw new Error('not-in-zalo');
+            const { openWebview } = await import('zmp-sdk/apis');
+            await openWebview({ url });
+        } catch {
+            try {
+                const w = window.open(url, '_blank');
+                if (!w) throw new Error('blocked');
+            } catch {
+                try {
+                    await navigator.clipboard.writeText(url);
+                    toast('Đã chép link đăng ký — anh mở trình duyệt dán vào nhé!');
+                } catch {
+                    toast('Anh mở doitay.vn/tuyen-dung-tho trên trình duyệt nhé!');
+                }
+            }
+        }
+    };
+
     const [showMenu, setShowMenu] = useState(false);
 
     const trade = profile.jobTitle || 'Thợ chuyên nghiệp';
@@ -134,7 +162,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                                     {trade}{area ? ` • ${area}` : ''}
                                 </p>
                             </div>
-                            <img src={logoIcon} alt="Logo" className="w-10 h-10 object-contain shrink-0 ml-3" />
+                            <span className="shrink-0 ml-3 bg-white rounded-xl p-1.5 shadow-sm flex items-center justify-center"><img src={logoIcon} alt="Logo" className="w-8 h-8 object-contain" /></span>
                         </div>
 
                         {/* QR */}
@@ -207,21 +235,20 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Lên chợ thợ doitay.vn — link THẬT (trang tuyển thợ), không phải hồ sơ ảo */}
                 <section className="w-full">
-                    <a
-                        href="https://doitay.vn/tuyen-dung-tho"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-card active:scale-[0.98] transition-transform"
+                    <button
+                        type="button"
+                        onClick={openMarketplace}
+                        className="w-full text-left flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-card active:scale-[0.98] transition-transform"
                     >
                         <div className="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
                             <Icon name="public" size={24} color="#006781" />
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-[16px] font-bold text-navy">Đưa hồ sơ lên chợ thợ doitay.vn</p>
-                            <p className="text-[14px] text-ink/60 truncate">Khách tìm thợ trên mạng sẽ thấy anh — miễn phí</p>
+                            <p className="text-[14px] text-ink/60 truncate">Đăng ký nhanh bằng SĐT của anh — miễn phí, khách trên mạng cũng tìm thấy</p>
                         </div>
                         <Icon name="arrow_forward" size={22} color="#006781" />
-                    </a>
+                    </button>
                 </section>
             </main>
 

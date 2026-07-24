@@ -51,7 +51,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                                 <p className="text-[20px] font-extrabold text-white leading-tight">Nguyễn Văn Tâm</p>
                                 <p className="text-[15px] font-semibold text-accent-cyan mt-0.5">Thợ điện nước • Hà Đông</p>
                             </div>
-                            <img src={logoIcon} alt="" className="w-9 h-9 object-contain opacity-90" />
+                            <span className="bg-white rounded-xl p-1.5 shadow-sm flex items-center justify-center"><img src={logoIcon} alt="" className="w-7 h-7 object-contain" /></span>
                         </div>
 
                         <div className="flex items-center gap-4 bg-white rounded-2xl p-4">
