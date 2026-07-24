@@ -94,14 +94,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                                 onClick={() => { onEditProfile?.(); setShowMenu(false); }}
                                 className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
                             >
-                                <Icon name="edit" size={22} color="#1279B8" />
+                                <Icon name="edit" size={22} color="#006781" />
                                 <span className="text-[16px] font-semibold">Sửa hồ sơ</span>
                             </button>
                             <button
                                 onClick={() => { onViewTips?.(); setShowMenu(false); }}
                                 className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
                             >
-                                <Icon name="star" size={22} color="#1279B8" />
+                                <Icon name="star" size={22} color="#006781" />
                                 <span className="text-[16px] font-semibold">Mẹo tăng uy tín</span>
                             </button>
                             <div className="border-t border-border-light my-1"></div>
@@ -120,7 +120,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <main className="flex flex-col w-full px-5 gap-7">
                 {/* ═══ THẺ THỢ — signature ═══ */}
                 <section className="w-full">
-                    <div className="relative bg-navy rounded-3xl pt-9 pb-6 px-6 shadow-badge">
+                    <div className="relative card-navy enter-up rounded-3xl pt-9 pb-6 px-6 shadow-badge">
                         {/* lỗ xỏ dây */}
                         <div className="badge-hole absolute top-3.5 left-1/2 -translate-x-1/2"></div>
 
@@ -162,7 +162,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <div className="flex flex-col gap-3 mt-4">
                         <button
                             onClick={onShareQR}
-                            className="w-full flex items-center justify-center gap-2.5 h-[56px] bg-green text-white rounded-2xl text-[17px] font-extrabold active:scale-[0.98] transition-transform"
+                            className="w-full flex items-center justify-center gap-2.5 h-[56px] bg-primary text-white rounded-2xl text-[17px] font-extrabold active:scale-[0.98] transition-transform"
                         >
                             <Icon name="share" size={22} color="white" />
                             Gửi thẻ cho khách
@@ -171,7 +171,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             onClick={onViewProfile}
                             className="w-full flex items-center justify-center gap-2.5 h-[52px] bg-white text-primary border-2 border-primary/25 rounded-2xl text-[16px] font-bold active:scale-[0.98] transition-transform"
                         >
-                            <Icon name="visibility" size={22} color="#1279B8" />
+                            <Icon name="visibility" size={22} color="#006781" />
                             Xem hồ sơ như khách xem
                         </button>
                     </div>
@@ -214,13 +214,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                         className="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-card active:scale-[0.98] transition-transform"
                     >
                         <div className="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="public" size={24} color="#1279B8" />
+                            <Icon name="public" size={24} color="#006781" />
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-[16px] font-bold text-navy">Đưa hồ sơ lên chợ thợ doitay.vn</p>
                             <p className="text-[14px] text-ink/60 truncate">Khách tìm thợ trên mạng sẽ thấy anh — miễn phí</p>
                         </div>
-                        <Icon name="arrow_forward" size={22} color="#1279B8" />
+                        <Icon name="arrow_forward" size={22} color="#006781" />
                     </a>
                 </section>
             </main>
@@ -229,7 +229,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <nav className="fixed bottom-0 inset-x-0 max-w-[430px] mx-auto bg-white border-t border-border-light z-50">
                 <div className="flex justify-around items-stretch pt-2 pb-5">
                     <button className="flex flex-col items-center justify-center flex-1 gap-1 py-1">
-                        <Icon name="home" size={26} color="#1279B8" />
+                        <Icon name="home" size={26} color="#006781" />
                         <span className="text-[12px] font-extrabold text-primary">Trang chủ</span>
                     </button>
                     <button

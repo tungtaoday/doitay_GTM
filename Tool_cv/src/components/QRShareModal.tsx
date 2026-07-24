@@ -37,7 +37,7 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-navy/60 p-0 sm:p-4">
-            <div className="bg-paper rounded-t-3xl sm:rounded-3xl p-5 pb-8 w-full max-w-sm shadow-2xl animate-fade-in">
+            <div className="bg-paper rounded-t-3xl sm:rounded-3xl p-5 pb-8 w-full max-w-sm shadow-2xl animate-sheet-up">
                 {/* Đầu modal */}
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[19px] font-extrabold text-navy">Thẻ thợ của anh</h3>
@@ -46,12 +46,12 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                         aria-label="Đóng"
                         className="flex items-center justify-center size-11 rounded-full bg-white shadow-card active:scale-95 transition-transform"
                     >
-                        <Icon name="close" size={24} color="#14324F" />
+                        <Icon name="close" size={24} color="#102F4B" />
                     </button>
                 </div>
 
                 {/* Tấm thẻ — đồng bộ signature */}
-                <div className="relative bg-navy rounded-3xl pt-8 pb-5 px-5 shadow-badge mb-5">
+                <div className="relative card-navy rounded-3xl pt-8 pb-5 px-5 shadow-badge mb-5">
                     <div className="badge-hole absolute top-3 left-1/2 -translate-x-1/2"></div>
 
                     <div className="flex items-start justify-between mb-4 mt-1">
@@ -107,7 +107,7 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                         onClick={copyShareText}
                         className="w-full flex items-center justify-center gap-2.5 h-[52px] bg-white text-navy rounded-2xl text-[16px] font-bold shadow-card active:scale-[0.98] transition-transform"
                     >
-                        <Icon name="content_copy" size={22} color="#14324F" />
+                        <Icon name="content_copy" size={22} color="#102F4B" />
                         Chép lời giới thiệu gửi khách
                     </button>
                 </div>

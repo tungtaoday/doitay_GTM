@@ -140,7 +140,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {profile.servicePrices && profile.servicePrices.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="payments" size={24} color="#1279B8" />
+                        <Icon name="payments" size={24} color="#006781" />
                         <h3 className="text-[19px] font-extrabold text-navy">Bảng giá</h3>
                     </div>
                     <div className="space-y-2.5">
@@ -173,7 +173,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {profile.skills && profile.skills.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="handyman" size={24} color="#1279B8" />
+                        <Icon name="handyman" size={24} color="#006781" />
                         <h3 className="text-[19px] font-extrabold text-navy">Việc nhận làm</h3>
                     </div>
                     <div className="flex flex-wrap gap-2.5">
@@ -193,7 +193,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {displayProjects.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="collections" size={24} color="#1279B8" />
+                        <Icon name="collections" size={24} color="#006781" />
                         <h3 className="text-[19px] font-extrabold text-navy">Ảnh công trình thật</h3>
                     </div>
                     <div className="flex flex-col gap-5">
@@ -224,7 +224,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                                     <h4 className="font-extrabold text-navy text-[16px]">{project.title}</h4>
                                     {project.location ? (
                                         <div className="mt-1.5 flex items-center gap-1.5 text-[14px] text-ink/60">
-                                            <Icon name="location_on" size={16} color="#1279B8" />
+                                            <Icon name="location_on" size={16} color="#006781" />
                                             <span>{project.location}</span>
                                         </div>
                                     ) : null}
@@ -239,7 +239,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {displayReviews.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-4 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="reviews" size={24} color="#1279B8" />
+                        <Icon name="reviews" size={24} color="#006781" />
                         <h3 className="text-[19px] font-extrabold text-navy">Khách nói gì</h3>
                     </div>
                     <div className="flex gap-3.5 overflow-x-auto no-scrollbar pb-2 snap-x">
@@ -272,7 +272,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         onClick={onShare}
                         className="flex items-center justify-center gap-2 h-[56px] px-5 rounded-2xl bg-primary-soft text-primary font-bold text-[16px] active:scale-[0.98] transition-transform"
                     >
-                        <Icon name="ios_share" size={22} color="#1279B8" />
+                        <Icon name="ios_share" size={22} color="#006781" />
                         Chia sẻ
                     </button>
                     <button

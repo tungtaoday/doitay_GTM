@@ -230,8 +230,8 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
             {/* Header */}
             <div className="flex items-center p-4 pb-4 justify-between sticky top-0 z-20 bg-white border-b border-gray-200">
                 {onBack && (
-                    <button onClick={onBack} className="text-[#1279B8] flex size-10 shrink-0 items-center justify-start">
-                        <Icon name="arrow_back_ios" size={24} color="#1279B8" />
+                    <button onClick={onBack} className="text-[#006781] flex size-10 shrink-0 items-center justify-start">
+                        <Icon name="arrow_back_ios" size={24} color="#006781" />
                     </button>
                 )}
                 <h2 className="text-navy text-[18px] font-extrabold leading-tight flex-1 text-center pr-10">
@@ -267,7 +267,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                     <>
                         <section>
                             <div className="flex items-center gap-2 mb-4">
-                                <Icon name="person" size={24} color="#1279B8" />
+                                <Icon name="person" size={24} color="#006781" />
                                 <h3 className="text-slate-900 text-lg font-bold">Thông tin cơ bản</h3>
                             </div>
                             <div className="flex flex-col gap-5">
@@ -288,13 +288,13 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                                     className="w-full h-full object-cover"
                                                 />
                                             ) : (
-                                                <Icon name="person" size={48} color="#1279B8" />
+                                                <Icon name="person" size={48} color="#006781" />
                                             )}
                                         </div>
                                         <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                             <Icon name="camera_alt" size={28} color="white" />
                                         </div>
-                                        <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#1279B8] flex items-center justify-center border-2 border-white shadow-md">
+                                        <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#006781] flex items-center justify-center border-2 border-white shadow-md">
                                             <Icon name="edit" size={16} color="white" />
                                         </div>
                                     </div>
@@ -343,7 +343,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                         >
                                             <Icon name="remove" size={24} />
                                         </button>
-                                        <div className="flex-1 h-12 flex items-center justify-center rounded-lg bg-white border border-gray-200 font-bold text-lg text-[#1279B8] shadow-sm">
+                                        <div className="flex-1 h-12 flex items-center justify-center rounded-lg bg-white border border-gray-200 font-bold text-lg text-[#006781] shadow-sm">
                                             {formData.experienceYears}
                                         </div>
                                         <button
@@ -366,7 +366,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                         {/* Skills Section */}
                         <section>
                             <div className="flex items-center gap-2 mb-1">
-                                <Icon name="engineering" size={24} color="#1279B8" />
+                                <Icon name="engineering" size={24} color="#006781" />
                                 <h3 className="text-slate-900 text-lg font-bold">Chuyên môn dịch vụ</h3>
                             </div>
                             <p className="text-slate-500 text-xs mb-4">Chọn các lĩnh vực bạn có tay nghề tốt nhất</p>
@@ -378,17 +378,17 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                             key={skill.name}
                                             onClick={() => toggleSkill(skill.name)}
                                             className={`relative flex flex-col items-center justify-center p-3 rounded-xl gap-1.5 cursor-pointer transition-all ${isSelected
-                                                ? 'bg-white border-2 border-[#1279B8] shadow-sm'
+                                                ? 'bg-white border-2 border-[#006781] shadow-sm'
                                                 : 'bg-gray-50 border border-gray-200 hover:bg-white hover:border-slate-300'
                                                 }`}
                                         >
                                             {isSelected && (
-                                                <div className="absolute top-2 right-2 bg-[#1279B8] rounded-full w-5 h-5 flex items-center justify-center">
+                                                <div className="absolute top-2 right-2 bg-[#006781] rounded-full w-5 h-5 flex items-center justify-center">
                                                     <Icon name="check" size={14} color="white" />
                                                 </div>
                                             )}
-                                            <Icon name={skill.icon} size={24} color={isSelected ? '#1279B8' : '#64748b'} />
-                                            <span className={`text-xs font-medium text-center ${isSelected ? 'font-bold text-[#1279B8]' : 'text-slate-700'}`}>
+                                            <Icon name={skill.icon} size={24} color={isSelected ? '#006781' : '#64748b'} />
+                                            <span className={`text-xs font-medium text-center ${isSelected ? 'font-bold text-[#006781]' : 'text-slate-700'}`}>
                                                 {skill.name}
                                             </span>
                                         </div>
@@ -398,10 +398,10 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                             {!showAllSkills && (
                                 <button
                                     onClick={() => setShowAllSkills(true)}
-                                    className="w-full mt-3 py-2 text-sm font-semibold text-[#1279B8] hover:underline flex items-center justify-center gap-1"
+                                    className="w-full mt-3 py-2 text-sm font-semibold text-[#006781] hover:underline flex items-center justify-center gap-1"
                                 >
                                     Xem thêm {SKILL_OPTIONS_WITH_ICONS.length - 8} kỹ năng khác
-                                    <Icon name="expand_more" size={16} color="#1279B8" />
+                                    <Icon name="expand_more" size={16} color="#006781" />
                                 </button>
                             )}
                         </section>
@@ -409,7 +409,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                         {/* Pricing Section */}
                         <section className="pt-4 border-t border-gray-100">
                             <div className="flex items-center gap-2 mb-1">
-                                <Icon name="payments" size={24} color="#1279B8" />
+                                <Icon name="payments" size={24} color="#006781" />
                                 <h3 className="text-slate-900 text-lg font-bold">Bảng giá dịch vụ</h3>
                                 <span className="text-xs text-slate-400 ml-auto">(Tùy chọn)</span>
                             </div>
@@ -422,7 +422,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                         <div key={idx} className="flex items-center justify-between bg-blue-50 p-3 rounded-lg border border-blue-100">
                                             <div>
                                                 <p className="text-sm font-semibold text-slate-800">{price.service}</p>
-                                                <p className="text-xs text-[#1279B8] font-bold">
+                                                <p className="text-xs text-[#006781] font-bold">
                                                     {formatPrice(price.minPrice)} - {formatPrice(price.maxPrice)}
                                                 </p>
                                             </div>
@@ -461,7 +461,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                             value={customService}
                                             onChange={(e) => setCustomService(e.target.value)}
                                             placeholder="Gõ tên dịch vụ của anh, VD: Sửa mái tôn dột"
-                                            className="w-full rounded-lg border border-[#1279B8] bg-white p-3 text-slate-900 text-sm"
+                                            className="w-full rounded-lg border border-[#006781] bg-white p-3 text-slate-900 text-sm"
                                             autoFocus
                                         />
                                     )}
@@ -490,7 +490,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     <button
                                         onClick={addServicePrice}
                                         disabled={!newPrice.service || newPrice.minPrice <= 0 || (newPrice.service === '__custom__' && !customService.trim())}
-                                        className="w-full py-2.5 rounded-lg bg-[#1279B8] text-white text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                        className="w-full py-2.5 rounded-lg bg-[#006781] text-white text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                     >
                                         <Icon name="add" size={18} color="white" />
                                         Thêm dịch vụ
@@ -505,7 +505,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                 {step === 3 && (
                     <section>
                         <div className="flex items-center gap-2 mb-1">
-                            <Icon name="photo_library" size={24} color="#1279B8" />
+                            <Icon name="photo_library" size={24} color="#006781" />
                             <h3 className="text-slate-900 text-lg font-bold">Dự án đã thực hiện</h3>
                         </div>
                         <p className="text-slate-500 text-xs mb-4">Mỗi dự án gồm: Tên + Ảnh trước + Ảnh sau. Tăng 80% độ tin tưởng!</p>
@@ -603,7 +603,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     onClick={addProject}
                                     className="flex items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 hover:border-blue-400 hover:bg-blue-50 transition-all"
                                 >
-                                    <Icon name="add" size={24} color="#1279B8" />
+                                    <Icon name="add" size={24} color="#006781" />
                                     <span className="text-sm font-bold text-slate-600">Thêm dự án ({projects.length}/3)</span>
                                 </button>
                             )}
@@ -617,11 +617,11 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     id="sync-consent"
                                     checked={syncConsent}
                                     onChange={(e) => setSyncConsent(e.target.checked)}
-                                    className="w-5 h-5 rounded border-slate-300 bg-white text-[#1279B8] focus:ring-[#1279B8] focus:ring-offset-0"
+                                    className="w-5 h-5 rounded border-slate-300 bg-white text-[#006781] focus:ring-[#006781] focus:ring-offset-0"
                                 />
                             </div>
                             <label className="text-sm text-slate-600 leading-tight select-none" htmlFor="sync-consent">
-                                Tôi đồng ý đồng bộ thông tin với chợ thợ <span className="text-[#1279B8] font-bold">doitay.vn</span> để nhận thông báo việc làm từ khách hàng mới nhất.
+                                Tôi đồng ý đồng bộ thông tin với chợ thợ <span className="text-[#006781] font-bold">doitay.vn</span> để nhận thông báo việc làm từ khách hàng mới nhất.
                             </label>
                         </div>
                     </section>

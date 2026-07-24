@@ -12,7 +12,7 @@ export const QRCanvas: React.FC<{
     className?: string;
     /** Màu QR — mặc định navy thẻ thợ */
     dark?: string;
-}> = ({ value, size = 200, className, dark = '#14324F' }) => {
+}> = ({ value, size = 200, className, dark = '#102F4B' }) => {
     const ref = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {

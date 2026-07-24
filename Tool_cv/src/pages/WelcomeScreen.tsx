@@ -42,7 +42,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                     <span className="absolute -top-2.5 right-4 z-10 rounded-full bg-amber px-3 py-1 text-[12px] font-extrabold text-navy shadow">
                         MẪU
                     </span>
-                    <div className="relative bg-navy rounded-3xl pt-8 pb-6 px-6 shadow-badge">
+                    <div className="relative card-navy enter-up-1 rounded-3xl pt-8 pb-6 px-6 shadow-badge">
                         {/* lỗ xỏ dây */}
                         <div className="badge-hole absolute top-3 left-1/2 -translate-x-1/2"></div>
 
@@ -87,7 +87,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                     </div>
                     <div className="flex items-center gap-3.5 bg-white rounded-2xl px-4 py-3.5 shadow-card">
                         <div className="w-11 h-11 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="schedule" size={22} color="#1279B8" />
+                            <Icon name="schedule" size={22} color="#006781" />
                         </div>
                         <p className="text-[16px] font-semibold text-ink">
                             Làm xong trong 2 phút <span className="font-normal text-ink/60">— chỉ cần vài tấm ảnh</span>
@@ -95,7 +95,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                     </div>
                     <div className="flex items-center gap-3.5 bg-white rounded-2xl px-4 py-3.5 shadow-card">
                         <div className="w-11 h-11 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="share" size={22} color="#1279B8" />
+                            <Icon name="share" size={22} color="#006781" />
                         </div>
                         <p className="text-[16px] font-semibold text-ink">
                             Gửi khách qua Zalo <span className="font-normal text-ink/60">— hoặc in mã dán tiệm</span>
@@ -108,7 +108,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
             <div className="w-full bg-white px-5 pt-4 pb-7 shadow-[0_-6px_20px_rgba(20,50,79,0.08)]">
                 <button
                     onClick={onGetStarted}
-                    className="w-full flex items-center justify-center gap-2.5 rounded-2xl h-[58px] bg-green text-white text-[18px] font-extrabold active:scale-[0.98] transition-transform"
+                    className="w-full flex items-center justify-center gap-2.5 rounded-2xl h-[58px] bg-primary text-white text-[18px] font-extrabold active:scale-[0.98] transition-transform"
                 >
                     Làm thẻ thợ của tôi — MIỄN PHÍ
                 </button>

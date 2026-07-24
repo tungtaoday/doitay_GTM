@@ -11,11 +11,11 @@ module.exports = {
     extend: {
       colors: {
         // Hành động chính — sky Doitay làm đậm để đạt tương phản AA trên nền trắng
-        "primary": "#1279B8",
-        "secondary": "#0E5F91",          // trạng thái nhấn/press
-        "primary-soft": "#E3F2FA",       // nền chip/selected
+        "primary": "#006781",
+        "secondary": "#00546A",          // trạng thái nhấn/press
+        "primary-soft": "#E5F1F4",       // nền chip/selected
         // Nhận diện
-        "navy": "#14324F",               // thẻ thợ, tiêu đề — màu áo bảo hộ
+        "navy": "#102F4B",               // thẻ thợ, tiêu đề — màu áo bảo hộ
         "ink": "#1B2B3A",                // chữ nội dung
         "green": "#1E8849",              // miễn phí / gọi điện / thành công
         "green-soft": "#E6F4EC",
@@ -23,7 +23,7 @@ module.exports = {
         "paper": "#F3F6F9",              // nền trang
         // Khoá cũ giữ lại để trang chưa redesign không vỡ
         "dark-bg": "#070A15",
-        "accent-cyan": "#2B9FD4",
+        "accent-cyan": "#48BBE2",
         "surface-dark": "#111827",
         "background-light": "#F3F6F9",
         "background-dark": "#111621",
@@ -32,7 +32,7 @@ module.exports = {
       },
       fontFamily: {
         // System stack: Roboto trên Android (máy thợ dùng) — tải tức thì, tiếng Việt chuẩn
-        "display": ["-apple-system", "BlinkMacSystemFont", "Roboto", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"],
+        "display": ["Be Vietnam Pro", "-apple-system", "BlinkMacSystemFont", "Roboto", "Segoe UI", "Arial", "sans-serif"],
       },
       borderRadius: {
         "DEFAULT": "0.375rem",
@@ -43,8 +43,8 @@ module.exports = {
         "full": "9999px",
       },
       boxShadow: {
-        "card": "0 1px 3px rgba(20,50,79,0.08), 0 4px 14px rgba(20,50,79,0.06)",
-        "badge": "0 10px 30px rgba(20,50,79,0.35)",
+        "card": "0 1px 3px rgba(16,47,75,0.08), 0 4px 14px rgba(16,47,75,0.06)",
+        "badge": "0 10px 30px rgba(16,47,75,0.35)",
       },
     },
   },
