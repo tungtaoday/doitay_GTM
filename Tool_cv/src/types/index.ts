@@ -94,6 +94,20 @@ export const JOB_TITLES = [
 ];
 
 // Common service examples for pricing
+// Dịch vụ gợi ý THEO NGHỀ — dropdown bảng giá ăn theo chuyên môn thợ đã chọn.
+export const SERVICES_BY_TRADE: Record<string, string[]> = {
+    'Thợ Điện': ['Sửa chập / mất điện', 'Lắp đèn, ổ cắm, công tắc', 'Lắp quạt trần / quạt hút', 'Đi dây điện nổi / âm tường', 'Lắp tủ điện, aptomat', 'Sửa bình nóng lạnh'],
+    'Thợ Nước': ['Sửa rò rỉ ống nước', 'Thông tắc cống / bồn cầu', 'Lắp vòi, chậu rửa', 'Lắp bồn cầu, thiết bị vệ sinh', 'Lắp máy bơm nước', 'Đi đường ống mới'],
+    'Thợ Điều Hòa': ['Vệ sinh điều hòa', 'Bơm gas điều hòa', 'Lắp đặt điều hòa mới', 'Tháo / di dời điều hòa', 'Sửa điều hòa không mát', 'Bảo dưỡng định kỳ'],
+    'Thợ Xây Dựng': ['Xây, trát tường', 'Sửa chữa cải tạo nhà', 'Chống thấm tường / sân thượng', 'Đổ bê tông', 'Lát nền'],
+    'Thợ Sơn': ['Sơn tường trong nhà (m²)', 'Sơn ngoại thất (m²)', 'Bả matit (m²)', 'Xử lý chống thấm, nấm mốc'],
+    'Thợ Mộc': ['Đóng tủ, kệ theo yêu cầu', 'Sửa cửa gỗ, bản lề', 'Lắp sàn gỗ', 'Đánh vecni / sơn PU'],
+    'Thợ Ốp Lát': ['Ốp lát gạch nền (m²)', 'Ốp tường, nhà vệ sinh (m²)', 'Xử lý gạch bong rộp'],
+    'Thợ Hàn': ['Hàn cửa sắt, lan can', 'Làm khung mái tôn', 'Hàn sửa đồ inox', 'Làm khung sắt theo yêu cầu'],
+    'Thợ Vệ Sinh': ['Tổng vệ sinh nhà (gói)', 'Vệ sinh sofa, nệm, rèm', 'Vệ sinh kính, mặt tiền'],
+    'Thợ Sửa Chữa Tổng Hợp': ['Sửa chữa vặt trong nhà', 'Lắp đặt thiết bị gia dụng', 'Khoan tường, treo kệ / tranh', 'Sửa khóa, bản lề cửa'],
+};
+
 export const COMMON_SERVICES = [
     'Sửa ống nước',
     'Thông tắc cống',

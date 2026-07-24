@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { UserProfile, SKILL_OPTIONS_WITH_ICONS, COMMON_SERVICES, ProjectImage, ServicePrice, CustomerReview, PortfolioProject } from '../types';
+import { UserProfile, SKILL_OPTIONS_WITH_ICONS, COMMON_SERVICES, SERVICES_BY_TRADE, ProjectImage, ServicePrice, CustomerReview, PortfolioProject } from '../types';
 import { Icon } from '../components/Icon';
 
 interface ProfileInputProps {
@@ -47,6 +47,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
         minPrice: 0,
         maxPrice: 0,
     });
+    const [customService, setCustomService] = useState('');
 
     // Customer reviews state - load from initialData if available
     const [customerReviews, setCustomerReviews] = useState<CustomerReview[]>(
@@ -155,7 +156,9 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
     const addServicePrice = () => {
         if (newPrice.service && newPrice.minPrice > 0) {
             const prices = formData.servicePrices || [];
-            handleChange('servicePrices', [...prices, { ...newPrice }]);
+            const serviceName = newPrice.service === '__custom__' ? customService.trim() : newPrice.service;
+            handleChange('servicePrices', [...prices, { ...newPrice, service: serviceName }]);
+            setCustomService('');
             setNewPrice({ service: '', minPrice: 0, maxPrice: 0 });
         }
     };
@@ -443,10 +446,25 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                         className="w-full rounded-lg border border-gray-200 bg-white p-3 text-slate-900 text-sm"
                                     >
                                         <option value="">Chọn dịch vụ...</option>
-                                        {COMMON_SERVICES.map(service => (
+                                        {/* Gợi ý ĂN THEO chuyên môn đã chọn ở trên; chưa chọn nghề → danh sách chung */}
+                                        {((formData.skills && formData.skills.length > 0)
+                                            ? Array.from(new Set(formData.skills.flatMap(sk => SERVICES_BY_TRADE[sk] || [])))
+                                            : COMMON_SERVICES
+                                        ).map(service => (
                                             <option key={service} value={service}>{service}</option>
                                         ))}
+                                        <option value="__custom__">✏️ Dịch vụ khác (tự nhập)...</option>
                                     </select>
+                                    {newPrice.service === '__custom__' && (
+                                        <input
+                                            type="text"
+                                            value={customService}
+                                            onChange={(e) => setCustomService(e.target.value)}
+                                            placeholder="Gõ tên dịch vụ của anh, VD: Sửa mái tôn dột"
+                                            className="w-full rounded-lg border border-[#1279B8] bg-white p-3 text-slate-900 text-sm"
+                                            autoFocus
+                                        />
+                                    )}
                                     <div className="flex gap-2">
                                         <div className="flex-1">
                                             <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Giá từ (VNĐ)</label>
@@ -471,7 +489,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     </div>
                                     <button
                                         onClick={addServicePrice}
-                                        disabled={!newPrice.service || newPrice.minPrice <= 0}
+                                        disabled={!newPrice.service || newPrice.minPrice <= 0 || (newPrice.service === '__custom__' && !customService.trim())}
                                         className="w-full py-2.5 rounded-lg bg-[#1279B8] text-white text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                     >
                                         <Icon name="add" size={18} color="white" />
