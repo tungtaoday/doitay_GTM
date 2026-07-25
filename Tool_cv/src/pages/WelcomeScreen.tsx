@@ -87,7 +87,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                     </div>
                     <div className="flex items-center gap-3.5 bg-white rounded-2xl px-4 py-3.5 shadow-card">
                         <div className="w-11 h-11 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="schedule" size={22} color="#006781" />
+                            <Icon name="schedule" size={22} color="#1E8849" />
                         </div>
                         <p className="text-[16px] font-semibold text-ink">
                             Làm xong trong 2 phút <span className="font-normal text-ink/60">— chỉ cần vài tấm ảnh</span>
@@ -95,7 +95,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                     </div>
                     <div className="flex items-center gap-3.5 bg-white rounded-2xl px-4 py-3.5 shadow-card">
                         <div className="w-11 h-11 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="share" size={22} color="#006781" />
+                            <Icon name="share" size={22} color="#1E8849" />
                         </div>
                         <p className="text-[16px] font-semibold text-ink">
                             Gửi khách qua Zalo <span className="font-normal text-ink/60">— hoặc in mã dán tiệm</span>

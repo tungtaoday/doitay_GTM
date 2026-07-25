@@ -11,9 +11,9 @@ module.exports = {
     extend: {
       colors: {
         // Hành động chính — sky Doitay làm đậm để đạt tương phản AA trên nền trắng
-        "primary": "#006781",
-        "secondary": "#00546A",          // trạng thái nhấn/press
-        "primary-soft": "#E5F1F4",       // nền chip/selected
+        "primary": "#1E8849",
+        "secondary": "#166B3A",          // trạng thái nhấn/press
+        "primary-soft": "#E6F4EC",       // nền chip/selected
         // Nhận diện
         "navy": "#102F4B",               // thẻ thợ, tiêu đề — màu áo bảo hộ
         "ink": "#1B2B3A",                // chữ nội dung

@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProfile, ProjectImage } from '../types';
 import { Icon } from '../components/Icon';
-import logoIcon from '../assets/logo-icon.png';
+import { TopBar } from '../components/TopBar';
 
 interface ProfileViewProps {
     profile: UserProfile;
@@ -53,33 +53,30 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
     return (
         <div className="relative min-h-screen w-full max-w-[430px] mx-auto bg-paper font-display pb-[120px]">
-            {/* Thanh trên */}
-            <div className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border-light flex items-center justify-between px-4 h-16">
-                <div className="flex items-center gap-2.5 cursor-pointer" onClick={onBack}>
-                    <img src={logoIcon} alt="Hồ Sơ Thợ" className="h-9 w-9 object-contain" />
-                    <span className="font-extrabold text-[18px] tracking-tight text-navy">
-                        Hồ Sơ<span className="text-primary"> Thợ</span>
-                    </span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={onShare}
-                        aria-label="Chia sẻ hồ sơ"
-                        className="flex items-center justify-center size-11 rounded-full bg-paper text-navy active:scale-95 transition-transform"
-                    >
-                        <Icon name="ios_share" size={22} />
-                    </button>
-                    {onEdit && (
+            {/* Thanh trên — thống nhất với các màn khác */}
+            <TopBar
+                onBrandClick={onBack}
+                right={
+                    <>
                         <button
-                            onClick={onEdit}
-                            aria-label="Sửa hồ sơ"
+                            onClick={onShare}
+                            aria-label="Chia sẻ hồ sơ"
                             className="flex items-center justify-center size-11 rounded-full bg-paper text-navy active:scale-95 transition-transform"
                         >
-                            <Icon name="edit" size={22} />
+                            <Icon name="ios_share" size={22} />
                         </button>
-                    )}
-                </div>
-            </div>
+                        {onEdit && (
+                            <button
+                                onClick={onEdit}
+                                aria-label="Sửa hồ sơ"
+                                className="flex items-center justify-center size-11 rounded-full bg-paper text-navy active:scale-95 transition-transform"
+                            >
+                                <Icon name="edit" size={22} />
+                            </button>
+                        )}
+                    </>
+                }
+            />
 
             {/* Đầu hồ sơ */}
             <div className="relative flex flex-col items-center pt-8 px-5 pb-7 bg-white mb-2.5 rounded-b-3xl shadow-card">
@@ -128,11 +125,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         <span className="font-extrabold text-[19px] text-navy">{profile.experienceYears}+</span>
                         <span className="text-[13px] text-ink/60 font-medium mt-0.5">Năm làm nghề</span>
                     </div>
-                    <div className="w-px h-9 bg-border-light"></div>
-                    <div className="flex flex-col items-center flex-1">
-                        <span className="font-extrabold text-[19px] text-navy">{displayProjects.length}</span>
-                        <span className="text-[13px] text-ink/60 font-medium mt-0.5">Công trình</span>
-                    </div>
                 </div>
             </div>
 
@@ -140,7 +132,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {profile.servicePrices && profile.servicePrices.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="payments" size={24} color="#006781" />
+                        <Icon name="payments" size={24} color="#1E8849" />
                         <h3 className="text-[19px] font-extrabold text-navy">Bảng giá</h3>
                     </div>
                     <div className="space-y-2.5">
@@ -173,7 +165,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {profile.skills && profile.skills.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="handyman" size={24} color="#006781" />
+                        <Icon name="handyman" size={24} color="#1E8849" />
                         <h3 className="text-[19px] font-extrabold text-navy">Việc nhận làm</h3>
                     </div>
                     <div className="flex flex-wrap gap-2.5">
@@ -193,7 +185,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {displayProjects.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-2.5 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="collections" size={24} color="#006781" />
+                        <Icon name="collections" size={24} color="#1E8849" />
                         <h3 className="text-[19px] font-extrabold text-navy">Ảnh công trình thật</h3>
                     </div>
                     <div className="flex flex-col gap-5">
@@ -224,7 +216,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                                     <h4 className="font-extrabold text-navy text-[16px]">{project.title}</h4>
                                     {project.location ? (
                                         <div className="mt-1.5 flex items-center gap-1.5 text-[14px] text-ink/60">
-                                            <Icon name="location_on" size={16} color="#006781" />
+                                            <Icon name="location_on" size={16} color="#1E8849" />
                                             <span>{project.location}</span>
                                         </div>
                                     ) : null}
@@ -239,7 +231,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             {displayReviews.length > 0 && (
                 <div className="px-5 py-6 bg-white mb-4 shadow-card">
                     <div className="flex items-center gap-2.5 mb-4">
-                        <Icon name="reviews" size={24} color="#006781" />
+                        <Icon name="reviews" size={24} color="#1E8849" />
                         <h3 className="text-[19px] font-extrabold text-navy">Khách nói gì</h3>
                     </div>
                     <div className="flex gap-3.5 overflow-x-auto no-scrollbar pb-2 snap-x">
@@ -272,7 +264,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         onClick={onShare}
                         className="flex items-center justify-center gap-2 h-[56px] px-5 rounded-2xl bg-primary-soft text-primary font-bold text-[16px] active:scale-[0.98] transition-transform"
                     >
-                        <Icon name="ios_share" size={22} color="#006781" />
+                        <Icon name="ios_share" size={22} color="#1E8849" />
                         Chia sẻ
                     </button>
                     <button

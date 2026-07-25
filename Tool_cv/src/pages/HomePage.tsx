@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 import logoIcon from '../assets/logo-icon.png';
 import { QRCanvas } from '../components/QRCanvas';
 import { useToast } from '../components/Toast';
+import { TopBar } from '../components/TopBar';
 import { getZaloChatUrl } from '../utils';
 import tip1Image from '../assets/tip1.jpg';
 import tip2Image from '../assets/tip2.jpg';
@@ -93,32 +94,18 @@ export const HomePage: React.FC<HomePageProps> = ({
     return (
         <div className="bg-paper font-display text-ink antialiased pb-28 min-h-screen max-w-[430px] mx-auto">
             {/* Đầu trang */}
-            <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm">
-                <div className="flex items-center px-5 py-4 justify-between">
-                    <div className="flex items-center gap-3">
-                        <div
-                            className="bg-center bg-no-repeat bg-cover rounded-full size-11 border-2 border-white shadow-card shrink-0"
-                            style={profile.avatarUrl ? { backgroundImage: `url("${profile.avatarUrl}")` } : undefined}
-                        >
-                            {!profile.avatarUrl && (
-                                <div className="size-full flex items-center justify-center bg-primary text-white text-[18px] font-extrabold rounded-full">
-                                    {profile.displayName.charAt(0)}
-                                </div>
-                            )}
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-[13px] text-ink/60 font-medium">Chào anh,</span>
-                            <h2 className="text-navy text-[17px] font-extrabold leading-tight">{profile.displayName}</h2>
-                        </div>
-                    </div>
+            <TopBar
+                right={
                     <button
                         onClick={() => setShowMenu(!showMenu)}
                         aria-label="Mở menu"
-                        className="flex items-center justify-center size-11 rounded-full bg-white shadow-card text-navy active:scale-95 transition-transform"
+                        className="flex items-center justify-center size-11 rounded-full bg-paper text-navy active:scale-95 transition-transform"
                     >
                         <Icon name="menu" size={24} />
                     </button>
-                </div>
+                }
+            />
+            <div className="relative">
 
                 {showMenu && (
                     <>
@@ -128,14 +115,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                                 onClick={() => { onEditProfile?.(); setShowMenu(false); }}
                                 className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
                             >
-                                <Icon name="edit" size={22} color="#006781" />
+                                <Icon name="edit" size={22} color="#1E8849" />
                                 <span className="text-[16px] font-semibold">Sửa hồ sơ</span>
                             </button>
                             <button
                                 onClick={() => { onViewTips?.(); setShowMenu(false); }}
                                 className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
                             >
-                                <Icon name="star" size={22} color="#006781" />
+                                <Icon name="star" size={22} color="#1E8849" />
                                 <span className="text-[16px] font-semibold">Mẹo tăng uy tín</span>
                             </button>
                             <div className="border-t border-border-light my-1"></div>
@@ -149,7 +136,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                         </div>
                     </>
                 )}
-            </header>
+            </div>
+
+            {/* Chào thợ — cá nhân hoá ngay dưới thanh thương hiệu */}
+            <div className="px-5 pt-4 pb-1">
+                <p className="text-[14px] text-ink/60 font-medium">Chào anh,</p>
+                <h2 className="text-navy text-[20px] font-extrabold leading-tight">{profile.displayName}</h2>
+            </div>
 
             <main className="flex flex-col w-full px-5 gap-7">
                 {/* ═══ THẺ THỢ — signature ═══ */}
@@ -205,7 +198,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             onClick={onViewProfile}
                             className="w-full flex items-center justify-center gap-2.5 h-[52px] bg-white text-primary border-2 border-primary/25 rounded-2xl text-[16px] font-bold active:scale-[0.98] transition-transform"
                         >
-                            <Icon name="visibility" size={22} color="#006781" />
+                            <Icon name="visibility" size={22} color="#1E8849" />
                             Xem hồ sơ như khách xem
                         </button>
                     </div>
@@ -247,7 +240,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                         className="w-full text-left flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-card active:scale-[0.98] transition-transform"
                     >
                         <div className="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center shrink-0">
-                            <Icon name="public" size={24} color="#006781" />
+                            <Icon name="public" size={24} color="#1E8849" />
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-[16px] font-bold text-navy">
@@ -259,7 +252,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                                     : 'Đăng ký nhanh bằng SĐT của anh — miễn phí, khách trên mạng cũng tìm thấy'}
                             </p>
                         </div>
-                        <Icon name="arrow_forward" size={22} color="#006781" />
+                        <Icon name="arrow_forward" size={22} color="#1E8849" />
                     </button>
                 </section>
             </main>
@@ -268,7 +261,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <nav className="fixed bottom-0 inset-x-0 max-w-[430px] mx-auto bg-white border-t border-border-light z-50">
                 <div className="flex justify-around items-stretch pt-2 pb-5">
                     <button className="flex flex-col items-center justify-center flex-1 gap-1 py-1">
-                        <Icon name="home" size={26} color="#006781" />
+                        <Icon name="home" size={26} color="#1E8849" />
                         <span className="text-[12px] font-extrabold text-primary">Trang chủ</span>
                     </button>
                     <button
