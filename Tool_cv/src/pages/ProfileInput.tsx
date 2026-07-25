@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { UserProfile, SKILL_OPTIONS_WITH_ICONS, COMMON_SERVICES, SERVICES_BY_TRADE, ProjectImage, ServicePrice, CustomerReview, PortfolioProject } from '../types';
+import { groupThousands, digitsOnly } from '../utils';
 import { Icon } from '../components/Icon';
 
 interface ProfileInputProps {
@@ -469,23 +470,31 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                     <div className="flex gap-2">
                                         <div className="flex-1">
                                             <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Giá từ (VNĐ)</label>
-                                            <input
-                                                type="number"
-                                                value={newPrice.minPrice || ''}
-                                                onChange={(e) => setNewPrice(prev => ({ ...prev, minPrice: Number(e.target.value) }))}
-                                                className="w-full rounded-lg border border-gray-200 bg-white p-2.5 text-sm"
-                                                placeholder="100000"
-                                            />
+                                            <div className="relative">
+                                                <input
+                                                    type="text"
+                                                    inputMode="numeric"
+                                                    value={newPrice.minPrice ? groupThousands(String(newPrice.minPrice)) : ''}
+                                                    onChange={(e) => setNewPrice(prev => ({ ...prev, minPrice: Number(digitsOnly(e.target.value)) }))}
+                                                    className="w-full rounded-lg border border-gray-200 bg-white p-2.5 pr-8 text-sm font-semibold"
+                                                    placeholder="100.000"
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-ink/40 font-medium pointer-events-none">đ</span>
+                                            </div>
                                         </div>
                                         <div className="flex-1">
                                             <label className="text-[14px] font-semibold text-ink/70 mb-1.5 block">Đến (VNĐ)</label>
-                                            <input
-                                                type="number"
-                                                value={newPrice.maxPrice || ''}
-                                                onChange={(e) => setNewPrice(prev => ({ ...prev, maxPrice: Number(e.target.value) }))}
-                                                className="w-full rounded-lg border border-gray-200 bg-white p-2.5 text-sm"
-                                                placeholder="300000"
-                                            />
+                                            <div className="relative">
+                                                <input
+                                                    type="text"
+                                                    inputMode="numeric"
+                                                    value={newPrice.maxPrice ? groupThousands(String(newPrice.maxPrice)) : ''}
+                                                    onChange={(e) => setNewPrice(prev => ({ ...prev, maxPrice: Number(digitsOnly(e.target.value)) }))}
+                                                    className="w-full rounded-lg border border-gray-200 bg-white p-2.5 pr-8 text-sm font-semibold"
+                                                    placeholder="300.000"
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-ink/40 font-medium pointer-events-none">đ</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <button

@@ -191,3 +191,12 @@ export const getShareText = (profile: {
         '— Thẻ thợ tạo trên Hồ Sơ Thợ (doitay.vn)',
     ].filter(Boolean).join('\n');
 };
+
+/** Chỉ giữ chữ số. "100.000đ" -> "100000" */
+export const digitsOnly = (v: string): string => (v || '').replace(/\D/g, '');
+
+/** Chèn dấu chấm phân cách nghìn khi gõ. "100000" -> "100.000", "" -> "" */
+export const groupThousands = (v: string): string => {
+    const d = digitsOnly(v);
+    return d ? Number(d).toLocaleString('vi-VN') : '';
+};
