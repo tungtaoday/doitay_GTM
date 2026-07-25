@@ -265,3 +265,28 @@ export const getShareTarget = (profile: { companyId?: number; reviewStatus?: str
     }
     return getZaloChatUrl(profile.phoneNumber) || DOITAY_WEB + '/tuyen-dung-tho';
 };
+
+/** Đọc companyId từ tham số khởi chạy (khi khách mở Mini App từ thẻ được chia sẻ). */
+export const getLaunchThoId = (): number | null => {
+    try {
+        const fromSearch = new URLSearchParams(window.location.search).get('tho');
+        const hash = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : '';
+        const fromHash = new URLSearchParams(hash).get('tho');
+        const id = Number(fromSearch || fromHash || '');
+        return Number.isFinite(id) && id > 0 ? id : null;
+    } catch {
+        return null;
+    }
+};
+
+/** Lấy hồ sơ công khai của thợ theo id (khách xem). */
+export const fetchPublicCompany = async (companyId: number): Promise<any | null> => {
+    try {
+        const res = await fetch(`${DOITAY_API}/public/companies/${companyId}`, { headers: { Accept: 'application/json' } });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json?.data ?? null;
+    } catch {
+        return null;
+    }
+};

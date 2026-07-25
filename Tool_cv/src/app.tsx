@@ -5,10 +5,11 @@ import { ProfileInput } from './pages/ProfileInput';
 import { ProfileView } from './pages/ProfileView';
 import { HomePage } from './pages/HomePage';
 import { TipsPage } from './pages/TipsPage';
+import { PublicProfileView } from './pages/PublicProfileView';
 import { QRShareModal } from './components/QRShareModal';
 import { ToastProvider, useToast } from './components/Toast';
 import { UserProfile, ProjectImage } from './types';
-import { getShareText, getShareTarget, publishProfileToDoitay } from './utils';
+import { getShareText, getShareTarget, publishProfileToDoitay, getLaunchThoId } from './utils';
 import logoIcon from './assets/logo-icon.png';
 import './css/app.css';
 
@@ -22,6 +23,9 @@ const AppContent: React.FC = () => {
     const [showQRModal, setShowQRModal] = useState(false);
     // Tên/ảnh lấy từ tài khoản Zalo (nếu thợ đồng ý) — điền sẵn vào form
     const [zaloPrefill, setZaloPrefill] = useState<{ displayName?: string; avatarUrl?: string } | null>(null);
+    // Khách mở Mini App từ thẻ được chia sẻ (?tho=<id>) → xem hồ sơ công khai.
+    const [publicThoId, setPublicThoId] = useState<number | null>(null);
+    useEffect(() => { setPublicThoId(getLaunchThoId()); }, []);
 
     // Initialize screen based on user state AFTER loading
     useEffect(() => {
@@ -41,6 +45,11 @@ const AppContent: React.FC = () => {
             }
         }
     }, [isLoading, user]);
+
+    // Khách xem hồ sơ thợ (mở từ thẻ chia sẻ) — ưu tiên trên mọi luồng.
+    if (publicThoId) {
+        return <PublicProfileView companyId={publicThoId} onClose={() => setPublicThoId(null)} />;
+    }
 
     if (isLoading || currentScreen === null) {
         return (
@@ -105,13 +114,24 @@ const AppContent: React.FC = () => {
     const handleShare = async () => {
         if (!user) return;
         const text = getShareText(user);
-        const target = getShareTarget(user);
+        const area = [user.location?.district, user.location?.city].filter(Boolean).join(', ');
         try {
             const { openShareSheet } = await import('zmp-sdk/apis');
-            await openShareSheet({
-                type: 'link',
-                data: { link: target, chatOnly: false },
-            });
+            if (user.companyId) {
+                // Chia sẻ chính Mini App: khách bấm mở app tại hồ sơ thợ (native Zalo).
+                await openShareSheet({
+                    type: 'zmp',
+                    data: {
+                        title: `${user.displayName} — ${user.jobTitle || 'Thợ'}`,
+                        description: `Thợ ${user.jobTitle || ''}${area ? ' • ' + area : ''} — xem hồ sơ & đặt lịch`,
+                        thumbnail: user.avatarUrl || '',
+                        path: `?tho=${user.companyId}`,
+                    },
+                });
+            } else {
+                // Chưa xuất bản → chia sẻ link (chat Zalo) như cũ.
+                await openShareSheet({ type: 'link', data: { link: getShareTarget(user), chatOnly: false } });
+            }
         } catch {
             try {
                 await navigator.clipboard.writeText(text);
