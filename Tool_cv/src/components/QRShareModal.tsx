@@ -3,7 +3,7 @@ import { UserProfile } from '../types';
 import { Icon } from './Icon';
 import { QRCanvas } from './QRCanvas';
 import { useToast } from './Toast';
-import { getZaloChatUrl, getShareText } from '../utils';
+import { getZaloChatUrl, getShareText, getShareTarget } from '../utils';
 import logoIcon from '../assets/logo-icon.png';
 
 interface QRShareModalProps {
@@ -23,6 +23,8 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
 }) => {
     const toast = useToast();
     const zaloUrl = getZaloChatUrl(profile.phoneNumber);
+    const qrTarget = getShareTarget(profile);
+    const isLive = profile.companyId && profile.reviewStatus === 'live';
     const trade = profile.jobTitle || 'Thợ chuyên nghiệp';
     const area = profile.location?.district || profile.location?.city || '';
 
@@ -67,10 +69,10 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                     </div>
 
                     <div className="bg-white rounded-2xl p-4 flex flex-col items-center">
-                        {zaloUrl ? (
+                        {(zaloUrl || isLive) ? (
                             <>
                                 <div className="relative">
-                                    <QRCanvas value={zaloUrl} size={160} />
+                                    <QRCanvas value={qrTarget} size={160} />
                                     <div className="absolute inset-0 flex items-center justify-center">
                                         <div className="bg-white rounded-lg p-1 shadow-md">
                                             <img src={logoIcon} alt="" className="w-7 h-7 object-contain" />
@@ -78,9 +80,11 @@ export const QRShareModal: React.FC<QRShareModalProps> = ({
                                     </div>
                                 </div>
                                 <p className="text-[14px] font-bold text-navy text-center mt-3">
-                                    Khách quét là nhắn Zalo cho anh ngay
+                                    {isLive ? 'Khách quét là xem được hồ sơ của anh' : 'Khách quét là nhắn Zalo cho anh ngay'}
                                 </p>
-                                <p className="text-[13px] font-semibold text-ink/50 mt-0.5">{profile.phoneNumber}</p>
+                                <p className="text-[13px] font-semibold text-ink/50 mt-0.5">
+                                    {isLive ? 'Hồ sơ đầy đủ trên doitay.vn' : profile.phoneNumber}
+                                </p>
                             </>
                         ) : (
                             <p className="text-[14px] font-semibold text-ink/60 text-center py-8">

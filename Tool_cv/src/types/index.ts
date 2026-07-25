@@ -34,6 +34,9 @@ export interface UserProfile {
     isVerified: boolean;
     /** Thợ đã đồng ý chia sẻ/đồng bộ hồ sơ lên chợ thợ doitay.vn */
     syncConsent?: boolean;
+    /** Đã xuất bản lên doitay: id company thật + trạng thái duyệt */
+    companyId?: number;
+    reviewStatus?: 'pending' | 'live';
     servicePrices?: ServicePrice[]; // Bảng giá dịch vụ
     customerReviews?: CustomerReview[]; // NEW: Đánh giá từ khách hàng
     portfolioProjects?: PortfolioProject[]; // Dự án ảnh trước/sau

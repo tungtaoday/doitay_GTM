@@ -200,3 +200,68 @@ export const groupThousands = (v: string): string => {
     const d = digitsOnly(v);
     return d ? Number(d).toLocaleString('vi-VN') : '';
 };
+
+// ── Kết nối chợ thợ doitay.vn ────────────────────────────────────────────────
+export const DOITAY_API = 'https://doitay.vn/api/v1';
+export const DOITAY_WEB = 'https://doitay.vn';
+
+/** Xuất bản hồ sơ thợ lên doitay (tạo company pending). Trả về {companyId, reviewStatus} hoặc null. */
+export const publishProfileToDoitay = async (profile: {
+    displayName: string; phoneNumber?: string; jobTitle?: string;
+    location?: { city?: string; district?: string }; experienceYears?: number; bio?: string;
+    skills?: string[]; servicePrices?: { service: string; minPrice: number; maxPrice: number }[];
+    zaloId?: string;
+}): Promise<{ companyId: number; reviewStatus: 'pending' | 'live' } | null> => {
+    try {
+        const body = {
+            name: profile.displayName,
+            phone: profile.phoneNumber || '',
+            nghe: profile.jobTitle || 'Thợ',
+            city: profile.location?.city || '',
+            district: profile.location?.district || '',
+            experience: profile.experienceYears || 0,
+            description: profile.bio || '',
+            tags: profile.skills || [],
+            services: (profile.servicePrices || []).map(sp => ({
+                name: sp.service,
+                unit: '',
+                price: sp.maxPrice ? `${sp.minPrice.toLocaleString('vi-VN')} - ${sp.maxPrice.toLocaleString('vi-VN')}` : String(sp.minPrice),
+            })),
+            zalo_id: profile.zaloId || '',
+        };
+        const res = await fetch(`${DOITAY_API}/public/tho-profiles`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(body),
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        const d = json?.data;
+        if (!d?.company_id) return null;
+        return { companyId: d.company_id, reviewStatus: d.is_live ? 'live' : 'pending' };
+    } catch {
+        return null;
+    }
+};
+
+/** Kiểm tra company đã lên chợ (duyệt xong) chưa: GET công khai 200 = live. */
+export const checkProfileLive = async (companyId: number): Promise<boolean> => {
+    try {
+        const res = await fetch(`${DOITAY_API}/public/companies/${companyId}`, { headers: { Accept: 'application/json' } });
+        return res.ok;
+    } catch {
+        return false;
+    }
+};
+
+/**
+ * Đích chia sẻ/QR:
+ * - Đã LIVE trên doitay → trang hồ sơ đầy đủ (ảnh/giá/đánh giá) doitay.vn/tho/<id>.
+ * - Chưa → mở chat Zalo với thợ (khách vẫn liên hệ được ngay).
+ */
+export const getShareTarget = (profile: { companyId?: number; reviewStatus?: string; phoneNumber?: string }): string => {
+    if (profile.companyId && profile.reviewStatus === 'live') {
+        return `${DOITAY_WEB}/tho/${profile.companyId}`;
+    }
+    return getZaloChatUrl(profile.phoneNumber) || DOITAY_WEB + '/tuyen-dung-tho';
+};

@@ -8,7 +8,7 @@ import { TipsPage } from './pages/TipsPage';
 import { QRShareModal } from './components/QRShareModal';
 import { ToastProvider, useToast } from './components/Toast';
 import { UserProfile, ProjectImage } from './types';
-import { getShareText, getZaloChatUrl } from './utils';
+import { getShareText, getShareTarget, publishProfileToDoitay } from './utils';
 import logoIcon from './assets/logo-icon.png';
 import './css/app.css';
 
@@ -74,8 +74,25 @@ const AppContent: React.FC = () => {
         setCurrentScreen('input');
     };
 
-    const handleFormSubmit = (profile: UserProfile, images: ProjectImage[]) => {
-        setUser(profile);
+    const handleFormSubmit = async (profile: UserProfile, images: ProjectImage[]) => {
+        // Thợ đồng ý chia sẻ → xuất bản hồ sơ lên chợ doitay (tạo company chờ duyệt).
+        // Lỗi mạng/CORS → bỏ qua, thẻ vẫn dùng bình thường (QR = chat Zalo).
+        let published = profile;
+        if (profile.syncConsent && !profile.companyId) {
+            const r = await publishProfileToDoitay({
+                displayName: profile.displayName,
+                phoneNumber: profile.phoneNumber,
+                jobTitle: profile.jobTitle,
+                location: profile.location,
+                experienceYears: profile.experienceYears,
+                bio: profile.bio,
+                skills: profile.skills,
+                servicePrices: profile.servicePrices,
+                zaloId: profile.zaloId,
+            });
+            if (r) published = { ...profile, companyId: r.companyId, reviewStatus: r.reviewStatus };
+        }
+        setUser(published);
         setPortfolioImages(images);
         localStorage.setItem('portfolioImages', JSON.stringify(images));
         setCurrentScreen('home');
@@ -88,15 +105,12 @@ const AppContent: React.FC = () => {
     const handleShare = async () => {
         if (!user) return;
         const text = getShareText(user);
-        const zaloUrl = getZaloChatUrl(user.phoneNumber);
+        const target = getShareTarget(user);
         try {
             const { openShareSheet } = await import('zmp-sdk/apis');
             await openShareSheet({
                 type: 'link',
-                data: {
-                    link: zaloUrl || 'https://doitay.vn/tuyen-dung-tho',
-                    chatOnly: false,
-                },
+                data: { link: target, chatOnly: false },
             });
         } catch {
             try {
@@ -149,6 +163,7 @@ const AppContent: React.FC = () => {
                         onEditProfile={() => setCurrentScreen('input')}
                         onViewTips={() => setCurrentScreen('tips')}
                         onLogout={handleLogout}
+                        onProfileLive={() => setUser({ ...user, reviewStatus: 'live' })}
                     />
                     {showQRModal && (
                         <QRShareModal

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserProfile } from '../types';
 import { Icon } from '../components/Icon';
 import logoIcon from '../assets/logo-icon.png';
 import { QRCanvas } from '../components/QRCanvas';
 import { useToast } from '../components/Toast';
 import { TopBar } from '../components/TopBar';
-import { getZaloChatUrl } from '../utils';
+import { getZaloChatUrl, getShareTarget, checkProfileLive } from '../utils';
 import tip1Image from '../assets/tip1.jpg';
 import tip2Image from '../assets/tip2.jpg';
 import tip3Image from '../assets/tip3.jpg';
@@ -17,6 +17,7 @@ interface HomePageProps {
     onEditProfile?: () => void;
     onViewTips?: () => void;
     onLogout?: () => void;
+    onProfileLive?: () => void;
 }
 
 /**
@@ -30,18 +31,33 @@ export const HomePage: React.FC<HomePageProps> = ({
     onViewProfile,
     onEditProfile,
     onViewTips,
+    onProfileLive,
     onLogout,
 }) => {
     const toast = useToast();
 
+    // Tự dò: hồ sơ chờ duyệt → kiểm tra đã lên chợ chưa, cập nhật trạng thái.
+    useEffect(() => {
+        if (profile.companyId && profile.reviewStatus === 'pending') {
+            checkProfileLive(profile.companyId).then((live) => {
+                if (live) onProfileLive?.();
+            });
+        }
+    }, [profile.companyId, profile.reviewStatus]); // eslint-disable-line react-hooks/exhaustive-deps
+
     /**
-     * Nút chợ thợ doitay.vn — phân nhánh theo consent lúc làm thẻ:
-     * - ĐÃ đồng ý chia sẻ  → chỉ XEM hồ sơ trên chợ (tìm theo tên thợ).
-     * - CHƯA đồng ý        → dẫn vào trang đăng ký (SĐT + vai trò thợ điền sẵn).
+     * Nút chợ thợ doitay.vn — 3 trạng thái:
+     * - Đã LIVE   → mở trang hồ sơ thật doitay.vn/tho/<id>.
+     * - Chờ duyệt → báo đang chờ (không dẫn tới trang rỗng).
+     * - Chưa gửi  → dẫn vào đăng ký (SĐT điền sẵn).
      */
     const openMarketplace = async () => {
-        const url = profile.syncConsent
-            ? `https://doitay.vn/tho?q=${encodeURIComponent(profile.displayName || '')}&utm_source=miniapp`
+        if (profile.companyId && profile.reviewStatus === 'pending') {
+            toast('Hồ sơ của anh đang chờ duyệt (trong 24h) rồi sẽ lên chợ nhé!');
+            return;
+        }
+        const url = (profile.companyId && profile.reviewStatus === 'live')
+            ? `https://doitay.vn/tho/${profile.companyId}`
             : `https://doitay.vn/dang-ky?sdt=${encodeURIComponent(profile.phoneNumber || '')}&role=contractor&utm_source=miniapp`;
         // Trong Zalo: mo webview chinh chu. Ngoai Zalo (trinh duyet): window.open truc tiep
         // — zmp openWebview ngoai Zalo co the resolve "im lang" khong lam gi.
@@ -166,8 +182,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                         {/* QR */}
                         <div className="bg-white rounded-2xl p-5 flex flex-col items-center">
-                            {getZaloChatUrl(profile.phoneNumber) ? (
-                                <QRCanvas value={getZaloChatUrl(profile.phoneNumber)!} size={176} className="w-44 h-44" />
+                            {(getShareTarget(profile)) ? (
+                                <QRCanvas value={getShareTarget(profile)} size={176} className="w-44 h-44" />
                             ) : (
                                 <p className="text-[14px] font-semibold text-ink/60 text-center py-10">
                                     Thêm số điện thoại để tạo mã QR
@@ -176,7 +192,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             <p className="text-[15px] font-bold text-navy text-center mt-3.5 leading-snug">
                                 Khách quét mã bằng Zalo
                                 <br />
-                                <span className="font-medium text-ink/60 text-[14px]">là nhắn tin được cho anh ngay</span>
+                                <span className="font-medium text-ink/60 text-[14px]">{profile.companyId && profile.reviewStatus === 'live' ? 'là xem được hồ sơ đầy đủ của anh' : 'là nhắn tin được cho anh ngay'}</span>
                             </p>
                         </div>
 
@@ -244,11 +260,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-[16px] font-bold text-navy">
-                                {profile.syncConsent ? 'Xem hồ sơ của anh trên doitay.vn' : 'Đưa hồ sơ lên chợ thợ doitay.vn'}
+                                {profile.companyId
+                                    ? (profile.reviewStatus === 'live' ? 'Xem hồ sơ của anh trên doitay.vn' : 'Hồ sơ đang chờ duyệt')
+                                    : 'Đưa hồ sơ lên chợ thợ doitay.vn'}
                             </p>
                             <p className="text-[14px] text-ink/60 truncate">
-                                {profile.syncConsent
-                                    ? 'Anh đã đồng ý chia sẻ — xem khách thấy anh thế nào trên chợ'
+                                {profile.companyId
+                                    ? (profile.reviewStatus === 'live'
+                                        ? 'Đã lên chợ — xem khách thấy anh thế nào'
+                                        : 'Doitay đang duyệt hồ sơ (trong 24h) rồi lên chợ')
                                     : 'Đăng ký nhanh bằng SĐT của anh — miễn phí, khách trên mạng cũng tìm thấy'}
                             </p>
                         </div>
