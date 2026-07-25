@@ -115,9 +115,24 @@ const AppContent: React.FC = () => {
         if (!user) return;
         const text = getShareText(user);
         const area = [user.location?.district, user.location?.city].filter(Boolean).join(', ');
+
+        // Chưa có hồ sơ trên chợ → xuất bản NGAY (thợ đang chia sẻ = muốn khách xem được).
+        let companyId = user.companyId;
+        if (!companyId) {
+            const r = await publishProfileToDoitay({
+                displayName: user.displayName, phoneNumber: user.phoneNumber, jobTitle: user.jobTitle,
+                location: user.location, experienceYears: user.experienceYears, bio: user.bio,
+                skills: user.skills, servicePrices: user.servicePrices, zaloId: user.zaloId,
+            });
+            if (r) {
+                companyId = r.companyId;
+                setUser({ ...user, companyId: r.companyId, reviewStatus: r.reviewStatus });
+            }
+        }
+
         try {
             const { openShareSheet } = await import('zmp-sdk/apis');
-            if (user.companyId) {
+            if (companyId) {
                 // Chia sẻ chính Mini App: khách bấm mở app tại hồ sơ thợ (native Zalo).
                 await openShareSheet({
                     type: 'zmp',
@@ -125,11 +140,12 @@ const AppContent: React.FC = () => {
                         title: `${user.displayName} — ${user.jobTitle || 'Thợ'}`,
                         description: `Thợ ${user.jobTitle || ''}${area ? ' • ' + area : ''} — xem hồ sơ & đặt lịch`,
                         thumbnail: user.avatarUrl || '',
-                        path: `?tho=${user.companyId}`,
+                        path: `?tho=${companyId}`,
                     },
                 });
             } else {
-                // Chưa xuất bản → chia sẻ link (chat Zalo) như cũ.
+                // Xuất bản thất bại (mạng/CORS/chưa khai domain) → báo rõ + gửi tạm link Zalo.
+                toast('Chưa đưa được hồ sơ lên chợ — kiểm tra mạng / đã khai domain doitay.vn chưa nhé');
                 await openShareSheet({ type: 'link', data: { link: getShareTarget(user), chatOnly: false } });
             }
         } catch {
