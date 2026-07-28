@@ -224,7 +224,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ doc, onClose, onSwitch }) 
                             doitay.vn
                         </a>
                         <br />
-                        Hotline / Zalo: 0327 834 490
+                        Hotline / Zalo: 0972 585 990
                     </p>
                     <p className="mt-3 text-[13px] text-ink/45">
                         Bản đầy đủ cũng được đăng tại{' '}
