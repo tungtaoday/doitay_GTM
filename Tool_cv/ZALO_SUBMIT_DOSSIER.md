@@ -48,9 +48,11 @@ Kính gửi đội kiểm duyệt,
 
 2. VỀ CÁCH HOẠT ĐỘNG: Mở app là tạo hồ sơ ngay, KHÔNG có đăng nhập/tài khoản riêng, danh tính do Zalo cung cấp (getUserInfo điền sẵn tên/ảnh). Người dùng nhập thông tin nghề của mình → tạo thẻ QR → gửi khách qua Zalo.
 
-3. VỀ DỮ LIỆU: Ứng dụng chỉ gửi thông tin (tên, SĐT, nghề, ảnh) lên máy chủ doitay.vn KHI người dùng chủ động bấm đồng ý (checkbox "đồng ý đồng bộ với doitay.vn"), để tạo hồ sơ công khai giúp khách tìm thợ. Chính sách bảo mật: https://doitay.vn/bao-mat
+3. VỀ DỮ LIỆU: Ứng dụng chỉ gửi thông tin (tên, SĐT, nghề, ảnh) lên máy chủ doitay.vn KHI người dùng chủ động bấm đồng ý (checkbox "đồng ý đồng bộ với doitay.vn"), để tạo hồ sơ công khai giúp khách tìm thợ.
 
-4. CÁCH TEST NHANH: Mở app → bấm "Làm thẻ thợ" → nhập tên/nghề/SĐT → tạo xong bấm "Gửi thẻ cho khách" để tạo mã QR chia sẻ. Mọi tính năng hoạt động đầy đủ.
+4. VỀ ĐIỀU KHOẢN & BẢO MẬT: Nội dung Điều khoản sử dụng và Chính sách bảo mật hiển thị ĐẦY ĐỦ NGAY TRONG ỨNG DỤNG (có tab chuyển giữa 2 văn bản), truy cập từ: (1) màn chào - dòng dưới nút chính, (2) menu trang chủ, (3) bước tạo hồ sơ. Bản đầy đủ cũng đăng tại https://doitay.vn/dieu-khoan và https://doitay.vn/bao-mat
+
+5. CÁCH TEST NHANH: Mở app → bấm "Làm thẻ thợ" → nhập tên/nghề/SĐT → tạo xong bấm "Gửi thẻ cho khách" để tạo mã QR chia sẻ. Để xem điều khoản/bảo mật: ở màn chào bấm "Điều khoản sử dụng" hoặc "Chính sách bảo mật". Mọi tính năng hoạt động đầy đủ.
 
 Trân trọng cảm ơn.
 ```

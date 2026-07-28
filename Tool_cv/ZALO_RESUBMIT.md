@@ -1,8 +1,57 @@
-# Ground Truth - Hồ Sơ Thợ — Hồ sơ SUBMIT LẠI Zalo Mini App (vòng 2)
+# Ground Truth - Hồ Sơ Thợ — Hồ sơ SUBMIT LẠI Zalo Mini App (vòng 3)
 
 > **Vòng 1 (đã fix):** đồng nhất brand + gỡ cụm từ đăng nhập — code đã sửa, deploy.
-> **Vòng 2 (hiện tại):** Zalo từ chối vì (1) tên "Hồ Sơ Thợ Online" là keyword chung,
-> (2) loại hình sở hữu + danh mục chưa hợp lệ. Đây là việc trên Console + giấy tờ, KHÔNG phải code.
+> **Vòng 2 (đã fix):** đổi tên + loại hình sở hữu + danh mục — việc trên Console + giấy tờ.
+> **Vòng 3 (HIỆN TẠI):** Zalo từ chối vì *"Vui lòng cập nhật, hiển thị nội dung điều khoản, bảo mật."*
+> Nguyên nhân: app chỉ có LINK NGOÀI ra doitay.vn → reviewer không thấy nội dung ngay trong app.
+> **Đã fix bằng code + web (xem mục ✅ VÒNG 3 ngay dưới).**
+
+---
+
+## ✅ VÒNG 3 (HIỆN TẠI) — Hiển thị Điều khoản & Bảo mật NGAY TRONG APP
+
+### Đã fix (code Mini App — build sạch, đã commit)
+- Thêm trang **in-app** `LegalPage.tsx` hiển thị **đầy đủ** Điều khoản sử dụng + Chính sách bảo mật, có **tab chuyển** giữa 2 văn bản, nút quay lại. Truy cập từ **3 nơi**:
+  1. **Màn chào** — dòng dưới nút chính "Làm thẻ thợ".
+  2. **Menu trang chủ** — 2 mục "Điều khoản sử dụng" / "Chính sách bảo mật".
+  3. **Bước tạo hồ sơ** — dòng dưới ô đồng ý đồng bộ.
+- Nội dung viết đúng luồng dữ liệu thật: tên/ảnh từ Zalo (chỉ khi đồng ý), thông tin thợ tự nhập, lưu trên máy, **chỉ** gửi doitay.vn khi thợ chủ động bật đồng bộ/chia sẻ; không bán dữ liệu; miễn phí.
+- Render dạng overlay → mở từ trong form **không mất** dữ liệu đang nhập.
+
+### Web legal đã đồng bộ + tách 2 thương hiệu (đã deploy LIVE, verify 200)
+- `doitay.vn/dieu-khoan` + `/bao-mat` → nội dung **app Ground Truth - Hồ Sơ Thợ** (khớp trang in-app). Đây là link "bản đầy đủ" app trỏ tới.
+- `doitay.vn/doitay/dieu-khoan` + `/doitay/bao-mat` → điều khoản/bảo mật **nền tảng doitay.vn** (giữ thương hiệu marketplace).
+- Hotline legal thống nhất **0972 585 990**; footer + sitemap + liên kết chéo 2 chiều.
+
+### 📋 GHI CHÚ CHO ĐỘI DUYỆT (dán vào ô phản hồi kiểm duyệt)
+```
+Kính gửi đội kiểm duyệt,
+
+Theo góp ý "cập nhật, hiển thị nội dung điều khoản, bảo mật", chúng tôi đã bổ sung:
+
+1. NỘI DUNG HIỂN THỊ NGAY TRONG ỨNG DỤNG (không chỉ link ngoài): Điều khoản sử dụng
+   và Chính sách bảo mật hiển thị đầy đủ trong app, có tab chuyển giữa hai văn bản.
+   Truy cập tại: (1) màn chào - dòng dưới nút chính; (2) menu trang chủ;
+   (3) bước tạo hồ sơ - dòng dưới ô đồng ý.
+
+2. Bản đầy đủ cũng đăng tại: https://doitay.vn/dieu-khoan và https://doitay.vn/bao-mat
+
+3. Cách test: Mở app, ở màn chào bấm "Điều khoản sử dụng" hoặc "Chính sách bảo mật"
+   sẽ hiện trang nội dung đầy đủ.
+
+Trân trọng cảm ơn.
+```
+
+### Checklist resubmit vòng 3
+```
+☐ cd Tool_cv && zmp deploy  -> Testing (bản mới có trang legal in-app)
+☐ Kiểm trên Zalo devtools: màn chào -> bấm "Điều khoản"/"Bảo mật" -> hiện nội dung đầy đủ
+☐ Web đã live (doitay.vn/dieu-khoan, /bao-mat) — không cần làm gì thêm
+☐ Dán "GHI CHÚ CHO ĐỘI DUYỆT" ở trên vào ô phản hồi kiểm duyệt
+☐ Bấm "Gửi duyệt"
+```
+
+> Ghi chú domain: app hiện KHÔNG còn dùng Firebase (chỉ còn comment) và KHÔNG dùng api.qrserver.com (QR sinh cục bộ). Domain ngoài duy nhất còn gọi là **doitay.vn** (API đồng bộ hồ sơ). Có thể rút gọn khai báo domain ở mục 6 xuống chỉ còn `doitay.vn` (+ font nếu Console yêu cầu) — không bắt buộc.
 
 ---
 
@@ -70,8 +119,8 @@ lh3.googleusercontent.com / via.placeholder.com / doitay.vn
 
 ---
 ## GHI CHÚ
-- Chính sách bảo mật doitay.vn/bao-mat đã đề cập app + thu thập SĐT (vòng 1) — nếu đổi tên chính thức, nên sửa câu "Zalo Mini App \"Thợ Tốt Doitay\"" thành "Ground Truth - Hồ Sơ Thợ" cho khớp.
-- DEFERRED-001 (bỏ Firebase → đọc doitay API) vẫn hoãn đến sau khi QUA DUYỆT.
+- ✅ (vòng 3) doitay.vn/dieu-khoan + /bao-mat đã đổi sang nội dung "Ground Truth - Hồ Sơ Thợ" khớp app; điều khoản/bảo mật nền tảng doitay.vn chuyển sang /doitay/*. Đã deploy live.
+- DEFERRED-001 (bỏ Firebase → đọc doitay API) vẫn hoãn đến sau khi QUA DUYỆT (Firebase hiện chỉ còn comment, không chạy).
 
 ## Cập nhật kỹ thuật 2026-07-24 (trước submit)
 
