@@ -6,6 +6,7 @@ import { ProfileView } from './pages/ProfileView';
 import { HomePage } from './pages/HomePage';
 import { TipsPage } from './pages/TipsPage';
 import { PublicProfileView } from './pages/PublicProfileView';
+import { LegalPage, LegalDoc } from './pages/LegalPage';
 import { QRShareModal } from './components/QRShareModal';
 import { ToastProvider, useToast } from './components/Toast';
 import { UserProfile, ProjectImage } from './types';
@@ -21,6 +22,8 @@ const AppContent: React.FC = () => {
     const [currentScreen, setCurrentScreen] = useState<AppScreen | null>(null);
     const [portfolioImages, setPortfolioImages] = useState<ProjectImage[]>([]);
     const [showQRModal, setShowQRModal] = useState(false);
+    // Trang Điều khoản / Bảo mật — mở chồng lên màn hiện tại (giữ nguyên dữ liệu đang nhập).
+    const [legalDoc, setLegalDoc] = useState<LegalDoc | null>(null);
     // Tên/ảnh lấy từ tài khoản Zalo (nếu thợ đồng ý) — điền sẵn vào form
     const [zaloPrefill, setZaloPrefill] = useState<{ displayName?: string; avatarUrl?: string } | null>(null);
     // Khách mở Mini App từ thẻ được chia sẻ (?tho=<id>) → xem hồ sơ công khai.
@@ -167,9 +170,20 @@ const AppContent: React.FC = () => {
         setCurrentScreen('welcome');
     };
 
+    const legalOverlay = legalDoc ? (
+        <LegalPage doc={legalDoc} onClose={() => setLegalDoc(null)} onSwitch={setLegalDoc} />
+    ) : null;
+
+    const renderScreen = () => {
     switch (currentScreen) {
         case 'welcome':
-            return <WelcomeScreen onGetStarted={handleGetStarted} />;
+            return (
+                <WelcomeScreen
+                    onGetStarted={handleGetStarted}
+                    onShowTerms={() => setLegalDoc('terms')}
+                    onShowPrivacy={() => setLegalDoc('privacy')}
+                />
+            );
 
         case 'input':
             return (
@@ -182,6 +196,8 @@ const AppContent: React.FC = () => {
                     }
                     onSubmit={handleFormSubmit}
                     onBack={user ? () => setCurrentScreen('home') : undefined}
+                    onShowTerms={() => setLegalDoc('terms')}
+                    onShowPrivacy={() => setLegalDoc('privacy')}
                 />
             );
 
@@ -200,6 +216,8 @@ const AppContent: React.FC = () => {
                         onViewTips={() => setCurrentScreen('tips')}
                         onLogout={handleLogout}
                         onProfileLive={() => setUser({ ...user, reviewStatus: 'live' })}
+                        onShowTerms={() => setLegalDoc('terms')}
+                        onShowPrivacy={() => setLegalDoc('privacy')}
                     />
                     {showQRModal && (
                         <QRShareModal
@@ -244,8 +262,22 @@ const AppContent: React.FC = () => {
             return <TipsPage onBack={() => setCurrentScreen('home')} />;
 
         default:
-            return <WelcomeScreen onGetStarted={handleGetStarted} />;
+            return (
+                <WelcomeScreen
+                    onGetStarted={handleGetStarted}
+                    onShowTerms={() => setLegalDoc('terms')}
+                    onShowPrivacy={() => setLegalDoc('privacy')}
+                />
+            );
     }
+    };
+
+    return (
+        <>
+            {renderScreen()}
+            {legalOverlay}
+        </>
+    );
 };
 
 const App: React.FC = () => {

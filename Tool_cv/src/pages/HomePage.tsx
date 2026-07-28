@@ -18,6 +18,8 @@ interface HomePageProps {
     onViewTips?: () => void;
     onLogout?: () => void;
     onProfileLive?: () => void;
+    onShowTerms?: () => void;
+    onShowPrivacy?: () => void;
 }
 
 /**
@@ -33,6 +35,8 @@ export const HomePage: React.FC<HomePageProps> = ({
     onViewTips,
     onProfileLive,
     onLogout,
+    onShowTerms,
+    onShowPrivacy,
 }) => {
     const toast = useToast();
 
@@ -140,6 +144,21 @@ export const HomePage: React.FC<HomePageProps> = ({
                             >
                                 <Icon name="star" size={22} color="#1E8849" />
                                 <span className="text-[16px] font-semibold">Mẹo tăng uy tín</span>
+                            </button>
+                            <div className="border-t border-border-light my-1"></div>
+                            <button
+                                onClick={() => { onShowTerms?.(); setShowMenu(false); }}
+                                className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
+                            >
+                                <Icon name="check_circle" size={22} color="#1E8849" />
+                                <span className="text-[16px] font-semibold">Điều khoản sử dụng</span>
+                            </button>
+                            <button
+                                onClick={() => { onShowPrivacy?.(); setShowMenu(false); }}
+                                className="w-full flex items-center gap-3 px-5 py-3.5 text-ink text-left"
+                            >
+                                <Icon name="lock" size={22} color="#1E8849" />
+                                <span className="text-[16px] font-semibold">Chính sách bảo mật</span>
                             </button>
                             <div className="border-t border-border-light my-1"></div>
                             <button

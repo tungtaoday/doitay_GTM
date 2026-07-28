@@ -5,6 +5,8 @@ import { QRCanvas } from '../components/QRCanvas';
 
 interface WelcomeScreenProps {
     onGetStarted: () => void;
+    onShowTerms?: () => void;
+    onShowPrivacy?: () => void;
 }
 
 /**
@@ -12,7 +14,7 @@ interface WelcomeScreenProps {
  * Hero = bản xem trước tấm thẻ thợ (thứ người thợ sẽ nhận được), không dùng stock photo.
  * Chữ to, một nút hành động duy nhất, giọng "anh".
  */
-export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted, onShowTerms, onShowPrivacy }) => {
     return (
         <div className="relative flex h-full min-h-screen w-full max-w-[430px] mx-auto flex-col bg-paper overflow-hidden font-display">
             {/* Nội dung */}
@@ -114,10 +116,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) =>
                 </button>
                 <p className="text-[13px] text-center text-ink/50 mt-3">
                     Tiếp tục là anh đồng ý với{' '}
-                    <a className="text-primary underline" href="https://doitay.vn/dieu-khoan">Điều khoản</a>
+                    <button type="button" onClick={onShowTerms} className="text-primary underline font-semibold">Điều khoản sử dụng</button>
                     {' '}và{' '}
-                    <a className="text-primary underline" href="https://doitay.vn/bao-mat">Bảo mật</a>
-                    {' '}của doitay.vn.
+                    <button type="button" onClick={onShowPrivacy} className="text-primary underline font-semibold">Chính sách bảo mật</button>.
                 </p>
                 <p className="text-[12px] text-center text-ink/40 mt-1.5">
                     Sản phẩm của Hộ kinh doanh Ground Truth — vận hành doitay.vn

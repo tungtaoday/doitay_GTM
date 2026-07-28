@@ -7,12 +7,16 @@ interface ProfileInputProps {
     initialData?: Partial<UserProfile>;
     onSubmit: (data: UserProfile, portfolioImages: ProjectImage[]) => void;
     onBack?: () => void;
+    onShowTerms?: () => void;
+    onShowPrivacy?: () => void;
 }
 
 export const ProfileInput: React.FC<ProfileInputProps> = ({
     initialData,
     onSubmit,
     onBack,
+    onShowTerms,
+    onShowPrivacy,
 }) => {
     const [step, setStep] = useState(1);
     const totalSteps = 4;
@@ -634,6 +638,12 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
                                 Tôi đồng ý đồng bộ thông tin với chợ thợ <span className="text-[#1E8849] font-bold">doitay.vn</span> để nhận thông báo việc làm từ khách hàng mới nhất.
                             </label>
                         </div>
+                        <p className="text-xs text-slate-500 leading-relaxed px-0.5 pb-2">
+                            Khi tạo hồ sơ, bạn đồng ý với{' '}
+                            <button type="button" onClick={onShowTerms} className="text-[#1E8849] font-semibold underline">Điều khoản sử dụng</button>
+                            {' '}và{' '}
+                            <button type="button" onClick={onShowPrivacy} className="text-[#1E8849] font-semibold underline">Chính sách bảo mật</button>.
+                        </p>
                     </section>
                 )}
 
