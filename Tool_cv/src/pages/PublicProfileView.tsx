@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Icon } from '../components/Icon';
 import { TopBar } from '../components/TopBar';
-import { fetchPublicCompany, DOITAY_WEB } from '../utils';
+import { fetchPublicCompany, DOITAY_WEB, recordEvent } from '../utils';
 import logoIcon from '../assets/logo-icon.png';
 
 /**
@@ -14,6 +14,8 @@ export const PublicProfileView: React.FC<{ companyId: number; onClose: () => voi
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Khách mở thẻ thợ được chia sẻ → đo phễu Bắc Đẩu (nửa sau).
+        recordEvent('profile_viewed', { companyId, surface: 'khach', channel: 'miniapp' });
         fetchPublicCompany(companyId).then((d) => {
             setData(d);
             setLoading(false);
@@ -21,6 +23,7 @@ export const PublicProfileView: React.FC<{ companyId: number; onClose: () => voi
     }, [companyId]);
 
     const openBooking = async () => {
+        recordEvent('contact_clicked', { companyId, surface: 'khach', channel: 'miniapp' });
         const url = `${DOITAY_WEB}/tho/${companyId}?utm_source=miniapp_card`;
         try {
             const { openWebview } = await import('zmp-sdk/apis');

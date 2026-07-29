@@ -10,7 +10,7 @@ import { LegalPage, LegalDoc } from './pages/LegalPage';
 import { QRShareModal } from './components/QRShareModal';
 import { ToastProvider, useToast } from './components/Toast';
 import { UserProfile, ProjectImage } from './types';
-import { getShareText, getShareTarget, publishProfileToDoitay, getLaunchThoId } from './utils';
+import { getShareText, getShareTarget, publishProfileToDoitay, getLaunchThoId, recordEvent } from './utils';
 import logoIcon from './assets/logo-icon.png';
 import './css/app.css';
 
@@ -131,6 +131,11 @@ const AppContent: React.FC = () => {
                 companyId = r.companyId;
                 setUser({ ...user, companyId: r.companyId, reviewStatus: r.reviewStatus });
             }
+        }
+
+        // Đo phễu Bắc Đẩu (nửa đầu): thợ chia sẻ hồ sơ cho khách.
+        if (companyId) {
+            recordEvent('profile_shared', { companyId, surface: 'tho', channel: 'miniapp', actorKey: user.zaloId });
         }
 
         try {

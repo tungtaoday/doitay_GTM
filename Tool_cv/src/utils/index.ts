@@ -279,6 +279,39 @@ export const getLaunchThoId = (): number | null => {
     }
 };
 
+/**
+ * Ghi 1 product event lên doitay để đo phễu BẮC ĐẨU (thợ share → khách liên hệ).
+ * Fire-and-forget: không await, nuốt mọi lỗi — không bao giờ chặn UX.
+ */
+export const recordEvent = (
+    event: 'profile_shared' | 'profile_viewed' | 'contact_clicked' | 'profile_published' | 'app_open',
+    opts: {
+        companyId?: number;
+        surface?: 'tho' | 'khach';
+        channel?: 'miniapp' | 'web';
+        actorKey?: string;
+        meta?: Record<string, unknown>;
+    } = {},
+): void => {
+    try {
+        fetch(`${DOITAY_API}/public/events`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            keepalive: true,
+            body: JSON.stringify({
+                event,
+                surface: opts.surface,
+                channel: opts.channel ?? 'miniapp',
+                company_id: opts.companyId,
+                actor_key: opts.actorKey,
+                meta: opts.meta,
+            }),
+        }).catch(() => {});
+    } catch {
+        /* ignore */
+    }
+};
+
 /** Lấy hồ sơ công khai của thợ theo id (khách xem). */
 export const fetchPublicCompany = async (companyId: number): Promise<any | null> => {
     try {
