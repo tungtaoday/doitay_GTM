@@ -1,0 +1,332 @@
+diff --git a/core/app/Http/Controllers/API/V1/Public/EventController.php b/core/app/Http/Controllers/API/V1/Public/EventController.php
+new file mode 100644
+index 0000000..3b9d683
+--- /dev/null
++++ b/core/app/Http/Controllers/API/V1/Public/EventController.php
+@@ -0,0 +1,22 @@
++<?php
++
++namespace App\Http\Controllers\API\V1\Public;
++
++use App\Http\Controllers\Controller;
++use App\Http\Requests\V1\Public\CreateEventRequest;
++use App\Models\ProductEvent;
++use Illuminate\Http\JsonResponse;
++
++/**
++ * API V1 — Public. Ghi product event từ Mini App (thợ) + web (khách) để đo phễu
++ * Bắc Đẩu. Fire-and-forget: luôn trả 202, không bao giờ chặn client.
++ */
++class EventController extends Controller
++{
++    public function store(CreateEventRequest $request): JsonResponse
++    {
++        ProductEvent::log($request->validated());
++
++        return response()->json(['data' => ['ok' => true]], 202);
++    }
++}
+diff --git a/core/app/Http/Controllers/API/V1/Public/MetricsController.php b/core/app/Http/Controllers/API/V1/Public/MetricsController.php
+new file mode 100644
+index 0000000..7b752ea
+--- /dev/null
++++ b/core/app/Http/Controllers/API/V1/Public/MetricsController.php
+@@ -0,0 +1,89 @@
++<?php
++
++namespace App\Http\Controllers\API\V1\Public;
++
++use App\Http\Controllers\Controller;
++use App\Models\ProductEvent;
++use Illuminate\Http\JsonResponse;
++use Illuminate\Http\Request;
++use Illuminate\Support\Facades\DB;
++
++/**
++ * API V1 — Public (guard bằng token). Trả phễu BẮC ĐẨU:
++ *   thợ publish → thợ share → khách xem → khách liên hệ.
++ * Bảo vệ bằng config('metrics.token') (đặt METRICS_TOKEN trong .env). Token
++ * đọc qua config để an toàn với config:cache. Không có token cấu hình → 403.
++ */
++class MetricsController extends Controller
++{
++    public function bacDau(Request $request): JsonResponse
++    {
++        $configured = (string) config('metrics.token', '');
++        $given = (string) ($request->query('token') ?? $request->bearerToken() ?? '');
++        if ($configured === '' || ! hash_equals($configured, $given)) {
++            abort(403, 'Metrics token không hợp lệ.');
++        }
++
++        $days  = max(1, min(365, (int) $request->query('days', 30)));
++        $since = now()->subDays($days);
++
++        // Đếm distinct company theo từng event trong cửa sổ thời gian.
++        $distinctCompanies = function (string $event) use ($since): int {
++            return (int) ProductEvent::query()
++                ->where('event', $event)
++                ->whereNotNull('company_id')
++                ->where('created_at', '>=', $since)
++                ->distinct()
++                ->count('company_id');
++        };
++        $countEvent = function (string $event) use ($since): int {
++            return (int) ProductEvent::query()
++                ->where('event', $event)
++                ->where('created_at', '>=', $since)
++                ->count();
++        };
++
++        $published = $distinctCompanies('profile_published');
++        $shared    = $distinctCompanies('profile_shared');
++        $viewed    = $distinctCompanies('profile_viewed');
++        $contacted = $distinctCompanies('contact_clicked');
++
++        // Hồ sơ ĐÃ SHARE mà có ít nhất 1 khách liên hệ (real lead) — lõi Bắc Đẩu.
++        $sharedWithContact = (int) DB::table('product_events as s')
++            ->join('product_events as c', 's.company_id', '=', 'c.company_id')
++            ->where('s.event', 'profile_shared')->where('s.created_at', '>=', $since)
++            ->where('c.event', 'contact_clicked')->where('c.created_at', '>=', $since)
++            ->distinct()
++            ->count('s.company_id');
++
++        $rate = fn (int $num, int $den): float => $den > 0 ? round($num / $den, 4) : 0.0;
++
++        return response()->json([
++            'data' => [
++                'window_days' => $days,
++                // ── Phễu chính ──
++                'funnel' => [
++                    'tho_published'  => $published,   // thợ đưa hồ sơ lên chợ
++                    'tho_shared'     => $shared,      // thợ chia sẻ cho khách
++                    'profile_viewed' => $viewed,      // hồ sơ được khách xem
++                    'khach_contacted'=> $contacted,   // hồ sơ có khách liên hệ
++                ],
++                // ── BẮC ĐẨU ──
++                'bac_dau' => [
++                    'shared_profiles'              => $shared,
++                    'shared_profiles_with_contact' => $sharedWithContact,
++                    'real_lead_rate'               => $rate($sharedWithContact, $shared), // khách thật / thợ share
++                    'share_rate'                   => $rate($shared, $published),         // thợ share / thợ publish
++                    'total_contact_clicks'         => $countEvent('contact_clicked'),
++                    'total_profile_views'          => $countEvent('profile_viewed'),
++                ],
++                // ── Đếm thô mọi event (debug/dashboard) ──
++                'events' => ProductEvent::query()
++                    ->where('created_at', '>=', $since)
++                    ->select('event', DB::raw('count(*) as n'))
++                    ->groupBy('event')
++                    ->pluck('n', 'event'),
++            ],
++        ]);
++    }
++}
+diff --git a/core/app/Http/Controllers/API/V1/Public/ThoProfileController.php b/core/app/Http/Controllers/API/V1/Public/ThoProfileController.php
+index 1bd1bc9..b56adba 100644
+--- a/core/app/Http/Controllers/API/V1/Public/ThoProfileController.php
++++ b/core/app/Http/Controllers/API/V1/Public/ThoProfileController.php
+@@ -25,6 +25,16 @@ public function store(CreateThoProfileRequest $request): JsonResponse
+         $company = $result['company'];
+         $live = (int) $company->status === Status::APPROVED;
+ 
++        // Đo phễu Bắc Đẩu: thợ đưa hồ sơ lên chợ (an toàn — không chặn nếu lỗi).
++        \App\Models\ProductEvent::log([
++            'event'      => 'profile_published',
++            'surface'    => 'tho',
++            'channel'    => 'miniapp',
++            'company_id' => $company->id,
++            'actor_key'  => $request->validated()['zalo_id'] ?? null,
++            'meta'       => ['review_status' => $live ? 'live' : 'pending', 'created' => $result['created']],
++        ]);
++
+         return response()->json([
+             'data' => [
+                 'company_id'    => $company->id,
+diff --git a/core/app/Http/Requests/V1/Public/CreateEventRequest.php b/core/app/Http/Requests/V1/Public/CreateEventRequest.php
+new file mode 100644
+index 0000000..d17da5f
+--- /dev/null
++++ b/core/app/Http/Requests/V1/Public/CreateEventRequest.php
+@@ -0,0 +1,31 @@
++<?php
++
++namespace App\Http\Requests\V1\Public;
++
++use App\Models\ProductEvent;
++use Illuminate\Foundation\Http\FormRequest;
++use Illuminate\Validation\Rule;
++
++/**
++ * Ghi 1 product event (public, không auth). Chống spam bằng rate-limit ở route
++ * + whitelist event. Không nhận PII (actor_key là zalo_id / session ẩn danh).
++ */
++class CreateEventRequest extends FormRequest
++{
++    public function authorize(): bool
++    {
++        return true;
++    }
++
++    public function rules(): array
++    {
++        return [
++            'event'      => ['required', 'string', Rule::in(ProductEvent::ALLOWED)],
++            'surface'    => ['nullable', Rule::in(['tho', 'khach'])],
++            'channel'    => ['nullable', Rule::in(['miniapp', 'web'])],
++            'company_id' => ['nullable', 'integer', 'min:1'],
++            'actor_key'  => ['nullable', 'string', 'max:191'],
++            'meta'       => ['nullable', 'array'],
++        ];
++    }
++}
+diff --git a/core/app/Models/ProductEvent.php b/core/app/Models/ProductEvent.php
+new file mode 100644
+index 0000000..db6769f
+--- /dev/null
++++ b/core/app/Models/ProductEvent.php
+@@ -0,0 +1,62 @@
++<?php
++
++namespace App\Models;
++
++use Illuminate\Database\Eloquent\Model;
++use Illuminate\Support\Facades\Log;
++
++/**
++ * Event log sản phẩm (append-only) — đo phễu Bắc Đẩu.
++ * Ghi qua ProductEvent::log([...]) — LUÔN nuốt lỗi để analytics không bao giờ
++ * làm hỏng luồng chính (vd chưa chạy migration trên server).
++ */
++class ProductEvent extends Model
++{
++    public $timestamps = false;
++
++    protected $fillable = [
++        'event', 'surface', 'channel', 'company_id', 'actor_key', 'meta', 'created_at',
++    ];
++
++    protected $casts = [
++        'meta'       => 'array',
++        'created_at' => 'datetime',
++        'company_id' => 'integer',
++    ];
++
++    /** Danh sách event hợp lệ (khớp bộ metric). */
++    public const ALLOWED = [
++        'app_open',
++        'profile_created',
++        'profile_published',
++        'profile_shared',
++        'profile_viewed',
++        'contact_clicked',
++        'booking_started',
++        'booking_confirmed',
++    ];
++
++    /** Ghi 1 event. Bỏ qua nếu event không hợp lệ; nuốt mọi exception. */
++    public static function log(array $a): void
++    {
++        try {
++            $event = (string) ($a['event'] ?? '');
++            if (! in_array($event, self::ALLOWED, true)) {
++                return;
++            }
++
++            static::create([
++                'event'      => $event,
++                'surface'    => isset($a['surface']) ? substr((string) $a['surface'], 0, 16) : null,
++                'channel'    => isset($a['channel']) ? substr((string) $a['channel'], 0, 16) : null,
++                'company_id' => isset($a['company_id']) && $a['company_id'] ? (int) $a['company_id'] : null,
++                'actor_key'  => isset($a['actor_key']) ? substr((string) $a['actor_key'], 0, 191) : null,
++                'meta'       => $a['meta'] ?? null,
++                'created_at' => now(),
++            ]);
++        } catch (\Throwable $e) {
++            // Analytics không được làm hỏng request chính.
++            Log::warning('ProductEvent.log failed: ' . $e->getMessage());
++        }
++    }
++}
+diff --git a/core/config/metrics.php b/core/config/metrics.php
+new file mode 100644
+index 0000000..663af09
+--- /dev/null
++++ b/core/config/metrics.php
+@@ -0,0 +1,10 @@
++<?php
++
++return [
++    /*
++    | Token bảo vệ endpoint thống kê Bắc Đẩu (GET /api/v1/public/metrics/bac-dau).
++    | Đặt METRICS_TOKEN trong .env rồi chạy `php artisan config:cache`.
++    | Bỏ trống = endpoint trả 403 (an toàn mặc định).
++    */
++    'token' => env('METRICS_TOKEN', ''),
++];
+diff --git a/core/database/migrations/2026_07_30_000001_create_product_events_table.php b/core/database/migrations/2026_07_30_000001_create_product_events_table.php
+new file mode 100644
+index 0000000..ec61fca
+--- /dev/null
++++ b/core/database/migrations/2026_07_30_000001_create_product_events_table.php
+@@ -0,0 +1,33 @@
++<?php
++
++use Illuminate\Database\Migrations\Migration;
++use Illuminate\Database\Schema\Blueprint;
++use Illuminate\Support\Facades\Schema;
++
++/**
++ * Event log sản phẩm (append-only) để đo phễu BẮC ĐẨU:
++ *   thợ chia sẻ hồ sơ (profile_shared) → khách liên hệ (contact_clicked).
++ * Bắn từ Mini App (thợ) + web doitay.vn (khách). Không chứa PII: actor_key là
++ * zalo_id / session ẩn danh. Xem bộ metric: "[CypherAI] Doitay & ThoTot Metrics".
++ */
++return new class extends Migration
++{
++    public function up(): void
++    {
++        Schema::create('product_events', function (Blueprint $table) {
++            $table->id();
++            $table->string('event', 64)->index();                 // profile_shared, contact_clicked, ...
++            $table->string('surface', 16)->nullable();            // tho | khach
++            $table->string('channel', 16)->nullable();            // miniapp | web
++            $table->unsignedBigInteger('company_id')->nullable()->index(); // hồ sơ thợ liên quan
++            $table->string('actor_key', 191)->nullable()->index();// zalo_id / session ẩn danh (không PII)
++            $table->json('meta')->nullable();
++            $table->timestamp('created_at')->nullable()->index();
++        });
++    }
++
++    public function down(): void
++    {
++        Schema::dropIfExists('product_events');
++    }
++};
+diff --git a/core/routes/api/v1_public.php b/core/routes/api/v1_public.php
+index a4d60f5..cd0e974 100644
+--- a/core/routes/api/v1_public.php
++++ b/core/routes/api/v1_public.php
+@@ -5,6 +5,8 @@
+ use App\Http\Controllers\API\V1\Public\DepositMethodController;
+ use App\Http\Controllers\API\V1\Public\LocationController;
+ use App\Http\Controllers\API\V1\Public\RatingController;
++use App\Http\Controllers\API\V1\Public\EventController;
++use App\Http\Controllers\API\V1\Public\MetricsController;
+ use App\Http\Controllers\API\V1\Public\SiteSettingsController;
+ use App\Http\Controllers\API\V1\Public\StatsController;
+ use Illuminate\Support\Facades\Route;
+@@ -40,3 +42,14 @@
+ Route::post('tho-profiles', [\App\Http\Controllers\API\V1\Public\ThoProfileController::class, 'store'])
+     ->middleware('throttle:6,1')
+     ->name('tho-profiles.store');
++
++// ── Product events — đo phễu BẮC ĐẨU (thợ share → khách liên hệ) ──
++// Ghi event từ Mini App (thợ) + web (khách). Public, rate-limit chống spam.
++Route::post('events', [EventController::class, 'store'])
++    ->middleware('throttle:60,1')
++    ->name('events.store');
++
++// Thống kê Bắc Đẩu — guard bằng METRICS_TOKEN (?token=... hoặc Bearer).
++Route::get('metrics/bac-dau', [MetricsController::class, 'bacDau'])
++    ->middleware('throttle:30,1')
++    ->name('metrics.bac-dau');
