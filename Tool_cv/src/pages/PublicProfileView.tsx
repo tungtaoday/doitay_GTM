@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Icon } from '../components/Icon';
 import { TopBar } from '../components/TopBar';
-import { fetchPublicCompany, DOITAY_WEB, recordEvent } from '../utils';
+import { fetchPublicCompany, fetchThoContact, getZaloChatUrl, DOITAY_WEB, recordEvent } from '../utils';
 import logoIcon from '../assets/logo-icon.png';
 
 /**
@@ -12,6 +12,7 @@ import logoIcon from '../assets/logo-icon.png';
 export const PublicProfileView: React.FC<{ companyId: number; onClose: () => void }> = ({ companyId, onClose }) => {
     const [data, setData] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
+    const [phone, setPhone] = useState<string | null>(null);
 
     useEffect(() => {
         // Khách mở thẻ thợ được chia sẻ → đo phễu Bắc Đẩu (nửa sau).
@@ -20,10 +21,25 @@ export const PublicProfileView: React.FC<{ companyId: number; onClose: () => voi
             setData(d);
             setLoading(false);
         });
+        // Mini App = thợ gửi thẻ cho khách QUEN → cho gọi/nhắn trực tiếp.
+        fetchThoContact(companyId).then(setPhone);
     }, [companyId]);
 
+    // Gọi thợ trực tiếp (chỉ luồng Mini App).
+    const callTho = () => {
+        if (!phone) return;
+        recordEvent('contact_clicked', { companyId, surface: 'khach', channel: 'miniapp', meta: { kind: 'call' } });
+        window.location.href = `tel:${phone}`;
+    };
+    const zaloTho = () => {
+        if (!phone) return;
+        recordEvent('contact_clicked', { companyId, surface: 'khach', channel: 'miniapp', meta: { kind: 'zalo' } });
+        const url = getZaloChatUrl(phone);
+        if (url) window.open(url, '_blank');
+    };
+
     const openBooking = async () => {
-        recordEvent('contact_clicked', { companyId, surface: 'khach', channel: 'miniapp' });
+        recordEvent('contact_clicked', { companyId, surface: 'khach', channel: 'miniapp', meta: { kind: 'booking' } });
         const url = `${DOITAY_WEB}/tho/${companyId}?utm_source=miniapp_card`;
         try {
             const { openWebview } = await import('zmp-sdk/apis');
@@ -146,15 +162,43 @@ export const PublicProfileView: React.FC<{ companyId: number; onClose: () => voi
                 </section>
             )}
 
-            {/* CTA đáy */}
+            {/* CTA đáy — Mini App: liên hệ trực tiếp (thợ gửi thẻ cho khách quen) */}
             <div className="fixed bottom-0 left-0 right-0 z-50 max-w-[430px] mx-auto bg-white border-t border-border-light px-5 pt-4 pb-7">
-                <button
-                    onClick={openBooking}
-                    className="w-full flex items-center justify-center gap-2.5 h-[56px] rounded-2xl bg-primary text-white font-extrabold text-[18px] active:scale-[0.98] transition-transform"
-                >
-                    <Icon name="event_available" size={24} color="white" />
-                    Đặt lịch / Liên hệ thợ
-                </button>
+                {phone ? (
+                    <div className="flex flex-col gap-2.5">
+                        <button
+                            onClick={callTho}
+                            className="w-full flex items-center justify-center gap-2.5 h-[56px] rounded-2xl bg-[#1E8849] text-white font-extrabold text-[18px] active:scale-[0.98] transition-transform"
+                        >
+                            <Icon name="call" size={24} color="white" />
+                            Gọi thợ ngay
+                        </button>
+                        <div className="flex gap-2.5">
+                            <button
+                                onClick={zaloTho}
+                                className="flex-1 flex items-center justify-center gap-2 h-[48px] rounded-2xl bg-primary text-white font-bold text-[15px] active:scale-[0.98] transition-transform"
+                            >
+                                <Icon name="forum" size={20} color="white" />
+                                Nhắn Zalo
+                            </button>
+                            <button
+                                onClick={openBooking}
+                                className="flex-1 flex items-center justify-center gap-2 h-[48px] rounded-2xl bg-paper text-navy font-bold text-[15px] active:scale-[0.98] transition-transform"
+                            >
+                                <Icon name="event_available" size={20} color="#102F4B" />
+                                Đặt lịch
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <button
+                        onClick={openBooking}
+                        className="w-full flex items-center justify-center gap-2.5 h-[56px] rounded-2xl bg-primary text-white font-extrabold text-[18px] active:scale-[0.98] transition-transform"
+                    >
+                        <Icon name="event_available" size={24} color="white" />
+                        Đặt lịch / Liên hệ thợ
+                    </button>
+                )}
             </div>
         </div>
     );

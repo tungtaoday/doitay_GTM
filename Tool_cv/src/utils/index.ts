@@ -312,6 +312,24 @@ export const recordEvent = (
     }
 };
 
+/**
+ * Lấy SĐT liên hệ trực tiếp của thợ — CHỈ dùng trong Mini App (thẻ thợ gửi cho
+ * khách quen → gọi/nhắn ngay). Web doitay.vn không expose SĐT (đi luồng đặt lịch).
+ */
+export const fetchThoContact = async (companyId: number): Promise<string | null> => {
+    try {
+        const res = await fetch(`${DOITAY_API}/public/companies/${companyId}/contact`, {
+            headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        const phone = json?.data?.phone;
+        return phone && String(phone).trim() ? String(phone).trim() : null;
+    } catch {
+        return null;
+    }
+};
+
 /** Lấy hồ sơ công khai của thợ theo id (khách xem). */
 export const fetchPublicCompany = async (companyId: number): Promise<any | null> => {
     try {
