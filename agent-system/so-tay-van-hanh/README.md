@@ -21,6 +21,7 @@
 | **9** | [CTV: JD · Scorecard · KPI · Tài chính](09_ctv-jd-scorecard-taichinh.md) | JD copy-paste, chấm ứng viên, KPI vòng đời, ngân sách 3 kịch bản | Khi tuyển & trả CTV |
 | **10** | [Blueprint 30 ngày](10_blueprint-30-ngay.md) | Lịch ngày-qua-ngày tháng ra quân — mở ra biết hôm nay làm gì | Mở **mỗi sáng** cùng Q5 |
 | **11** | [Content sản phẩm: Feature · Tracking · Iterate](11_content-feature-tracking-iterate.md) | Đăng feature gì (11 feature → thông điệp), 5 khuôn bài, UTM + nhật ký bài, cây quyết định sửa bài chết | Trước khi đăng bài sản phẩm |
+| **12** | [Hành trình & Đo lường tách kênh](12_hanh-trinh-do-luong-tach-kenh.md) | Journey thợ/khách 6+5 chặng, nhãn nguồn src, 3 lớp đo (events/GA4/GSC), KPI tách kênh | Khi soi số & bật GA/GSC |
 | **PL-A** | [Ngân hàng bài viết](PL-A_ngan-hang-bai-viet.md) | Bài chào thợ / đăng nhóm / tuyển CTV theo 5 angle | Khi cần copy-paste |
 | **PL-B** | [Thư viện template & sheet](PL-B_template-va-sheet.md) | Google Form, sheet theo dõi, script, checklist in được | Setup 1 lần |
 

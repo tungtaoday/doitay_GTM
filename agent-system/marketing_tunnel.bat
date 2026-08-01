@@ -4,8 +4,8 @@ title He Marketing - ngrok tunnel + QR
 cd /d "%~dp0"
 
 REM ================== CAU HINH ==================
-set "FRONT_PORT=3002"
-set "BACK_PORT=8002"
+set "FRONT_PORT=3939"
+set "BACK_PORT=8939"
 REM (Tuy chon nhung NEN bat) bao ve bang mat khau — sua user:pass roi bo "REM ":
 REM set "NGROK_AUTH=--basic-auth=admin:doitay@2026"
 set "NGROK_AUTH="
@@ -57,7 +57,7 @@ python "%~dp0tunnel_qr.py"
 
 echo.
 echo ================================================================
-echo  Dien thoai quet QR (mo trang /homnay). May tinh: http://localhost:3002/homnay
+echo  Dien thoai quet QR (mo trang /homnay). May tinh: http://localhost:3939/homnay
 echo  GIU cua so nay + cua so "ngrok" mo de duy tri ket noi.
 echo  Dong "ngrok" = ngat truy cap tu xa.
 echo ================================================================

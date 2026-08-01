@@ -8,15 +8,15 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/backend/:path*",
-        destination: "http://localhost:8001/api/:path*",
+        destination: "http://localhost:8939/api/:path*",
       },
       {
         source: "/images/:path*",
-        destination: "http://localhost:8001/images/:path*",
+        destination: "http://localhost:8939/images/:path*",
       },
       {
         source: "/videos/:path*",
-        destination: "http://localhost:8001/videos/:path*",
+        destination: "http://localhost:8939/videos/:path*",
       },
     ];
   },

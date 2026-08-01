@@ -15,7 +15,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(BASE)  # agent-system/
 CONFIG = os.path.join(BASE, "config.json")
 API = "https://doitay.vn/api/v1/public/metrics/bac-dau"
-BOOK_URL = "http://localhost:3002/sach.html"
+BOOK_URL = "http://localhost:3939/sach.html"
 
 # ── Việc chính từng ngày (rút gọn từ Blueprint Q10 — sửa thoải mái) ──────────
 DAY_FOCUS = {

@@ -71,7 +71,21 @@ const DON_GIA_SHARE = 10; // nghìn đ thưởng share
 interface Funnel {
   funnel: { tho_published: number; tho_shared: number; profile_viewed: number; khach_contacted: number };
   bac_dau: { share_rate: number; real_lead_rate: number };
+  sources?: Record<string, { viewed: number; contacted: number; booked: number }>;
 }
+
+// Nhãn nguồn khách (Q12 §3.1)
+const SRC_LABEL: Record<string, string> = {
+  thotot_app: "📱 Trong app ThợTốt",
+  thotot_card: "📇 Thẻ thợ share",
+  seo: "🔍 Google (SEO)",
+  facebook: "📘 Facebook",
+  zalo: "💬 Zalo",
+  tiktok: "🎵 TikTok",
+  ctv: "🤝 CTV",
+  truc_tiep: "↗ Trực tiếp",
+  khac: "◌ Khác/chưa gắn nhãn",
+};
 
 const dayMs = 86_400_000;
 const parseISO = (s: string) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
@@ -199,6 +213,47 @@ export default function Cockpit() {
           <div className="py-4 text-center text-xs text-text2">Đang tải số thật…</div>
         )}
       </section>
+
+      {/* ── A2. NGUỒN KHÁCH — tách kênh (Q12) ── */}
+      {m?.sources && Object.keys(m.sources).length > 0 && (
+        <section className="mb-6 rounded-2xl border border-border bg-bg1 p-4">
+          <h2 className="mb-3 text-sm font-bold text-text0">
+            NGUỒN KHÁCH <span className="font-normal text-text2">— khách xem/liên hệ đến từ đâu ({win} ngày)</span>
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[480px] text-left text-xs">
+              <thead>
+                <tr className="text-text2">
+                  <th className="pb-2 pr-3 font-normal">Nguồn</th>
+                  <th className="pb-2 pr-3 font-normal">Khách xem</th>
+                  <th className="pb-2 pr-3 font-normal">Liên hệ ⭐</th>
+                  <th className="pb-2 pr-3 font-normal">Đặt lịch</th>
+                  <th className="pb-2 font-normal">Xem → Liên hệ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(m.sources)
+                  .sort((a, b) => b[1].contacted - a[1].contacted || b[1].viewed - a[1].viewed)
+                  .map(([src, s]) => {
+                    const rate = s.viewed > 0 ? s.contacted / s.viewed : 0;
+                    return (
+                      <tr key={src} className="border-t border-border">
+                        <td className="whitespace-nowrap py-2 pr-3 font-bold text-text0">{SRC_LABEL[src] ?? src}</td>
+                        <td className="py-2 pr-3 text-text1">{s.viewed}</td>
+                        <td className={`py-2 pr-3 font-bold ${s.contacted > 0 ? "text-teal" : "text-text2"}`}>{s.contacted}</td>
+                        <td className="py-2 pr-3 text-text1">{s.booked}</td>
+                        <td className="py-2 text-text2">{s.viewed > 0 ? `${(rate * 100).toFixed(0)}%` : "—"}</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-2 text-[11px] leading-relaxed text-text2">
+            Ngưỡng khỏe (Q12 §6): thẻ thợ ≥30% · SEO ≥10-15% · FB ≥15%. Link đăng bài PHẢI kèm UTM (Q11 §4.1) — không UTM = rơi vào &quot;Khác&quot;.
+          </p>
+        </section>
+      )}
 
       {/* ── B. TUẦN NÀY — trọng tâm theo kênh ── */}
       <section className="mb-6 rounded-2xl border border-border bg-bg1 p-4">
