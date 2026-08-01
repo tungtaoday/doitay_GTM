@@ -29,7 +29,11 @@ if "!UP!"=="1" (
   echo   Frontend :%FRONT_PORT% dang chay.
 ) else (
   echo   Khoi dong frontend :%FRONT_PORT% ...
-  start "MKT-Frontend" cmd /k "cd /d "%~dp0frontend" && npm run dev"
+  if exist "%~dp0frontend\.next\BUILD_ID" (
+    start "MKT-Frontend" cmd /k "cd /d "%~dp0frontend" && npm start"
+  ) else (
+    start "MKT-Frontend" cmd /k "cd /d "%~dp0frontend" && npm run dev"
+  )
 )
 
 echo.
@@ -53,6 +57,7 @@ python "%~dp0tunnel_qr.py"
 
 echo.
 echo ================================================================
+echo  Dien thoai quet QR (mo trang /homnay). May tinh: http://localhost:3002/homnay
 echo  GIU cua so nay + cua so "ngrok" mo de duy tri ket noi.
 echo  Dong "ngrok" = ngat truy cap tu xa.
 echo ================================================================
