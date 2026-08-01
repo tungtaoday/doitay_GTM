@@ -1,0 +1,2459 @@
+<title>Sổ Tay Vận Hành — doitay.vn / ThợTốt</title>
+<style>
+:root{
+  --sans:"Be Vietnam Pro","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Roboto","Helvetica Neue",Arial,sans-serif;
+  --mono:"SFMono-Regular",ui-monospace,"Cascadia Code","Consolas","Roboto Mono",monospace;
+
+  --ink:#122F49; --ink-soft:#3d566c; --ink-mute:#69819a;
+  --sky:#48BBE2; --sky-ink:#0d6f97; --sky-tint:#e6f4fb;
+  --gold:#c98a06; --gold-bright:#FFD700;
+  --paper:#e9eff4; --surface:#ffffff; --surface-2:#f2f7fb; --surface-3:#eaf1f7;
+  --line:rgba(18,47,73,.13); --line-2:rgba(18,47,73,.08);
+  --sidebar:#0e2740; --sidebar-2:#0a1f34; --sidebar-line:rgba(255,255,255,.09);
+  --sidebar-txt:#c6d8e6; --sidebar-mut:#7c94a9;
+  --shadow:0 18px 50px -24px rgba(16,47,75,.45);
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#dbe8f2; --ink-soft:#aec4d5; --ink-mute:#7f97ab;
+  --sky:#5cc5ea; --sky-ink:#8ad6f4; --sky-tint:rgba(72,187,226,.12);
+  --gold:#f2c94c; --gold-bright:#FFD700;
+  --paper:#081726; --surface:#0f2438; --surface-2:#132a40; --surface-3:#173251;
+  --line:rgba(255,255,255,.11); --line-2:rgba(255,255,255,.06);
+  --sidebar:#081a2c; --sidebar-2:#050f1c; --sidebar-line:rgba(255,255,255,.07);
+  --sidebar-txt:#b7cdde; --sidebar-mut:#6a8299;
+  --shadow:0 20px 55px -26px rgba(0,0,0,.7);
+}}
+:root[data-theme="light"]{
+  --ink:#122F49; --ink-soft:#3d566c; --ink-mute:#69819a;
+  --sky:#48BBE2; --sky-ink:#0d6f97; --sky-tint:#e6f4fb;
+  --gold:#c98a06; --paper:#e9eff4; --surface:#ffffff; --surface-2:#f2f7fb; --surface-3:#eaf1f7;
+  --line:rgba(18,47,73,.13); --line-2:rgba(18,47,73,.08);
+  --sidebar:#0e2740; --sidebar-2:#0a1f34; --sidebar-line:rgba(255,255,255,.09);
+  --sidebar-txt:#c6d8e6; --sidebar-mut:#7c94a9; --shadow:0 18px 50px -24px rgba(16,47,75,.45);
+}
+:root[data-theme="dark"]{
+  --ink:#dbe8f2; --ink-soft:#aec4d5; --ink-mute:#7f97ab;
+  --sky:#5cc5ea; --sky-ink:#8ad6f4; --sky-tint:rgba(72,187,226,.12);
+  --gold:#f2c94c; --paper:#081726; --surface:#0f2438; --surface-2:#132a40; --surface-3:#173251;
+  --line:rgba(255,255,255,.11); --line-2:rgba(255,255,255,.06);
+  --sidebar:#081a2c; --sidebar-2:#050f1c; --sidebar-line:rgba(255,255,255,.07);
+  --sidebar-txt:#b7cdde; --sidebar-mut:#6a8299; --shadow:0 20px 55px -26px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+a{color:var(--sky-ink);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:60}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--gold-bright))}
+
+/* layout */
+.app{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+.sidebar{background:linear-gradient(180deg,var(--sidebar),var(--sidebar-2));border-right:1px solid var(--sidebar-line);
+  position:sticky;top:0;height:100vh;overflow:hidden}
+.side-inner{display:flex;flex-direction:column;height:100%;padding:22px 16px 14px}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 8px 18px;border-bottom:1px solid var(--sidebar-line);margin-bottom:12px}
+.brand-mark{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--sky),#2a93bf);color:#04202e;font-family:var(--mono);font-weight:700;font-size:15px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset}
+.brand-txt{display:flex;flex-direction:column;line-height:1.25}
+.brand-txt b{color:#fff;font-size:15.5px;letter-spacing:.2px}
+.brand-txt small{color:var(--sidebar-mut);font-family:var(--mono);font-size:11px;letter-spacing:.5px}
+
+.toc{display:flex;flex-direction:column;gap:2px;overflow-y:auto;padding-right:4px;flex:1;margin:0 -4px}
+.toc::-webkit-scrollbar{width:8px}.toc::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:8px}
+.toc-item{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;text-align:left;cursor:pointer;
+  background:none;border:0;border-radius:10px;padding:9px 11px;color:var(--sidebar-txt);font-family:var(--sans);
+  width:100%;transition:background .16s,color .16s}
+.toc-item .n{font-family:var(--mono);font-size:12px;color:var(--sky);letter-spacing:.5px;text-align:right;font-weight:600}
+.toc-item .t{display:flex;flex-direction:column;line-height:1.28}
+.toc-item .t b{font-weight:600;font-size:13.7px;color:inherit}
+.toc-item .t small{color:var(--sidebar-mut);font-size:11.3px}
+.toc-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.toc-item.active{background:rgba(72,187,226,.15);box-shadow:inset 3px 0 0 var(--sky)}
+.toc-item.active .t b{color:#fff}
+.toc-item.active .n{color:var(--gold-bright)}
+.toc-sep{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--sidebar-mut);
+  padding:14px 11px 5px;text-transform:uppercase}
+
+.side-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:8px;border-top:1px solid var(--sidebar-line)}
+.theme-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid var(--sidebar-line);
+  color:var(--sidebar-txt);border-radius:9px;padding:7px 11px;cursor:pointer;font-family:var(--sans);font-size:12.5px}
+.theme-btn:hover{background:rgba(255,255,255,.11);color:#fff}
+.theme-btn .ico{font-size:14px}
+.ver{font-family:var(--mono);font-size:10.5px;color:var(--sidebar-mut);letter-spacing:.5px}
+.foot-note{font-family:var(--mono);font-size:10.5px;color:var(--sidebar-mut);letter-spacing:.5px}
+
+.menu-btn,.scrim{display:none}
+
+/* main */
+.main{min-width:0;padding:0}
+.view{max-width:820px;margin:0 auto;padding:46px 40px 20px}
+.pager{max-width:820px;margin:0 auto;padding:10px 40px 40px;display:flex;gap:14px;justify-content:space-between}
+.colophon{max-width:820px;margin:0 auto;padding:22px 40px 60px;color:var(--ink-mute);font-size:12.5px;
+  border-top:1px solid var(--line-2)}
+.colophon code{font-family:var(--mono);font-size:.92em}
+
+.pg-btn{flex:1;max-width:340px;display:flex;flex-direction:column;gap:3px;text-decoration:none;border:1px solid var(--line);
+  background:var(--surface);border-radius:12px;padding:13px 16px;cursor:pointer;transition:transform .16s,border-color .16s,box-shadow .16s;color:var(--ink)}
+.pg-btn:hover{transform:translateY(-2px);border-color:var(--sky);box-shadow:var(--shadow)}
+.pg-btn.next{text-align:right;margin-left:auto}
+.pg-btn .lab{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--sky-ink);text-transform:uppercase}
+.pg-btn .ti{font-weight:600;font-size:14.5px}
+.pg-btn[disabled]{opacity:.35;pointer-events:none}
+
+/* ---------- CONTENT TYPOGRAPHY ---------- */
+.view h1{font-size:clamp(1.85rem,3.6vw,2.7rem);line-height:1.1;letter-spacing:-.015em;font-weight:700;
+  margin:6px 0 8px;text-wrap:balance;color:var(--ink)}
+.view h1+p{color:var(--ink-soft)}
+.view>*:first-child+hr,.view h1+hr{margin-top:18px}
+.view h2{font-size:1.42rem;line-height:1.2;font-weight:700;margin:44px 0 14px;letter-spacing:-.01em;
+  padding-top:20px;border-top:1px solid var(--line-2);text-wrap:balance}
+.view h2:first-of-type{border-top:0;padding-top:0}
+.view h3{font-size:1.13rem;font-weight:650;margin:26px 0 9px;color:var(--sky-ink)}
+.view h4{font-size:.98rem;font-weight:700;margin:20px 0 7px;color:var(--ink-soft);
+  font-family:var(--mono);letter-spacing:.02em}
+.view p{margin:0 0 14px;max-width:70ch}
+.view strong{font-weight:700;color:var(--ink)}
+.view hr{border:0;height:1px;background:var(--line);margin:26px 0}
+
+.view ul,.view ol{margin:0 0 16px;padding-left:1.35em;max-width:70ch}
+.view li{margin:5px 0;padding-left:3px}
+.view li::marker{color:var(--sky);font-weight:600}
+.view ol li::marker{font-family:var(--mono);font-size:.9em}
+ul.tasks{list-style:none;padding-left:2px}
+ul.tasks li.task{display:flex;gap:10px;align-items:flex-start;padding-left:0}
+.cb{flex:none;width:19px;height:19px;margin-top:3px;border-radius:5px;border:1.5px solid var(--sky);
+  display:grid;place-items:center;font-size:12px;color:#fff;background:transparent;line-height:1}
+.cb.on{background:var(--sky);border-color:var(--sky)}
+
+/* blockquote = principle callout */
+.view blockquote{margin:18px 0;padding:15px 20px;background:var(--surface-2);border-left:3px solid var(--sky);
+  border-radius:0 12px 12px 0;color:var(--ink)}
+.view blockquote p{margin:0 0 8px;max-width:64ch}
+.view blockquote p:last-child{margin:0}
+.view blockquote strong{color:var(--sky-ink)}
+
+/* inline code + pre */
+.view code{font-family:var(--mono);font-size:.86em;background:var(--surface-3);color:var(--sky-ink);
+  padding:.08em .38em;border-radius:5px;border:1px solid var(--line-2)}
+.view pre{margin:16px 0;background:var(--sidebar);color:#d7e6f2;border:1px solid var(--sidebar-line);
+  border-radius:12px;padding:16px 18px;overflow-x:auto;box-shadow:var(--shadow)}
+.view pre code{font-size:12.8px;background:none;border:0;color:inherit;padding:0;line-height:1.6;white-space:pre}
+
+/* xref (wikilinks -> memory notes) */
+.xref{font-size:.82em;font-family:var(--mono);color:var(--sky-ink);background:var(--sky-tint);
+  padding:.06em .45em;border-radius:6px;white-space:nowrap}
+.xref::before{content:"§ ";opacity:.6}
+
+/* tables */
+.tbl{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.3px;background:var(--surface)}
+thead th{background:var(--surface-3);color:var(--ink);text-align:left;font-weight:700;font-size:12.3px;
+  letter-spacing:.02em;padding:11px 14px;border-bottom:2px solid var(--sky);position:sticky;top:0;white-space:nowrap}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even){background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody td strong{color:var(--ink)}
+tbody td:first-child{color:var(--ink);font-weight:500}
+
+/* ---------- COVER ---------- */
+.cover{max-width:900px;margin:0 auto;padding:0}
+.cover .hero{position:relative;overflow:hidden;border-radius:20px;padding:52px 44px 46px;
+  background:linear-gradient(150deg,var(--sidebar),var(--sidebar-2) 70%);color:#eaf3fa;box-shadow:var(--shadow);
+  border:1px solid var(--sidebar-line)}
+.cover .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:30px 30px;mask-image:radial-gradient(120% 80% at 85% 0%,#000,transparent 72%)}
+.cover .eyebrow{position:relative;font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--sky);text-transform:uppercase;margin-bottom:14px}
+.cover h1{position:relative;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.02;margin:0 0 14px;color:#fff;letter-spacing:-.02em;text-wrap:balance}
+.cover h1 span{color:var(--sky)}
+.cover .lede{position:relative;font-size:1.12rem;color:#b9d0e0;max-width:56ch;margin:0}
+.cover .star{position:relative;margin-top:26px;display:flex;gap:13px;align-items:flex-start;
+  background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.28);border-radius:14px;padding:15px 18px}
+.cover .star .s{color:var(--gold-bright);font-size:20px;line-height:1.3;flex:none}
+.cover .star b{color:var(--gold-bright);font-weight:700}
+.cover .star p{margin:0;color:#e7eef4;font-size:14.6px}
+
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0 8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:15px 14px;text-align:center}
+.stat b{display:block;font-family:var(--mono);font-size:1.5rem;color:var(--sky-ink);letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.stat small{display:block;color:var(--ink-mute);font-size:11.7px;margin-top:3px;letter-spacing:.2px}
+
+.sec-h{display:flex;align-items:center;gap:12px;margin:38px 0 16px}
+.sec-h .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--sky);text-transform:uppercase}
+.sec-h .l{flex:1;height:1px;background:var(--line)}
+.sec-h h2{font-size:1.28rem;margin:0;font-weight:700;border:0;padding:0}
+
+.princ{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.pr{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 17px;position:relative;transition:transform .16s,box-shadow .16s,border-color .16s}
+.pr:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--sky)}
+.pr .no{font-family:var(--mono);font-size:12px;color:var(--sky);font-weight:600}
+.pr h3{margin:6px 0 5px;font-size:1.02rem;color:var(--ink);font-weight:700}
+.pr p{margin:0;font-size:13.6px;color:var(--ink-soft)}
+
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:4px}
+.how{background:var(--surface-2);border:1px dashed var(--line);border-radius:13px;padding:15px 16px}
+.how b{display:block;color:var(--sky-ink);font-size:13.5px;margin-bottom:5px}
+.how p{margin:0;font-size:13px;color:var(--ink-soft)}
+.how code{font-family:var(--mono);font-size:.9em;color:var(--gold)}
+
+.jump{display:flex;flex-wrap:wrap;gap:11px;margin:28px 0 6px}
+.jump button{cursor:pointer;font-family:var(--sans);font-size:14px;font-weight:600;border-radius:11px;padding:12px 20px;border:1px solid transparent;transition:transform .15s,box-shadow .15s}
+.jump .primary{background:var(--sky);color:#04202e;box-shadow:0 10px 24px -12px rgba(72,187,226,.8)}
+.jump .primary:hover{transform:translateY(-2px)}
+.jump .ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.jump .ghost:hover{border-color:var(--sky);color:var(--sky-ink)}
+
+/* view transition */
+.view.swap{animation:swap .26s ease}
+@keyframes swap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+:focus-visible{outline:2px solid var(--sky);outline-offset:2px;border-radius:4px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* responsive */
+@media (max-width:980px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;top:0;left:0;width:300px;z-index:50;transform:translateX(-100%);transition:transform .25s ease}
+  .sidebar.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  .menu-btn{display:grid;place-items:center;position:fixed;top:14px;left:14px;z-index:40;width:44px;height:44px;
+    border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:19px;cursor:pointer;box-shadow:var(--shadow)}
+  .scrim.show{display:block;position:fixed;inset:0;background:rgba(4,15,26,.5);z-index:45}
+  .view,.pager,.colophon{padding-left:22px;padding-right:22px}
+  .view{padding-top:64px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .princ,.howto{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .cover .hero{padding:34px 22px 30px}
+  .stats{grid-template-columns:1fr 1fr}
+  .pager{flex-direction:column}
+  .pg-btn{max-width:none}
+}
+
+</style>
+<div class="progress"><i id="progbar"></i></div>
+<button class="menu-btn" id="menuBtn" aria-label="Mở mục lục">☰</button>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+  <aside class="sidebar" id="sidebar"><div class="side-inner"><div class="brand"><span class="brand-mark">DT</span><span class="brand-txt"><b>Sổ Tay Vận Hành</b><small>doitay.vn · ThợTốt</small></span></div><nav class="toc" id="toc"></nav><div class="side-foot"><span class="foot-note">Sổ tay sống · Hà Nội</span><span class="ver">v1 · 2026</span></div></div></aside>
+  <main class="main" id="main"><div class="view" id="view"></div><footer class="pager" id="pager"></footer><div class="colophon">Sổ tay sống — cập nhật thẳng vào <code>agent-system/so-tay-van-hanh/</code>. Bản dựng 2026-07.</div></main>
+</div>
+<script type="text/html" id="tpl-cover">
+<div class="cover">
+  <div class="hero">
+    <div class="eyebrow">Sổ tay vận hành · Field manual</div>
+    <h1>doitay.vn <span>/</span> ThợTốt</h1>
+    <p class="lede">Cẩm nang vận hành đầy đủ: go-to-market, growth, vận hành digital &amp; cộng tác viên, đo lường. Viết để mở ra là làm được ngay.</p>
+    <div class="star">
+      <span class="s">★</span>
+      <p><b>BẮC ĐẨU</b> — con số duy nhất phải tăng: bao nhiêu <b>thợ THẬT</b> chia sẻ hồ sơ của họ → bao nhiêu <b>khách THẬT</b> liên hệ qua đó. Mọi việc trong sổ tay phục vụ một con số này.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>~105</b><small>thợ đăng ký</small></div>
+    <div class="stat"><b>~1.200</b><small>lịch hẹn</small></div>
+    <div class="stat"><b>~745</b><small>dự án xong</small></div>
+    <div class="stat"><b>4.0★</b><small>đánh giá TB</small></div>
+    <div class="stat"><b>Hà Nội</b><small>địa bàn khởi động</small></div>
+  </div>
+
+  <div class="sec-h"><span class="k">Nền móng</span><h2>5 nguyên tắc bất di bất dịch</h2><span class="l"></span></div>
+  <div class="princ">
+    <div class="pr"><div class="no">01</div><h3>Thợ là tài sản</h3><p>Marketplace là mồi giữ thợ. Tiền đến từ bán cho base thợ trung thành — không phải tối đa hoá giao dịch khách ngắn hạn.</p></div>
+    <div class="pr"><div class="no">02</div><h3>Người tạo quan hệ, AI lo sản xuất</h3><p>Con người đi chào thợ, vào nhóm, xây niềm tin. Agent lo viết bài, quét tín hiệu, dựng hồ sơ, gom keyword.</p></div>
+    <div class="pr"><div class="no">03</div><h3>Đo chuỗi ra tiền</h3><p>Thợ chia sẻ hồ sơ → khách thật liên hệ. Bỏ qua lượt xem, follower, like — phù phiếm với mô hình tần suất thấp.</p></div>
+    <div class="pr"><div class="no">04</div><h3>Concierge — làm hộ thợ</h3><p>Ma sát bằng 0. Không bắt thợ tự làm gì. "Anh gửi em vài ảnh với số điện thoại, 2 phút thôi."</p></div>
+    <div class="pr"><div class="no">05</div><h3>Không phá lòng tin</h3><p>Không bịa review, không ảnh AI, không giọng bán lead. Uy tín 30 thợ đầu quyết định 300 thợ sau.</p></div>
+  </div>
+
+  <div class="sec-h"><span class="k">Cách đọc</span><h2>Dùng bộ sách này thế nào</h2><span class="l"></span></div>
+  <div class="howto">
+    <div class="how"><b>Chạy hằng ngày</b><p>Mở sẵn <code>Quyển 5 — Lịch</code>. Tra Quyển 3 (digital) &amp; 4 (CTV) khi cần chi tiết thao tác.</p></div>
+    <div class="how"><b>Người mới</b><p>Đọc <code>Quyển 0</code> → <code>Quyển 5</code> → phần liên quan vai trò của mình.</p></div>
+    <div class="how"><b>Ra quyết định</b><p><code>Quyển 6</code> (ngưỡng số) + <code>Quyển 0</code> (thesis). Mỗi chỉ số nối 1 quyết định.</p></div>
+  </div>
+
+  <div class="jump">
+    <button class="primary" data-go="vol-5">Mở Lịch vận hành →</button>
+    <button class="ghost" data-go="vol-0">Đọc từ đầu (Quyển 0)</button>
+  </div>
+</div>
+
+</script>
+<script type="text/markdown" id="vol-0">
+# QUYỂN 0 — TỔNG QUAN & LA BÀN
+
+> Đọc đầu tiên. Đọc lại mỗi tháng. Khi phân vân "có nên làm việc này không" → quay về đây.
+
+---
+
+## 1. Ta đang xây cái gì
+
+**doitay.vn** — marketplace kết nối chủ nhà Hà Nội với thợ sửa chữa chuyên nghiệp (điện, nước, điều hoà, xây dựng, sơn, ốp lát, mộc, hàn, vệ sinh, sửa chữa tổng hợp). Miễn phí cho khách.
+
+Nhưng marketplace **không phải đích đến** — nó là **mồi**. Đọc kỹ mục 2.
+
+## 2. Luận điểm kinh doanh (thesis) — thuộc lòng
+
+> **Thợ là TÀI SẢN. Marketplace là MỒI để giữ thợ. Tiền thật đến từ việc BÁN cho base thợ.** [[project_monetize_thesis]]
+
+Vì sao:
+- **Cầu (khách) là tần suất THẤP.** Một nhà vài tháng mới hỏng cái gì đó. Không thể xây business quảng cáo/hoa hồng bền trên hành vi hiếm. Khách đến rồi đi — giao dịch một lần.
+- **Cung (thợ) là tần suất CAO.** Thợ làm nghề mỗi ngày, cần việc mỗi ngày, mua vật tư mỗi tuần. Thợ *ở lại*.
+- Nên: dùng marketplace (giúp thợ có khách, có hồ sơ đẹp, có mặt mũi) để **giữ chân thợ**. Khi đã có **base thợ trung thành**, monetize bằng cách **bán cho họ**: vật tư, dịch vụ, công cụ, bảo hiểm, tài chính, đào tạo, gói hiển thị. Doitay dần thành **thương hiệu/kênh của giới thợ**.
+- Marketplace lo phần "giữ". Doanh thu lo phần "bán cho người ở lại".
+
+**Hệ quả vận hành:** mọi việc ưu tiên **làm thợ ở lại và tin tưởng**, không phải tối đa hoá giao dịch khách ngắn hạn.
+
+## 3. Ba mặt trận (3 surfaces) — ai dùng gì
+
+| Đối tượng | Bề mặt | Vai trò | Ghi chú |
+|---|---|---|---|
+| **Khách** (chủ nhà) | Web `doitay.vn` | Nơi khách TÌM được thợ | Giao dịch 1 lần, tần suất thấp |
+| **Thợ** | **Zalo Mini App (Tool-CV)** | Nơi thợ SỐNG: hồ sơ, QR, chia sẻ khách | Auth Zalo, không OTP phiền; đây là mặt trận giữ thợ |
+| **CTV** (cộng tác viên) | Cổng sale (tách riêng) | Người đi tuyển thợ ở kênh vật lý | Trả theo kết quả |
+
+[[project_surface_architecture]] — Web chỉ là nơi khách tìm thợ. **Kích hoạt được Mini App ở Zalo mới là chốt chặn giữ thợ.**
+
+## 4. Bắc Đẩu — con số duy nhất phải tăng
+
+> **Bao nhiêu thợ THẬT chia sẻ hồ sơ của họ → bao nhiêu khách THẬT liên hệ qua đó.**
+
+Mỗi thợ chia sẻ hồ sơ cho khách quen = **1 kênh phân phối nhỏ**. Đủ nhiều thợ chia sẻ → cầu thật tự chảy về mà không cần đốt ads. Đây là *product-market fit signal* của mô hình này.
+
+**KHÔNG đo:** lượt xem trang chủ, follower, like. Chúng phù phiếm với mô hình low-frequency.
+**ĐO:** #thợ mới thật · %thợ đã chia sẻ link · #khách thật liên hệ · #thợ quay lại dùng.
+
+Ngưỡng bước ngoặt: **5-10 khách thật** hỏi thợ qua link đầu tiên = đủ tín hiệu để mở rộng (Quyển 6).
+
+## 5. Chiến lược thâm nhập — Atomic Network (tóm tắt, chi tiết ở Q1)
+
+Không dàn mỏng toàn Hà Nội. **Bão hoà cục bộ:** chọn **1 quận × 2-3 nghề nhu cầu gấp** (điện/nước/điều hoà), gom đủ mật độ thợ để khi có khách ở đó là **luôn có thợ nhận** → trải nghiệm tốt → truyền miệng → lan quận kế bên. Một mạng lưới nhỏ mà *đậm đặc* hơn mười mạng lưới rộng mà loãng.
+
+## 6. Giọng & ranh giới (áp cho MỌI nội dung)
+
+**Giọng:** đồng nghiệp, không phải công ty. Tiếng thợ: *"bơm gas đểu, thợ đụng, thợ cỏ, kèo, bom kèo"*. Ấm, thực tế, tôn trọng nghề. Nguồn sự thật: `project.yaml`.
+
+**Tránh:** corporate ("giải pháp toàn diện", "nền tảng số"), bán lộ liễu, hứa "kiếm triệu mỗi ngày", chê thợ khác.
+
+**Ranh giới lòng tin (đỏ — không bao giờ vượt):**
+- ❌ Bịa đánh giá 5 sao. Review chỉ từ khách thật.
+- ❌ Ảnh AI/stock cho hồ sơ thợ. Chỉ ảnh việc thật.
+- ❌ Trộn hồ sơ thợ thật với thợ ảo seed (tắt seed trước khi bật SEO index).
+- ❌ Giọng "bán lead" với thợ. Bán "1 trang hồ sơ miễn phí làm hộ", không bán "sàn".
+- ✅ Hứa gì làm nấy. Nói xong hôm nay là xong hôm nay.
+
+## 7. Phân công gốc
+
+> **Con người đi tạo QUAN HỆ (chào thợ, vào nhóm, xây niềm tin). Agent/AI lo NỘI DUNG & VẬN HÀNH (viết bài, quét tín hiệu, dựng hồ sơ, gom keyword).**
+
+Đây là lý do bộ sách này chia rõ: việc "quan hệ" ghi cho người; việc "sản xuất" giao agent (bảng ở cuối mỗi quyển).
+
+## 8. Năm angle nội dung (dùng xuyên suốt) — `project.yaml`
+
+| Angle | Cảm xúc | Dùng để |
+|---|---|---|
+| **Cái Uy** | Tự hào nghề | Nâng tầm thợ giỏi = nghệ nhân → trust |
+| **Sĩ Diện** | Muốn được nhìn nhận | Hồ sơ đẹp = có mặt mũi với khách |
+| **Cơ Hội** | FOMO việc | Số liệu, case study → conversion |
+| **Nhà Nghề** | Học được ngay | Bảng giá, tip, checklist → thu hút thợ |
+| **Hậu Trường** | Đồng cảm | Chuyện thật đi kèo → gắn kết |
+
+## 9. Hiện trạng (cập nhật khi đổi)
+
+| Chỉ số | Giá trị | Nguồn |
+|---|---|---|
+| Thợ đăng ký | ~105 | `project.yaml` (kiểm lại DB định kỳ) |
+| Lịch hẹn đã tạo | ~1.200 | — |
+| Dự án hoàn thành | ~745 | — |
+| Rating TB | 4.0 | — |
+| Địa bàn | Hà Nội | — |
+| Hotline | 0327 834 490 | — |
+| Đối thủ | bTaskee, JupViec (HCM, cleaning) · Thợ Việt, Vua Thợ | Doitay khác biệt: Hà Nội + đa ngành, nói tiếng thợ |
+
+## 10. Lộ trình 3 giai đoạn (khung tháng — chi tiết Q1, Q5)
+
+1. **G1 — Đặt nền (tháng 1-2):** 30 thợ thật đầu tiên trong 1 atomic network. Kích hoạt Mini App Zalo. Xử seed. Đo Bắc Đẩu.
+2. **G2 — Chứng minh vòng lặp (tháng 3-4):** thợ chia sẻ → khách thật đến; bật SEO index; CTV chạy đều; content engine tự nuôi bằng tín hiệu.
+3. **G3 — Mở rộng + monetize thử (tháng 5+):** nhân công thức sang quận/nghề mới; thử bán 1 thứ đầu tiên cho base thợ (vật tư/gói hiển thị).
+
+---
+*Cập nhật lần cuối: 2026-07. Chủ sở hữu: bạn (founder).*
+
+</script>
+<script type="text/markdown" id="vol-1">
+# QUYỂN 1 — GO-TO-MARKET
+
+> Vào thị trường thế nào, địa bàn nào trước, làm gì trong 30-60-90 ngày đầu của mỗi mạng lưới.
+> Đọc khi: khởi động, hoặc mở địa bàn/nghề mới.
+
+---
+
+## 1. Nguyên lý: ATOMIC NETWORK (bão hoà cục bộ)
+
+Marketplace chết vì **loãng**: có khách mà không có thợ nhận (hoặc ngược lại) → trải nghiệm tệ → chết. Cách sống: chọn **lát cắt nhỏ nhất mà đủ đậm để giao dịch luôn khớp**.
+
+**Đơn vị nguyên tử của Doitay = 1 QUẬN × 2-3 NGHỀ nhu cầu gấp.**
+
+Vì sao lát cắt này:
+- **1 quận:** thợ đi lại được, khách tin "thợ gần đây", truyền miệng trong bán kính nhỏ.
+- **2-3 nghề gấp (điện/nước/điều hoà):** hỏng là gọi ngay, tần suất cao nhất trong nhóm low-frequency → nhanh có giao dịch thật để học.
+- **Đủ mật độ:** mục tiêu **mỗi (nghề×quận) có ≥3-5 thợ thật** → khách hỏi là luôn có người nhận. (Con số 3 khớp `seo_min_tho` — ngưỡng để (nghề×quận) đủ điều kiện lên trang SEO.)
+
+## 2. Chọn atomic network đầu tiên — checklist
+
+Chọn 1 quận ghi điểm cao nhất theo bảng (làm 15'):
+
+| Tiêu chí | Điểm cao khi |
+|---|---|
+| Mật độ dân cư / chung cư | Nhiều → nhiều sự cố → nhiều cầu |
+| Bạn/CTV có quan hệ sẵn ở đó | Có thợ quen → 5 thợ đầu dễ |
+| Có chợ/cửa hàng vật tư điện nước | Có → điểm chào thợ offline tốt |
+| Nhóm FB cư dân + nhóm thợ active | Có → kênh tuyển & lắng nghe |
+
+> Gợi ý khởi động: quận bạn ở hoặc quận có cửa hàng vật tư lớn (thợ tụ tập mua đồ sáng sớm). Ghi tên quận đã chọn: `__________`.
+
+## 3. Chuỗi cung–cầu: nạp CUNG trước, CẦU sau
+
+Thứ tự **không được đảo**:
+1. **Cung (thợ) trước** — 30 thợ thật đầu tiên (mục 4). Không có thợ mà kéo khách về = khách thất vọng, đốt uy tín.
+2. **Kích hoạt kênh phân phối của thợ** — mỗi thợ chia sẻ hồ sơ cho 2-3 khách quen (đây là cầu thật đầu tiên, chất lượng cao, miễn phí).
+3. **Cầu bổ sung** — SEO (khi đã đủ thợ + xử seed) + content kéo khách + (sau) ads có mục tiêu.
+
+## 4. Playbook 30 THỢ THẬT ĐẦU TIÊN (7 ngày) — concierge
+
+> Chi tiết đầy đủ: `playbooks/tuyen_30_tho_dau_tien.md`. Đây là bản rút gọn để nhúng vào GTM.
+
+**Tư duy gốc — vì sao thợ nói CÓ:** đừng bán "nền tảng". Bán **1 thứ cụ thể, miễn phí, làm hộ**: *"Em làm miễn phí cho anh 1 trang hồ sơ thợ có QR để gửi khách, khỏi giải thích tay nghề nhiều lần. Anh chỉ cần gửi vài ảnh việc + số điện thoại, em làm xong hôm nay."* 3 lý do đồng ý: **miễn phí · không tốn công · lợi cho họ ngay**.
+
+**Lịch 7 ngày:**
+
+| Ngày | Việc | Mục tiêu |
+|---|---|---|
+| 1 | Bắt đầu từ 5 thợ QUEN/được giới thiệu → làm hồ sơ đẹp để khoe | 5 thợ + 5 mẫu |
+| 2 | Ra 2-3 cửa hàng vật tư buổi sáng, chào trực tiếp | +5 |
+| 3 | Đăng 5 nhóm FB thợ + nhắn riêng 20 thợ | +5 |
+| 4 | Làm hồ sơ cho thợ đã đồng ý, nhắc thợ chia sẻ link cho khách | +5 |
+| 5 | Gọi số thợ dán cột điện/thang máy/chợ | +5 |
+| 6 | Xin mỗi thợ đã có hồ sơ giới thiệu 1 thợ bạn (referral) | +5 |
+| 7 | Hoàn thiện hồ sơ, tổng kết | 30 ✅ |
+
+Nhịp thật: **10-20 lời chào → 5 đồng ý.** Chào nhiều lên.
+
+**Tìm thợ ở đâu:** nhóm FB thợ điện nước Hà Nội · cửa hàng vật tư (chuyển đổi cao nhất) · số dán cột điện/thang máy/chợ · thợ đang thi công gần nhà · referral. (Script chào: PL-A §1-3.)
+
+**Câu chốt quan trọng nhất** (ngay sau khi gửi link cho thợ): *"Anh gửi thử link này cho 2-3 khách quen xem nha."* → nguồn cầu thật đầu tiên.
+
+## 5. Kích hoạt kênh phân phối của thợ (bước hay bị bỏ)
+
+Có hồ sơ chưa đủ — **thợ phải THỰC SỰ gửi cho khách**. Đây là điểm rơi lớn nhất. Cách ép nhẹ:
+- Gắn thưởng CTV vào "thợ đã chia sẻ link" (không chỉ "tạo hồ sơ").
+- 2-3 ngày sau nhắn thợ: *"Anh gửi link cho khách nào chưa? Có ai hỏi chưa? Cần sửa gì em sửa."*
+- Trong Tool-CV: nút **"gửi hồ sơ"** chia sẻ native Mini App — hướng dẫn thợ dùng đúng nút này.
+
+## 6. Kích hoạt Mini App Zalo (điều kiện cần của GTM thợ)
+
+Web chỉ để khách tìm thợ. **Thợ sống ở Zalo.** Việc phải xong sớm (của founder):
+1. Xác minh domain doitay.vn trên Zalo Console (đặt file/thẻ xác minh — gửi mã cho AI đặt lên web).
+2. Cấu hình Trusted/Request/Webview domains + category "dịch vụ tiện ích" (không phải cửa hàng sửa chữa — pháp nhân là công ty phần mềm "Ground Truth"). Theo `Tool_cv/ZALO_SUBMIT_DOSSIER.md`.
+3. Submit, chờ duyệt. Sau duyệt: mở khoá `getPhoneNumber` → đồng bộ hồ sơ an toàn theo SĐT thật.
+
+> Đến khi Mini App live, vẫn chạy được: hồ sơ publish ra `doitay.vn/tho/<id>/<slug>` (web) để thợ chia sẻ.
+
+## 7. Xử SEED trước khi mở cầu diện rộng
+
+DB còn thợ ảo/ảnh AI seed. **Trước khi bật SEO index hoặc kéo khách diện rộng:** tắt/ẩn seed để không trộn với thợ thật (ranh giới lòng tin, Q0). Trang SEO đang **noindex** tới khi `SEO_INDEX_ENABLED=true` — chỉ bật sau khi (a) xử seed, (b) mỗi (nghề×quận) ≥3 thợ thật. [[project_seo_killswitch]]
+
+## 8. Định nghĩa "network đã sống" (Definition of Alive)
+
+Một atomic network coi là **sống** khi đạt đủ:
+- [ ] ≥3-5 thợ thật/nghề trong quận, cho ≥2-3 nghề gấp.
+- [ ] ≥40% thợ đã chia sẻ hồ sơ cho khách.
+- [ ] ≥5-10 khách thật đã liên hệ thợ qua link.
+- [ ] Có ≥1 giao dịch khớp trọn (khách hỏi → thợ nhận → hoàn thành → review thật).
+
+→ Đạt đủ = sẵn sàng **nhân bản sang quận kế** (Q6 quyết định mở rộng).
+
+## 9. Nhân bản sang atomic network kế tiếp (công thức)
+
+Khi network 1 đã sống, lặp y hệt cho quận kề (ưu tiên quận sát để thợ overlap được):
+1. Copy toàn bộ script + kịch bản của người/CTV giỏi nhất network 1.
+2. Ưu tiên tuyển thợ **giáp ranh** 2 quận (phục vụ được cả hai).
+3. Dùng case study thật từ network 1 để chào thợ network 2 ("thợ bên [quận] đã có khách qua link").
+4. Lặp lại DoA (mục 8). Đừng mở network 3 khi network 2 chưa sống.
+
+## 10. Cạnh tranh — định vị khi vào thị trường
+
+Đối thủ lớn (bTaskee, JupViec) mạnh ở **HCM + cleaning**. Doitay vào bằng khe hở: **Hà Nội + đa ngành sửa chữa + nói tiếng thợ**. Không đối đầu trực diện ở cleaning/HCM. Không "rẻ hơn" — **"hiểu thợ Hà Nội hơn"**.
+
+---
+
+## Ai làm gì (Quyển 1)
+
+| Việc | Người | Agent |
+|---|---|---|
+| Chọn quận, đi chào thợ, xây quan hệ | ✅ Founder/CTV | — |
+| Dựng nội dung 30 hồ sơ đầu | hỗ trợ | ✅ content (bio, bảng giá) |
+| Script chào theo nghề | — | ✅ (PL-A) |
+| Submit Zalo, xác minh domain | ✅ Founder | hỗ trợ đặt thẻ web |
+| Kiểm DoA, quyết mở rộng | ✅ Founder | ✅ analytics (số) |
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-2">
+# QUYỂN 2 — GROWTH: CÁC VÒNG TĂNG TRƯỞNG
+
+> Growth không phải "đăng nhiều hơn". Growth là **thiết kế các vòng lặp tự khuếch đại**.
+> Quyển này định nghĩa 5 vòng của Doitay; *cách thao tác từng vòng* nằm ở Quyển 3 (digital) & 4 (CTV).
+
+---
+
+## 1. Bản đồ 5 vòng tăng trưởng
+
+| Vòng | Câu 1 dòng | Loại | Chi phí biên |
+|---|---|---|---|
+| **V1. Thợ-làm-kênh** ⭐ | Thợ chia sẻ hồ sơ → khách quen của thợ vào → thợ thấy lợi → chia sẻ tiếp + rủ thợ khác | Referral kép | ~0 |
+| **V2. Content → tín hiệu → content** | Đăng bài → comment lộ nỗi đau → nuôi bài sát hơn → nhiều tương tác hơn | Nội dung khép vòng | Thấp |
+| **V3. SEO cung tạo cầu** | Thợ thật nhiều → trang nghề×quận có nội dung → Google xếp hạng → khách search tự đến | SEO tổ hợp | ~0 sau build |
+| **V4. CTV vật lý** | CTV chào thợ → thợ mới → mỗi thợ là kênh mới (về V1) | Kênh trả-theo-kết-quả | Biến đổi (kiểm soát được) |
+| **V5. Viral mượn format** | Nhặt format đang nổ → nhái bằng chất liệu thợ → reach lạnh → thợ mới biết đến | Khuếch đại nội dung | Thấp |
+
+**Vòng cái (master loop):** V1. Mọi vòng khác cuối cùng đổ về V1 — *thêm thợ, làm thợ chia sẻ nhiều hơn*. Nếu chỉ được chọn 1 để tối ưu: **tăng % thợ chia sẻ hồ sơ.**
+
+---
+
+## 2. V1 — THỢ-LÀM-KÊNH (vòng quan trọng nhất)
+
+**Cơ chế:** mỗi thợ có hồ sơ đẹp + được nhắc → gửi cho 2-3 khách quen → khách thấy tiện (xem tay nghề, đánh giá, đặt lịch) → thợ chốt được khách → thợ tin Doitay → (a) chia sẻ tiếp, (b) rủ thợ bạn (referral).
+
+**Đòn bẩy để vòng quay nhanh hơn:**
+- **Chất lượng hồ sơ** (Q3 §Tool-CV): ảnh thật, bảng giá đúng nghề, bio giọng thợ. Hồ sơ đẹp → thợ tự hào → tự khoe.
+- **Nhắc chia sẻ đúng lúc**: ngay khi gửi link + nhắc lại sau 2-3 ngày.
+- **Cho thợ thấy kết quả**: "khách [tên] vừa hỏi anh qua link đấy" → dopamine → chia sẻ tiếp.
+- **Referral thợ→thợ**: xin mỗi thợ giới thiệu 1 thợ bạn; thưởng nhẹ.
+
+**Đo:** %thợ đã chia sẻ · #khách/thợ · #thợ đến từ giới thiệu. (Q6)
+
+## 3. V2 — CONTENT KHÉP VÒNG (đã tự động hoá)
+
+Hai cron đã dựng thành vòng: **Post → Comment → Signal → Intel → Post.**
+- Sáng (`fb_morning_distribution`): quét group tìm "khoảnh khắc thị trường" (R2) → sinh bài phản ứng (C3).
+- Tối (`fb_evening_signals`): đọc comment → rút *pain/language/intent signal* (A7) → lưu AudienceIntel → mai bài sát hơn.
+
+**Việc của người:** duyệt bài + seed comment 30' đầu (G12) + đọc báo cáo tối. Vòng tự sắc bén dần theo thời gian. (Thao tác: Q3 §1-2.)
+
+## 4. V3 — SEO CUNG TẠO CẦU (đã build, chờ điều kiện bật)
+
+Nghịch lý đẹp: **càng nhiều thợ thật → SEO càng mạnh → càng nhiều khách → thợ càng thích.** SEO ở đây *ăn theo cung*, không cần bịa nội dung.
+
+Đã có: trang `/dich-vu/[nghe]/[khuvuc]` (H1 local, danh sách thợ thật, FAQ, JSON-LD), hub `/dich-vu`, hệ keyword `keywordsFor()` (6 intent modifier), sitemap có cổng. **Đang noindex** tới khi `SEO_INDEX_ENABLED=true`. [[project_seo_killswitch]]
+
+**Điều kiện bật index:** (a) xử seed, (b) mỗi (nghề×quận) ≥3 thợ thật. Sau bật: gắn Google Search Console lấy keyword thật. (Thao tác keyword: Q3 §5.)
+
+## 5. V4 — CTV VẬT LÝ (kênh nạp cung)
+
+CTV = cách **scale bước "chào thợ"** mà không ngốn thời gian founder. Trả theo kết quả (20-40k/thợ hợp lệ). Mỗi thợ CTV nạp → chảy vào V1. (Vận hành đầy đủ: Quyển 4.)
+
+## 6. V5 — VIRAL MƯỢN FORMAT
+
+Không sáng tạo từ đầu. **Nhặt cấu trúc bài đang nổ → thay ruột cho nghề thợ** (R5 + A7). Reach lạnh giúp thợ mới (và khách) biết đến, đổ về V1/V2. (Thao tác 20'/ngày: Q3 §6.)
+
+---
+
+## 7. Chiến lược nội dung (khung — dùng cho mọi vòng content)
+
+**5 content pillar** (`project.yaml`), xoay đều để không nhàm:
+1. Câu chuyện thợ giỏi (Cái Uy — trust)
+2. Tips nghề & kinh nghiệm (Nhà Nghề — thu hút thợ)
+3. Cơ hội việc trên Doitay (Cơ Hội — conversion)
+4. Khách hàng nói gì (Social Proof — Sĩ Diện)
+5. Hậu trường đội ngũ (Authenticity)
+
+**4 GTM engine** (mỗi bài thuộc 1 loại — quyết định cách phân phối):
+| Engine | Mục đích | Route mặc định |
+|---|---|---|
+| `narrative` | Kể chuyện xây cảm xúc | Page + group story |
+| `proof` | Số liệu/case → tin | Page |
+| `utility` | Kiến thức dùng ngay | Page + group thợ |
+| `demand_capture` | Bắt cầu, hỏi thẳng | Group (reactive theo tin hôm nay) |
+
+**Tỉ lệ gợi ý/tuần:** ~40% utility + narrative (nuôi thợ), ~30% proof (tin), ~30% demand_capture (bắt cầu).
+
+## 8. Kênh & giờ vàng (`project.yaml`)
+
+| Kênh | ID/loại | Giờ đăng | Vai trò |
+|---|---|---|---|
+| Facebook Page | 663482443525186 | 10:00 · 14:00 · 20:00 | Trục chính nuôi thợ + proof |
+| Zalo OA | OA + ZNS | 06:00 · 11:30 · 20:00 | **Kênh chính chạm thợ** |
+| TikTok | drama / day-in-life | 11:30 · 20:00 | Audience lạnh, video kéo |
+
+## 9. Bài toán "gà–trứng" và cách Doitay né
+
+Marketplace kinh điển kẹt gà-trứng (không thợ→không khách→không thợ). Doitay né bằng **V1**: không cần khối cầu lớn trước — mỗi thợ **tự mang khách quen của mình** vào. Cung tự sinh cầu ở quy mô nhỏ. Đây là lý do **nạp cung + ép chia sẻ** quan trọng hơn chạy ads kéo cầu ở giai đoạn đầu.
+
+## 10. Khi nào đốt tiền (ads) — chưa phải bây giờ
+
+Chỉ chạy ads khi **vòng lặp hữu cơ đã chứng minh** (V1 sống, có khách thật qua link). Ads sớm = đổ nước vào xô thủng. Thứ tự đúng: *vòng hữu cơ chạy → đo được chi phí có 1 thợ/1 khách → mới scale bằng tiền.*
+
+---
+
+## Ai làm gì (Quyển 2)
+
+| Vòng | Người | Agent |
+|---|---|---|
+| V1 thợ-làm-kênh | ✅ nhắc/quan hệ thợ | ✅ chất lượng hồ sơ |
+| V2 content | duyệt + seed | ✅ cron sáng/tối |
+| V3 SEO | quyết bật index | ✅ gom keyword, dựng trang |
+| V4 CTV | ✅ tuyển/nghiệm thu | ✅ dựng hồ sơ hàng loạt |
+| V5 viral | chọn mẫu nhái | ✅ rút pattern + viết lại |
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-3">
+# QUYỂN 3 — VẬN HÀNH DIGITAL (chi tiết từng thao tác)
+
+> Đây là "cẩm nang thao tác". Mỗi mục: **làm gì · các bước · mất bao lâu · đo bằng gì.**
+> Nhịp gọi các mục này ra khi nào → xem Quyển 5 (Lịch).
+
+Mục lục: §1 Nội dung · §2 Phân phối & seed · §3 Comment-inbox · §4 Zalo/TikTok · §5 SEO keyword · §6 Săn viral · §7 Tool-CV & hồ sơ · §8 Lắng nghe thợ.
+
+---
+
+## §1. SẢN XUẤT NỘI DUNG (bạn duyệt, agent viết)
+
+### 1.1 Lên lịch tuần (thứ 2, ~30')
+1. Mở khung tuần: 10-12 bài, xoay 5 pillar × 5 angle, không lặp angle 2 ngày liền.
+
+   | Thứ | Pillar | Angle | Engine |
+   |---|---|---|---|
+   | 2 | Chuyện thợ giỏi | Cái Uy | narrative |
+   | 3 | Tips nghề | Nhà Nghề | utility |
+   | 4 | Cơ hội việc | Cơ Hội | proof |
+   | 5 | Hậu trường kèo | Hậu Trường | narrative |
+   | 6 | Khách nói gì | Sĩ Diện | proof |
+   | 7 | Bảng giá/tip | Nhà Nghề | utility |
+   | CN | Hỏi cộng đồng | (ask) | demand_capture |
+
+2. Giao agent draft cả tuần một lần (skill C1 hook, C3 shortform, C7 CTA). Prompt mẫu: *"Draft 10 bài tuần theo bảng trên, giọng project.yaml, mỗi bài: hook + body ≤120 chữ + CTA, link để comment. Kèm 3 seed comment/bài."*
+3. **Bạn duyệt/sửa** → đánh dấu approved trong DB (cron chỉ đăng bài approved).
+
+### 1.2 Chuẩn 1 bài đạt (checklist trước duyệt)
+- [ ] Hook 2 dòng đầu có "móc" (số/xung đột/câu hỏi/"đừng làm X").
+- [ ] Giọng đồng nghiệp, có tiếng thợ, **không** corporate.
+- [ ] Body ≤120 chữ (bài demand_capture ≤80).
+- [ ] **Không link trong body.** Link → comment #1 ghim.
+- [ ] CTA rõ: `Tạo Profile Thợ miễn phí tại doitay.vn` HOẶC "Comment VIỆC/THỢ/CẦN".
+- [ ] Có sẵn 3 seed comment (mở rộng / tương phản / hỏi mồi).
+- [ ] Không bịa số, không hứa quá, không chê thợ khác.
+
+> Ngân hàng bài sẵn theo angle: **PL-A**.
+
+---
+
+## §2. PHÂN PHỐI & SEED COMMENT (mỗi ngày, quyết định reach)
+
+### 2.1 Sáng 09:00 — duyệt & để cron chạy
+Cron `fb_morning_distribution` tự: quét moment (R2) → route bài approved theo `posting_targets.json` → sinh 1-2 demand_capture → đăng Page + tối đa 3 group. **Việc của bạn:** đảm bảo đã có bài approved (không thì cron cảnh báo).
+
+### 2.2 Seed comment 30' đầu (BẮT BUỘC — G12)
+Thuật toán FB test bài trong 0-30': engagement cao → push. **1 thread 5 reply > 5 comment rời.** Cron gửi Telegram 3 seed comment sẵn. Thao tác:
+1. **Phase 0 (ngay khi đăng):** comment #1 = link + mô tả cụ thể → **ghim**.
+2. Seed comment 1 (mở rộng) → chờ 2-3' → seed 2 (tương phản) → chờ → seed 3 (hỏi mồi).
+3. Ai comment thật → **reply kéo thread** (hỏi thêm), đừng để comment cụt.
+
+Mẫu seed & reply: PL-A §5. Mất ~10'/bài trong 30' vàng.
+
+### 2.3 Đăng bài #2 (14:00) & #3 (20:00)
+Lặp seed 30' đầu. Bài 20:00 đăng cả 3 kênh.
+
+### 2.4 Tối 20:30 — cron tín hiệu (tự động)
+`fb_evening_signals`: quét comment → keyword match tự inbox (5' là tối ưu) → rút signal → lưu Intel → báo cáo. Bạn đọc báo cáo, ghi 1 dòng "mai điều chỉnh gì".
+
+**Gate cảnh báo:** inbox conversion > 15% = 🔥 (nhân bản góc bài đó). Account bị restrict khi đăng group = 🚨 dừng phiên.
+
+---
+
+## §3. COMMENT-INBOX (bắt cầu tự động)
+
+Hệ đã có (`src/api/comment_inbox.py`): bài có CTA "Comment [KEYWORD]" → khách comment → tự nhắn tin inbox kèm link.
+
+### 3.1 Tạo keyword rule (khi đăng bài demand_capture)
+- Cron tự tạo qua `POST /api/comment-inbox/rules`: `fb_post_id`, `keywords` (VIỆC/THỢ/CẦN), `inbox_message` (từ `posting_targets.json`), `link`.
+- Kiểm cuối ngày: rule đã gắn đúng post chưa.
+
+### 3.2 Xử lý match (tối, cron auto)
+- `POST /api/comment-inbox/scan` → `auto-process` gửi inbox.
+- **Fallback:** nếu không inbox được (khách chưa nhắn page) → reply công khai dưới comment.
+- Đo: #match · #sent · conversion. (Intent signal = khách hỏi/inbox = "vàng".)
+
+---
+
+## §4. ZALO OA & TIKTOK
+
+### 4.1 Zalo OA (kênh chính chạm thợ — 06:00 / 11:30 / 20:00)
+- Đăng lại bài utility/proof phù hợp thợ (repurpose từ FB — skill C10).
+- Broadcast/ZNS: dùng tiết chế, tránh spam thợ. Ưu tiên nội dung *hữu ích* (bảng giá, tip) hơn quảng cáo.
+- OA là nơi thợ tìm lại Doitay → giữ bio + link Mini App rõ ràng.
+
+### 4.2 TikTok (audience lạnh — 11:30 / 20:00)
+- Loại nội dung ăn: **drama đi kèo · day-in-the-life thợ · before/after công trình**.
+- Nhái từ swipe file viral (§6). Hook 3 giây đầu quyết định.
+- CTA nhẹ ("tạo hồ sơ thợ ở bio"), không bán gắt.
+
+---
+
+## §5. SĂN KEYWORD SEO (30'/ngày)
+
+Mục tiêu: gom keyword thật → (a) nuôi trang `/dich-vu/*`, (b) đặt title/hook đúng chữ khách gõ.
+
+### 5.1 Quy trình 30' (làm tay được)
+1. **Google Autocomplete:** gõ "thợ điện", "sửa điều hòa", "thông tắc" + tên quận → chép hết gợi ý. Thêm `thợ điện *` và `thợ điện ... hà nội`.
+2. **"Mọi người cũng hỏi" / "Tìm kiếm liên quan"** cuối SERP → chép câu hỏi → thành FAQ trang SEO + bài Nhà Nghề.
+3. **Group FB & comment:** chép **nguyên văn** cách khách hỏi ("có ai biết thợ nước gần Cầu Giấy ko ạ") = long-tail vàng.
+4. **Zalo/TikTok search suggest:** nghề + khu vực.
+
+### 5.2 Bộ khung đã có trong code
+`seo-content.ts → keywordsFor(nghề, quận)` sinh keyword từ 6 modifier: `['', ' giá rẻ', ' uy tín', ' tại nhà', ' gần đây', ' 24/7']` + biến thể "tại". **Việc của bạn:** xác nhận modifier khách thật dùng + thêm modifier mới ("ngoài giờ", "tết", "bảo hành").
+
+### 5.3 Đổ về đâu
+- Keyword tốt → `NGHE_SEO[slug].intro/faq` + title bài.
+- Nghề/quận mới đủ ≥3 thợ → tự lên qua `/public/service-areas`.
+- Ghi **sheet "Keyword radar"** (PL-B): `keyword | nguồn | volume cảm nhận | đã dùng ở đâu`.
+
+> Chưa cần công cụ trả phí. Autocomplete + group + intent modifier đủ cho pSEO. Có traffic → gắn Search Console lấy keyword thật.
+
+---
+
+## §6. SĂN MẪU VIRAL (20'/ngày)
+
+### 6.1 Quy trình 20'
+1. **Nguồn:** TikTok/Reels search "thợ điện/sửa nhà/nghề thợ"; group thợ (bài >100 comment); trang review dịch vụ.
+2. Với mỗi bài nổ, rút **cấu trúc** (không copy nội dung): Hook dạng gì · Nhịp (kể/liệt kê/before-after/drama) · Điểm chốt cảm xúc.
+3. Map về 1/5 angle → giao agent C1 viết lại bằng chất liệu thợ Hà Nội.
+
+### 6.2 Swipe file (PL-B)
+`link gốc | format | hook pattern | angle map | đã nhái?`. Mỗi tuần chọn 2-3 mẫu điểm cao nhất nhái. Khuôn hợp nghề thợ:
+- *"[X] năm làm nghề, đây là thứ tôi ước biết sớm hơn"* → Nhà Nghề
+- *"Khách trả [X]tr, tưởng lãi? Đây là chi phí thật"* → Hậu Trường
+- *"Thợ giỏi vs thợ cỏ khác nhau ở [1 chi tiết]"* → Cái Uy
+- *"Đừng gọi thợ trước khi biết [3 điều]"* → Nhà Nghề (kéo cả cầu)
+
+---
+
+## §7. TOOL-CV & DỰNG HỒ SƠ (theo lượt, gom 2 đợt: trưa + chiều)
+
+Tool-CV biến info thợ → hồ sơ chuyên nghiệp có QR → link `doitay.vn/tho/<id>/<slug>`.
+
+### 7.1 Quy trình dựng 1 hồ sơ
+1. Nhận info thợ (bạn chào trực tiếp / CTV gửi Google Form).
+2. Dựng hồ sơ (Tool-CV hoặc backend publish). Agent hỗ trợ: **bio** (giọng thợ), **bảng giá theo nghề**, **tags**. (Không bịa review.)
+3. Xuất link + QR → gửi thợ + **dặn câu chốt** (chia sẻ cho 2-3 khách quen).
+4. Ghi sheet theo dõi thợ (PL-B): đã gửi link? đã share chưa?
+
+### 7.2 Checklist chất lượng (trước khi gửi thợ)
+- [ ] Tên + nghề + khu vực đúng; **không** lộ brand "doitay" thừa trên thẻ.
+- [ ] ≥3 ảnh **việc thật** (không AI/stock).
+- [ ] Bảng giá **đúng nghề** (dịch vụ ăn theo ngành, có mục "khác" để thợ tự điền).
+- [ ] Bio giọng thợ, không corporate.
+- [ ] Test trên điện thoại: mở nhanh · QR quét ra đúng trang · nút "Đặt lịch/Liên hệ" chạy.
+
+### 7.3 Tương tác trong Mini App
+- Nút **"gửi hồ sơ"** = chia sẻ native Mini App (đã sửa, không phải Zalo cá nhân). Hướng dẫn thợ dùng đúng.
+- Theo dõi thợ **chưa publish/chưa share** → nhắn nhắc (điểm rơi lớn nhất — V1).
+- Submit Zalo + xác minh domain: việc founder (Q1 §6).
+
+---
+
+## §8. LẮNG NGHE THỢ (nghiên cứu tương tác — 30'/ngày)
+
+Không bán — **cho giá trị + nghe thợ đau gì**. Mỗi ngày vào 3 nhóm thợ:
+1. Thả 1 comment hữu ích thật (mách chỗ mua vật tư rẻ, giải 1 câu kỹ thuật).
+2. Chép **nguyên văn** 2-3 câu than ("mưa cả tuần ế quá", "khách bom kèo") → nhét AudienceIntel → nguyên liệu bài mai.
+3. Nhắn hỏi thăm 2-3 thợ đã có hồ sơ (giữ quan hệ + đo Bắc Đẩu).
+
+**Bảng nghiên cứu tương tác thợ** (agent rút từ log group mỗi tuần):
+
+| Tín hiệu | Ví dụ | Dùng làm |
+|---|---|---|
+| Nỗi đau lặp lại | "ế khi mưa", "bị ép giá" | bài Hậu Trường/Nhà Nghề |
+| Từ ngữ đặc trưng | cách họ gọi tên vấn đề | dùng đúng chữ trong hook |
+| Ý định (gold) | hỏi xin khách, hỏi cách tìm việc | mời tạo hồ sơ ngay |
+| Phản đối | "app bán lead à" | câu gỡ (PL-A §6) |
+
+---
+
+## Ai làm gì (Quyển 3)
+
+| Thao tác | Người | Agent |
+|---|---|---|
+| Duyệt bài, seed comment 30' | ✅ | draft bài + seed sẵn |
+| Reply thread, quan hệ thợ | ✅ | — |
+| Quét moment, rút tín hiệu | — | ✅ R2/A7 (cron) |
+| Gom keyword, cập nhật trang SEO | ✅ 30' | ✅ tự sinh khung |
+| Rút mẫu viral | chọn | ✅ R5/A7 + viết lại |
+| Dựng nội dung hồ sơ | hỗ trợ | ✅ bio/bảng giá |
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-4">
+# QUYỂN 4 — VẬN HÀNH CỘNG TÁC VIÊN (CTV)
+
+> CTV = cách scale bước "chào thợ" mà không ngốn thời gian founder. **Trả theo kết quả, không lương cứng.**
+> Nền: `playbooks/thue_ctv_tuyen_tho.md`. Quyển này biến nó thành SOP chạy được.
+
+---
+
+## 1. Mô hình đúng (thuộc lòng)
+
+| | Lương cứng ❌ | CTV trả theo kết quả ✅ |
+|---|---|---|
+| Chi phí | Trả cả khi không ra kết quả | Chỉ trả khi có thợ thật |
+| Rủi ro | Bạn gánh | CTV gánh phần "chào 20 ra 5" |
+| Scale | Tuyển + quản từng người | Đăng 1 bài, nhiều CTV tự chạy |
+| Quản lý | Cao | Thấp — chỉ nghiệm thu |
+
+**Tệp rẻ + đông + hợp nhất: SINH VIÊN.** Cần việc linh hoạt, có động lực hoa hồng.
+
+**Mức trả (Hà Nội):**
+- **20.000–40.000đ / thợ** tạo hồ sơ THÀNH CÔNG (đủ ảnh + info thật + đã xác minh SĐT).
+- **Thưởng +10.000đ** khi thợ **chia sẻ link cho khách** ← chỉ số bạn thật sự cần (gắn tiền vào V1).
+- 1 CTV chăm: 1 buổi ra 3-5 thợ = 100-200k/buổi. 30 thợ đầu ≈ 600k-1.2tr (rẻ hơn ads nhiều).
+
+---
+
+## 2. Vòng đời CTV (5 bước)
+
+```
+TUYỂN → TRAIN → CHẠY → NGHIỆM THU → GIỮ/SCALE
+```
+
+### Bước 1 — TUYỂN (việc tuần, chủ yếu tuần đầu mỗi đợt)
+**Đăng ở đâu** (ưu tiên trên xuống):
+- ⭐ **FB group SV/việc làm thêm** (nhanh, miễn phí nhất): "Việc làm thêm sinh viên Hà Nội", "Tuyển CTV Hà Nội", "Part-time [tên trường]" (Bách Khoa, KTQD, Thương Mại, FTU, Xây dựng).
+- ⭐ **Ybox** (ybox.vn) — cộng đồng SV lớn nhất.
+- Chợ Tốt Việc Làm / Việc Làm Tốt / TopCV (mục part-time).
+- Truyền miệng: CTV giỏi giới thiệu bạn (referral + thưởng).
+
+**Bài đăng tuyển:** PL-A §7 (hoặc `thue_ctv_tuyen_tho.md` §2).
+
+### Bước 2 — TRAIN (1 lần cho tất cả, ~30')
+- Lập **1 nhóm Zalo CTV** chung → training 1 lần, giải đáp 1 lần.
+- Gửi: (a) kịch bản chào thợ (PL-A §1-3), (b) 4 thứ cần xin ở thợ, (c) link Google Form nộp info, (d) cách chụp ảnh việc đạt.
+- Tài liệu có sẵn: `salekit/CTV_Training_ThoTot.pptx`, `CTV_Training_Video.mp4`, `SaleKit_CTV_ThoTot.docx`.
+
+**4 thứ CTV phải xin ở thợ** (không hơn): tên+nghề · khu vực nhận việc · 3-5 ảnh việc thật · SĐT+Zalo.
+
+### Bước 3 — CHẠY (CTV tự làm)
+CTV ra cửa hàng vật tư/khu dân cư → chào thợ → xin 4 thứ → nộp Google Form (kèm tên CTV). Founder gần như không đụng.
+
+### Bước 4 — NGHIỆM THU (founder, cuối tuần ~30')
+- Gom Form → mỗi thợ: **gọi xác minh SĐT** + kiểm ảnh thật + **check trùng SĐT**.
+- Chỉ tính công **hồ sơ HỢP LỆ đã xác minh** — không tính theo lời khai.
+- Đếm/CTV → chuyển khoản hoa hồng. Cộng thưởng "thợ đã share".
+
+### Bước 5 — GIỮ/SCALE
+- Giữ CTV ra kết quả tốt, **bỏ CTV yếu**, nhân bản kịch bản người giỏi.
+- Tuần 3+: đăng tuyển rộng, mỗi CTV tự chạy, founder chỉ nghiệm thu + trả tiền.
+- Mở địa bàn: hết quận này → quận kế theo cùng công thức.
+
+---
+
+## 3. Quy trình vận hành (để founder KHÔNG phải quản nhiều)
+
+```
+1. CTV chào thợ → xin ảnh+info → nộp 1 Google Form / nhóm Zalo chung
+2. Founder (hoặc agent) dựng hồ sơ ThợTốt từ info đó  ← chuyển sang Q3 §7
+3. Gửi link hồ sơ lại cho CTV → CTV đưa thợ + dặn thợ chia sẻ cho khách
+4. Cuối tuần: đếm hồ sơ hợp lệ mỗi CTV → chuyển khoản
+```
+
+- **1 Google Form** thu: tên/nghề/khu vực/SĐT thợ + ảnh + **tên CTV** (mẫu field: PL-B).
+- **1 nhóm Zalo CTV** cho training + hỏi đáp.
+- Agent lo **dựng hồ sơ hàng loạt** từ Form → founder gần như không đụng tay.
+
+---
+
+## 4. Chống gian lận (CTV khai khống)
+
+| Rủi ro | Cách chặn |
+|---|---|
+| Thợ ma / SĐT giả | Chỉ trả khi **gọi xác minh SĐT** thành công + ảnh việc thật |
+| 1 thợ khai 2 lần | **Check trùng SĐT** trước khi tính công (dedup theo phone) |
+| Ảnh lấy trên mạng | Yêu cầu ảnh có thợ/hiện trường thật, không stock |
+| Thợ không dùng | Thưởng gắn "thợ chia sẻ link cho khách" → ép chất lượng thật |
+
+**Nguyên tắc:** trả theo hồ sơ HỢP LỆ đã xác minh, không theo lời khai.
+
+---
+
+## 5. KPI cho CTV & cho chương trình
+
+**Đo mỗi CTV:** #thợ hợp lệ/tuần · #thợ đã share (thưởng) · tỉ lệ hồ sơ bị loại (ảnh giả/trùng).
+
+**Đo cả chương trình:**
+| Chỉ số | Ngưỡng tốt |
+|---|---|
+| Chi phí / thợ hợp lệ | ≤ 40k (+10k thưởng share) |
+| % thợ CTV nạp đã share link | ≥ 40% |
+| % hồ sơ bị loại | ≤ 15% (cao hơn → siết train/chọn CTV) |
+| #thợ hợp lệ / tuần (toàn đội) | tăng dần theo mục tiêu network |
+
+---
+
+## 6. Tách bạch cổng CTV/Sale với sản phẩm
+
+Cổng sale/CTV **tách hẳn** khỏi trải nghiệm user thường (đăng nhập vào không bị nhầm về trang chủ khách). [[project_surface_architecture]] Giữ ranh giới này để CTV có công cụ riêng, dữ liệu riêng, không lẫn với khách/thợ.
+
+---
+
+## 7. Lộ trình scale (nhắc lại từ nền)
+
+```
+Tuần 1: Tuyển 3-5 CTV. Test kịch bản, chốt hoa hồng.
+Tuần 2: Giữ người giỏi, bỏ người yếu. Nhân bản kịch bản.
+Tuần 3+: Đăng tuyển rộng, mỗi CTV tự chạy. Founder chỉ nghiệm thu + trả.
+Mở rộng: hết Hà Nội → tỉnh khác cùng công thức.
+```
+
+Chi phí biến đổi (chỉ trả khi có kết quả) = **scale bao nhiêu cũng kiểm soát ngân sách.**
+
+---
+
+## Ai làm gì (Quyển 4)
+
+| Việc | Người | Agent |
+|---|---|---|
+| Đăng tuyển, train, quan hệ CTV | ✅ Founder | soạn bài tuyển (PL-A) |
+| CTV chào thợ vật lý | ✅ CTV | — |
+| Dựng hồ sơ từ Form | — | ✅ hàng loạt |
+| Nghiệm thu, chống gian lận, trả tiền | ✅ Founder | ✅ check trùng SĐT (db) |
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-5">
+# QUYỂN 5 — LỊCH VẬN HÀNH: DAILY / WEEKLY / MONTHLY
+
+> **Trái tim bộ sách.** Mở mỗi sáng. Tra Quyển 3 (digital) & 4 (CTV) khi cần chi tiết thao tác.
+> Mọi việc dưới đây → 1 con số Bắc Đẩu: *thợ thật chia sẻ hồ sơ → khách thật liên hệ.*
+
+---
+
+# PHẦN A — NHỊP MỘT NGÀY (DAILY)
+
+## A1. Bảng nhịp (dán lên tường)
+
+| Giờ | Việc | Quyển tra | Phút |
+|---|---|---|---|
+| **08:30** | Đọc KPI hôm qua: bài nào nổ, thợ nào mới, có khách thật hỏi không | Q6 | 10 |
+| **09:00** | **Duyệt bài sáng** → để cron `fb_morning_distribution` đăng → **seed comment 30'** | Q3 §1-2 | 30 |
+| **09:30** | **SEO keyword sweep** — gom 5-10 keyword thật | Q3 §5 | 20 |
+| **10:00** | Bài Fanpage giờ vàng #1. Bắt đầu **săn 1 mẫu viral** | Q3 §2,§6 | 20 |
+| **10:30** | **Chào 10 thợ mới** + dựng hồ sơ thợ đã gửi ảnh | Q1 §4 · Q3 §7 | 60 |
+| **11:30** | Đăng Zalo OA + TikTok (giờ vàng trưa) | Q3 §4 | 15 |
+| **14:00** | Bài Fanpage #2. Trả lời inbox/comment tồn | Q3 §2-3 | 30 |
+| **15:00** | **Lắng nghe thợ** — 3 nhóm, comment giá trị, chép câu than | Q3 §8 | 30 |
+| **17:00** | Gom info thợ CTV gửi → **dựng hồ sơ hàng loạt** | Q4 §3 · Q3 §7 | 45 |
+| **20:00** | Bài tối cả 3 kênh + seed comment | Q3 §2 | 20 |
+| **20:30** | Cron `fb_evening_signals` quét comment (tự chạy) | Q3 §2 | auto |
+| **21:00** | Đọc báo cáo tín hiệu → ghi 1 dòng "mai khác gì" | Q6 | 10 |
+
+**Tổng tay người ~4h rải trong ngày.** Việc nặng (viết bài, quét tín hiệu, dựng nội dung hồ sơ) → agent.
+
+## A2. 3 việc KHÔNG được bỏ dù bận (nếu chỉ có 1 tiếng)
+1. **Seed comment 30' đầu** cho ≥1 bài (quyết định reach — Q3 §2.2).
+2. **Chào ≥5 thợ mới** hoặc **dựng hồ sơ đã hứa** (đừng để thợ chờ — ranh giới lòng tin).
+3. **Nhắc ≥3 thợ chia sẻ link** (đẩy trực tiếp Bắc Đẩu).
+
+## A3. Checklist đóng ngày (21:00 — 5')
+- [ ] Đã seed đủ bài đăng hôm nay?
+- [ ] Hồ sơ đã hứa hôm nay đã xong & gửi thợ?
+- [ ] Ghi sheet: thợ mới, thợ đã share, khách thật hỏi?
+- [ ] 1 dòng điều chỉnh cho mai?
+
+---
+
+# PHẦN B — NHỊP MỘT TUẦN (WEEKLY)
+
+## B1. Bảng việc tuần (gắn vào ngày cố định)
+
+| Thứ | Việc tuần | Quyển | Phút |
+|---|---|---|---|
+| **2** | **Lịch nội dung tuần** (10-12 bài, agent draft → bạn duyệt) | Q3 §1.1 | 45 |
+| **2** | Chốt **mục tiêu thợ tuần** + danh sách CTV còn hoạt động | Q4 | 20 |
+| **3** | Rà **comment-inbox rules** + kiểm keyword conversion | Q3 §3 | 15 |
+| **4** | Agent rút **"bảng nghiên cứu tương tác thợ"** từ log group | Q3 §8 | 20 |
+| **5** | Chọn **2-3 mẫu viral** điểm cao → giao nhái | Q3 §6 | 20 |
+| **6** | Cập nhật **"Keyword radar"** → bổ sung trang SEO/nội dung | Q3 §5 | 30 |
+| **6** | **Nghiệm thu CTV** + chuyển khoản hoa hồng | Q4 §2 | 30 |
+| **7/CN** | **Tổng kết Bắc Đẩu tuần** (mục B2) | Q6 | 30 |
+
+## B2. Review tuần (30' — dùng Q6)
+Điền 5 số + trả lời 3 câu:
+
+**5 số tuần:** #thợ mới thật · %thợ đã share · #khách thật liên hệ · inbox conversion TB · #hồ sơ có ≥3 ảnh thật.
+
+**3 câu:**
+1. Con số Bắc Đẩu tuần này **tăng hay giảm** so tuần trước? Vì sao?
+2. Việc/bài/kênh nào **hiệu quả nhất** → tuần sau làm nhiều hơn?
+3. Việc nào **tốn thời gian mà không đẩy số** → cắt?
+
+→ Ghi 3 điều chỉnh cho tuần sau. (Đừng đổi chiến lược mỗi tuần — chỉ chỉnh chiến thuật.)
+
+## B3. Mục tiêu tuần mẫu (giai đoạn G1 — đặt nền)
+- +20 thợ thật/tuần · ≥40% thợ đã share · tiến tới 5-10 khách thật đầu tiên.
+- 10-12 bài đăng · ≥1 bài đạt inbox conversion >15% · swipe file +5 mẫu · Keyword radar +20 keyword.
+
+---
+
+# PHẦN C — NHỊP MỘT THÁNG (MONTHLY)
+
+## C1. Bảng việc tháng
+
+| Tuần trong tháng | Việc tháng | Quyển |
+|---|---|---|
+| Đầu tháng | **Đọc lại Quyển 0** (thesis/Bắc Đẩu) — còn đúng hướng? | Q0 |
+| Đầu tháng | Đặt **mục tiêu tháng** theo giai đoạn (G1/G2/G3) | Q0 §10, Q6 |
+| Giữa tháng | **Kiểm "Definition of Alive"** của network đang chạy | Q1 §8 |
+| Giữa tháng | Rà **chất lượng hồ sơ toàn bộ** (ảnh thật? bảng giá đúng? seed còn lẫn?) | Q3 §7 |
+| Cuối tháng | **Review tháng** + quyết định mở rộng/dừng/xoay | Q6 §quyết định |
+| Cuối tháng | Cập nhật hiện trạng số vào **Q0 §9** + memory | Q0 |
+
+## C2. Review tháng (dùng khung quyết định Q6)
+Trả lời cho từng atomic network đang chạy:
+
+1. **Network đã "sống" chưa?** (Q1 §8 DoA: mật độ thợ · %share · khách thật · giao dịch khớp trọn)
+   - Sống → **nhân bản** sang quận kế (Q1 §9).
+   - Chưa → ở lại làm đậm, **đừng mở network mới**.
+2. **Vòng V1 có tự quay không?** (thợ chia sẻ mà không cần nhắc từng người, thợ rủ thợ)
+   - Có → cân nhắc **bật SEO index** (nếu đã xử seed) + thử **monetize 1 thứ** cho base thợ.
+   - Chưa → tập trung làm dày V1.
+3. **Kênh nào đáng đổ thêm lực/tiền?** (chỉ ads khi vòng hữu cơ đã chứng minh — Q2 §10)
+
+## C3. Cột mốc chuyển giai đoạn (Q0 §10)
+- **G1 → G2:** 1 network sống + Mini App Zalo live + seed đã xử.
+- **G2 → G3:** V1 tự quay + có khách thật đều + SEO index bật có traffic.
+- **G3:** nhân network + thử bán cho base thợ (vật tư/gói hiển thị) — đo lại unit economics (skill A3).
+
+## C4. Việc hạ tầng tháng (đừng quên)
+- [ ] Zalo Mini App: xong submit/duyệt? `getPhoneNumber` đã bật?
+- [ ] SEO: đủ điều kiện bật `SEO_INDEX_ENABLED`? Search Console gắn chưa?
+- [ ] Seed data: đã tắt/ẩn hoàn toàn khỏi mặt khách?
+- [ ] Nhãn hiệu "doitay" / pháp nhân Ground Truth: hồ sơ pháp lý ổn?
+- [ ] Sao lưu sheet theo dõi thợ/CTV/keyword.
+
+---
+
+## D. Lịch tổng hợp 1 trang (in ra)
+
+```
+MỖI NGÀY:  duyệt+seed bài · 20' SEO keyword · 20' săn viral ·
+           chào 10 thợ · dựng hồ sơ · 30' nghe thợ · nhắc thợ share · đọc báo cáo tối
+MỖI TUẦN:  T2 lịch nội dung + mục tiêu thợ · T4 bảng nghe thợ · T5 chọn viral ·
+           T6 keyword radar + nghiệm thu CTV · CN review Bắc Đẩu (5 số, 3 câu)
+MỖI THÁNG: đọc lại thesis · kiểm "network sống" · rà hồ sơ · review tháng →
+           mở rộng / dừng / xoay · cập nhật số vào Q0 · việc hạ tầng
+```
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-6">
+# QUYỂN 6 — ĐO LƯỜNG & RA QUYẾT ĐỊNH
+
+> Đo để **hành động**, không để trưng. Mỗi chỉ số ở đây gắn 1 quyết định cụ thể.
+> Nguyên tắc: đo **chuỗi ra tiền**, bỏ qua phù phiếm (lượt xem, follower, like).
+
+---
+
+## 1. Kim tự tháp chỉ số (từ trên xuống — trên quan trọng nhất)
+
+```
+        ⭐⭐ BẮC ĐẨU
+   Khách THẬT liên hệ thợ qua link
+              ▲
+        ⭐ ĐÒN BẨY
+   % thợ đã CHIA SẺ hồ sơ cho khách
+              ▲
+        NỀN CUNG
+   # thợ THẬT mới · chất lượng hồ sơ
+              ▲
+        ĐẦU VÀO
+   #chào thợ · #bài đăng · #keyword · #CTV chạy
+```
+
+Đọc ngược từ dưới lên: đầu vào nhiều → cung tăng → thợ share nhiều → **khách thật đến**. Nếu Bắc Đẩu không tăng, soi xuống tầng dưới xem tắc ở đâu.
+
+## 2. Bảng chỉ số chuẩn (1 sheet duy nhất)
+
+| Tầng | Chỉ số | Nhịp đo | Nguồn | Ngưỡng "ổn" (G1) |
+|---|---|---|---|---|
+| Bắc Đẩu | **Khách thật liên hệ qua link thợ** | Tuần | Inbox/đặt lịch/hỏi thợ | 5-10 khách đầu → có tín hiệu |
+| Đòn bẩy | **% thợ đã chia sẻ link** | Tuần | Hỏi thợ / Tool-CV | ≥ 40% |
+| Cung | # thợ thật mới | Tuần | Sheet tuyển thợ | ≥ 20 |
+| Cung | % hồ sơ có ≥3 ảnh thật | Tuần | Tool-CV | ≥ 90% |
+| Content | Inbox conversion (bài FB) | Ngày | Cron tối | > 15% = nổ |
+| Content | # bài đạt "high signal" | Tuần | Cron tối (A4) | ≥ 1 |
+| CTV | Chi phí / thợ hợp lệ | Tuần | Nghiệm thu | ≤ 40k |
+| CTV | % hồ sơ CTV bị loại | Tuần | Nghiệm thu | ≤ 15% |
+| SEO | # keyword thật gom được | Tuần | Keyword radar | ≥ 20/tuần |
+
+> **Cố tình KHÔNG đo:** lượt xem trang chủ, follower, tổng like, "reach". Với mô hình low-frequency, chúng đánh lừa. [[project_monetize_thesis]]
+
+## 3. Tín hiệu tự động đã có (đọc, không phải tự tính)
+
+- **Cron tối `fb_evening_signals`** → báo cáo: top GTM engine, top entry point, top moment, inbox conversion, khuyến nghị 1 câu cho mai. Gate 🔥 khi conversion > 15%.
+- **Hypothesis scoring** (`/api/marketing/evening/capture-signals`): intent signal (inbox) +10đ, comment depth >5 +5đ, auto-promote tier khi đủ 3+ intent.
+- **AudienceIntel DB**: pain/language signal tích luỹ → nuôi nội dung.
+
+Việc của người: **đọc → 1 dòng điều chỉnh**, không ngồi tính tay.
+
+## 4. Khung ra quyết định (khi nào làm gì)
+
+### 4.1 Quyết định NGÀY
+| Thấy gì | Làm gì |
+|---|---|
+| 1 bài inbox conversion > 15% | Nhân bản angle/format đó vào bài mai |
+| Bài không ai comment (<3) | Đổi hook (thử angle khác), không đổ lỗi thuật toán |
+| Account bị restrict đăng group | 🚨 Dừng đăng group phiên đó, giãn nhịp |
+| Thợ hứa gửi ảnh mà chưa dựng hồ sơ | Ưu tiên làm ngay (lòng tin) |
+
+### 4.2 Quyết định TUẦN
+| Thấy gì | Làm gì |
+|---|---|
+| %thợ share < 40% | Tăng **nhắc chia sẻ** + cải thiện chất lượng hồ sơ (V1 tắc) |
+| #thợ mới < mục tiêu | Thêm CTV / tăng buổi chào / mở nguồn thợ mới |
+| %hồ sơ CTV loại > 15% | Siết train CTV, bỏ CTV làm ẩu |
+| Khách thật vẫn = 0 dù thợ share nhiều | Soi: hồ sơ có thuyết phục? khách bấm có thấy đủ tin? |
+
+### 4.3 Quyết định THÁNG (skill D1 — kill/pivot/continue)
+Cho từng atomic network:
+
+| Điều kiện | Quyết định |
+|---|---|
+| Network **"sống"** (Q1 §8) + V1 tự quay | **CONTINUE + nhân bản** sang quận kế |
+| Network chưa sống nhưng số **đang lên đều** | **CONTINUE**, ở lại làm đậm, chưa mở mới |
+| 2 tháng, Bắc Đẩu **phẳng lì**, thợ share nhưng khách không đến | **PIVOT** — soi lại: sai nghề? sai quận? hồ sơ chưa đủ tin? |
+| Thợ **không chịu share** dù đã nhắc + hồ sơ đẹp | **PIVOT giả thuyết cốt lõi** — có thể thợ chưa thấy đủ lợi → xem lại offer cho thợ |
+
+> Đừng kill vội ở G1: mô hình low-frequency cần thời gian tích. Nhưng **thợ-không-share** là tín hiệu đỏ thật (V1 là vòng cái) — phải xử ngay, không chờ.
+
+## 5. Cột mốc "được phép làm việc lớn" (gate)
+
+| Việc lớn | Chỉ làm khi |
+|---|---|
+| **Bật SEO index** (`SEO_INDEX_ENABLED=true`) | Seed đã xử + mỗi (nghề×quận) ≥3 thợ thật [[project_seo_killswitch]] |
+| **Chạy ads trả tiền** | Vòng V1 hữu cơ đã chứng minh (có khách thật qua link) + biết chi phí/thợ, chi phí/khách |
+| **Mở atomic network mới** | Network hiện tại đã "sống" (Q1 §8) |
+| **Thử monetize (bán cho thợ)** | Base thợ trung thành đủ dày + V1 tự quay (G3) |
+
+## 6. Nhịp báo cáo (ai xem gì)
+
+- **Ngày (21:00):** founder đọc báo cáo cron tối → 1 dòng điều chỉnh.
+- **Tuần (CN):** founder điền 5 số + 3 câu (Q5 §B2).
+- **Tháng (cuối tháng):** founder review + quyết định mở rộng/dừng/xoay + cập nhật Q0 §9.
+
+## 7. Sức khỏe hệ thống (kiểm nhanh khi số bất thường)
+- Cron sáng/tối có chạy? (không có bài approved → cron cảnh báo)
+- Comment-inbox rules có gắn đúng post?
+- Web/Mini App có lỗi không (hồ sơ mở được, QR đúng)?
+- Seed có vô tình lộ ra mặt khách không?
+
+---
+
+## Ai làm gì (Quyển 6)
+
+| Việc | Người | Agent |
+|---|---|---|
+| Đọc báo cáo tối, 1 dòng điều chỉnh | ✅ | ✅ sinh báo cáo |
+| Điền 5 số tuần / review | ✅ | ✅ analytics tổng hợp |
+| Quyết định kill/pivot/continue | ✅ Founder | ✅ số + D1 hỗ trợ |
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script type="text/markdown" id="vol-7">
+# QUYỂN 7 — KÊNH × METRICS × FEATURES
+
+> Trả lời: trên TỪNG kênh/bề mặt, con số nào là sao dẫn đường (north star), đo bằng gì,
+> và feature nào phục vụ con số đó. Mỗi metric đều chỉ rõ **feature đi kèm + trạng thái** —
+> để biết cái gì đã có, cái gì phải build.
+> Bắc Đẩu TOÀN CỤC (Q0): **thợ THẬT chia sẻ hồ sơ → khách THẬT liên hệ.** Mọi north star kênh là mảnh ghép của nó.
+
+---
+
+## 0. BẢN ĐỒ HỆ THỐNG — kênh nào giữ vai gì
+
+```
+                 CUNG (THỢ)                                CẦU (KHÁCH)
+┌────────────────────────────────────┐      ┌────────────────────────────────────┐
+│  ThợTốt-CV (Zalo Mini App)         │      │  doitay.vn (Web)                   │
+│  NSM: % thợ CHIA SẺ hồ sơ          │─────▶│  NSM: khách THẬT liên hệ/đặt lịch  │
+└────────────────────────────────────┘ link └────────────────────────────────────┘
+        ▲ nạp thợ                                    ▲ nạp khách lạ
+┌───────┴────────────────────────────┐      ┌────────┴───────────────────────────┐
+│ KÊNH NẠP CUNG                      │      │ KÊNH NẠP CẦU                       │
+│ · FB groups thợ (seed)             │      │ · SEO /dich-vu (kill-switch)       │
+│ · TikTok (reach lạnh)              │      │ · FB groups cư dân (demand_capture)│
+│ · Zalo OA (chạm thợ)               │      │ · Khách quen của thợ (V1 - chính)  │
+│ · CTV vật lý (Q4, Q9)              │      │                                    │
+└────────────────────────────────────┘      └────────────────────────────────────┘
+```
+
+---
+
+## 1. ThợTốt-CV (Zalo Mini App) — bề mặt THỢ
+
+**North Star Metric: `% thợ đã chia sẻ hồ sơ cho khách` (Profile Share Rate)** — metric #5 trong bộ xlsx.
+Vì sao: app tồn tại để biến mỗi thợ thành 1 kênh phân phối. Cài app/tạo hồ sơ mà không share = 0 giá trị.
+
+### Bảng metric → feature (trạng thái thật, kiểm 2026-07)
+
+| # | Metric | Mục tiêu | Feature đi kèm | Trạng thái |
+|---|---|---|---|---|
+| NSM | % thợ share hồ sơ | ≥60% | Nút **"Gửi thẻ cho khách"** (openShareSheet native, path `?tho=<id>`); event `profile_shared` | ✅ code xong, **chờ zmp deploy** |
+| 1 | Hoàn tất hồ sơ lần đầu | ≥70% | Prefill tên/ảnh từ Zalo (`getUserInfo`); form 4 bước | ✅ live |
+| 2 | Time-to-First-Profile | <5 phút | Concierge flow: bỏ qua được bảng giá, lưu localStorage | ✅ live |
+| 3 | Publish lên chợ | ≥75% | Checkbox đồng bộ doitay (mặc định bật) → `POST /tho-profiles`; event `profile_published` | ✅ live (event live) |
+| 4 | Khách xem thẻ → liên hệ | ≥25% | Màn khách (`PublicProfileView`): nút **Gọi thợ ngay** + **Nhắn Zalo** + Đặt lịch; events `profile_viewed`/`contact_clicked` | ✅ code xong, chờ deploy (endpoint `/contact` đã live) |
+| 5 | Thợ quay lại D30 | ≥50% | Trạng thái duyệt tự dò (`checkProfileLive`); mẹo tăng uy tín | ✅ live · **thiếu: thông báo "có khách xem"** → backlog |
+| 6 | Ghim/tần suất mở | tăng dần | `favoriteApp()` + `createShortcut()` (ghim Zalo + màn hình chính) | 🔲 **backlog batch duyệt kế** |
+| 7 | Tin cậy pháp lý | pass duyệt | Trang Điều khoản/Bảo mật in-app + web | ✅ live, đã qua duyệt |
+
+**Batch deploy Mini App kế tiếp (1 lượt duyệt):** tracking events + nút Gọi/Zalo + (tuỳ chọn) nút ghim. → Sau deploy, NSM đo được tự động qua `/metrics/bac-dau`.
+
+---
+
+## 2. doitay.vn (Web) — bề mặt KHÁCH
+
+**North Star Metric: `khách THẬT liên hệ/đặt lịch với thợ`** (contact_clicked + booking_confirmed) — nửa sau Bắc Đẩu.
+
+### Bảng metric → feature
+
+| # | Metric | Mục tiêu | Feature đi kèm | Trạng thái |
+|---|---|---|---|---|
+| NSM | Khách liên hệ/đặt lịch | 5-10 khách thật đầu → ≥1/thợ-share/tháng | **Guest booking** (không cần đăng nhập, tự tạo tài khoản theo SĐT); nút gọi/đặt lịch; events | ✅ **live + verified** |
+| 1 | Xem hồ sơ → liên hệ (CTR) | ≥25% | Trang `/tho/[id]`: ảnh việc thật, bảng giá, đánh giá, JSON-LD ProfessionalService, `data-track-contact` | ✅ live |
+| 2 | Duyệt hồ sơ live nhanh (SLA) | <2 giờ | Hàng đợi duyệt company | ⚠️ live nhưng **duyệt tay — cần cam kết SLA/auto-approve** |
+| 3 | Đặt lịch hoàn tất | ≥70% | Form đặt lịch 2 bước + confirm; throttle chống spam | ✅ live |
+| 4 | Khách organic từ SEO | sau khi bật | Trang `/dich-vu/[nghề]/[quận]` (pSEO) + sitemap + `keywordsFor()` | ✅ built, **noindex** tới khi `SEO_INDEX_ENABLED` (điều kiện Q0/Q6) |
+| 5 | Niềm tin | định tính | Trang legal 2 thương hiệu; TrustBadges; số liệu thật | ✅ live |
+| 6 | Đo lường nền | 100% event | Bảng `product_events` + `POST /public/events` + `GET /metrics/bac-dau?token=` | ✅ **live + verified** |
+
+---
+
+## 3. Facebook (Page + Groups) — kênh NẠP CUNG chính + bắt cầu
+
+**North star kênh: `inbox conversion từ bài đăng` (>15% = nổ) + `#thợ inbox từ group/tuần`.**
+KHÔNG đo like/follow (phù phiếm — Q6).
+
+| Metric | Feature/công cụ đi kèm | Trạng thái |
+|---|---|---|
+| Inbox conversion / bài | **Comment-inbox keyword** (`/api/comment-inbox`: rules → scan → auto-inbox) | ✅ chạy được |
+| # bài high-signal (thread ≥3) | Cron `fb_morning_distribution` (Layer 1-3) + seed comment G12 (3 mẫu/bài do agent sinh sẵn) | ✅ chạy được |
+| Tín hiệu pain/language/intent | Cron `fb_evening_signals` → AudienceIntel → nuôi content mai | ✅ chạy được |
+| # thợ mới từ group | Bài chào PL-A §2 đăng group (danh bạ Q8) + routing `posting_targets.json` | ✅ bài sẵn — **việc người: vào group Q8** |
+| Hypothesis evidence | `/morning/link-hypotheses` + `/evening/capture-signals` (auto-promote tier) | ✅ chạy được |
+
+Giờ vàng: 10:00 / 14:00 / 20:00 (Page ID 663482443525186). Mix: 55% narrative / 30% proof / 15% utility + demand_capture reactive.
+
+## 4. TikTok — kênh REACH LẠNH (thợ trẻ + khách)
+
+**North star kênh: `# thợ/khách inbox-follow từ video` (không phải view).**
+
+| Metric | Feature/công cụ | Trạng thái |
+|---|---|---|
+| Video hoàn thành ≥50% | **Reel generator** (`reel_generator.py`: 18s, 5 frames, script từ weekly plan) | ✅ chạy được |
+| Follow→profile click | Bio link → doitay.vn/tho hoặc QR ThợTốt | ✅ (thủ công) |
+| Format thắng | Swipe file (Q3 §6) + khuôn: *"X năm nghề…", "Khách trả X triệu tưởng lãi?"* | ✅ quy trình sẵn |
+| Đăng | `tiktok_uploader.py` | ⚠️ có code — cần test phiên đăng nhập |
+
+Giờ: 11:30 / 20:00. Loại ăn: drama đi kèo, day-in-the-life, before/after.
+
+## 5. Zalo OA — kênh CHẠM THỢ (giữ chân)
+
+**North star kênh: `% thợ còn tương tác OA sau 30 ngày`.**
+
+| Metric | Feature/công cụ | Trạng thái |
+|---|---|---|
+| Thợ quan tâm OA | Link OA trong Mini App + bio | ✅ |
+| Mở broadcast | Repurpose bài utility (C10): bảng giá, tip — KHÔNG spam quảng cáo | quy trình sẵn |
+| Vào lại Mini App từ OA | Menu OA → Mini App | cấu hình Console (việc người) |
+
+Giờ: 06:00 / 11:30 / 20:00.
+
+---
+
+## 6. TỔNG HỢP — 1 trang nhìn cả hệ (in ra)
+
+| Kênh | North star | Đo ở đâu | Nhịp xem |
+|---|---|---|---|
+| **ThợTốt-CV** | % thợ share hồ sơ | `/metrics/bac-dau` (share_rate) | Tuần |
+| **doitay.vn** | Khách thật liên hệ/đặt lịch | `/metrics/bac-dau` (contacted, real_lead_rate) | Tuần |
+| Facebook | Inbox conversion >15% | Báo cáo cron tối | Ngày |
+| TikTok | Inbox/follow từ video | Đếm tay + TikTok analytics | Tuần |
+| Zalo OA | % thợ còn tương tác D30 | OA dashboard | Tháng |
+| CTV (Q9) | Chi phí/thợ hợp lệ ≤40k · %share ≥40% | Sheet nghiệm thu | Tuần |
+
+**Một câu chốt:** *Mọi kênh chỉ có 2 nhiệm vụ: nạp thợ vào ThợTốt-CV, hoặc nạp khách vào doitay.vn — và cả hai quy về Bắc Đẩu: thợ share → khách liên hệ.*
+
+---
+
+## 7. BACKLOG FEATURE theo mức đẩy north-star (ưu tiên giảm dần)
+
+1. **Deploy batch Mini App** (tracking + Gọi/Zalo) — mở khoá đo NSM cả 2 bề mặt. *(zmp deploy + duyệt)*
+2. **SLA duyệt hồ sơ <2h** — chặn gãy trải nghiệm lần đầu (Q6 rủi ro số 1). *(auto-approve hồ sơ đạt chuẩn hoặc lịch duyệt 2 lần/ngày)*
+3. **Thông báo "khách vừa xem/liên hệ hồ sơ anh"** (OA message) — dopamine → thợ share tiếp (V1).
+4. Nút **ghim hồ sơ** (favoriteApp/createShortcut) — tăng tần suất mở.
+5. **Bật SEO index** khi đủ điều kiện (Q6 gate) + Search Console.
+
+*Cập nhật: 2026-07. Nguồn số: bộ metric xlsx (18 metric) + hiện trạng code đã verify.*
+
+</script>
+<script type="text/markdown" id="vol-8">
+# QUYỂN 8 — DANH BẠ KÊNH SEED THỢ (Facebook · TikTok · Zalo · Offline)
+
+> Trả lời: **đi ĐÂU để tìm và seed thợ vào ThợTốt-CV.** Gồm: kênh đã xác minh, công thức tự tìm thêm,
+> tiêu chí chấm kênh, kịch bản vào từng loại kênh, và sheet theo dõi.
+> Nguyên tắc: kênh chỉ có giá trị khi đổ thợ về **tạo hồ sơ + share** (Q7). Không đếm "đã đăng bài" làm thành tích.
+
+---
+
+## 1. FACEBOOK GROUPS — kênh seed chính
+
+### 1.1 Đã xác minh tồn tại (kiểm 07/2026 — vào xin duyệt ngay tuần 1)
+
+| Group | Link | Ghi chú |
+|---|---|---|
+| **Hội thi công lắp đặt & sửa chữa điện nước tại Hà Nội** | facebook.com/groups/hoithiconglapdatsuachuadiennuoctaihanoi | Đúng nghề + đúng địa bàn khởi động — ưu tiên #1 |
+| **HỘI THỢ SỬA CHỮA ĐIỆN NƯỚC, ĐIỆN LẠNH** | facebook.com/groups/hoithodiennuoc | Toàn quốc, đông; lọc thợ HN qua comment/bio |
+| HỘI THỢ SỬA ĐIỆN NƯỚC - ĐIỆN LẠNH TP.HCM | facebook.com/groups/2158303047536671 | Để dành khi mở HCM — chưa dùng giai đoạn HN |
+
+### 1.2 Công thức TỰ TÌM thêm (mỗi ngày 10' — mục tiêu +2 group/tuần vào danh bạ)
+
+Gõ vào ô tìm kiếm Facebook → tab **Nhóm**, theo 4 mẫu:
+
+```
+[NGHỀ] + [ĐỊA BÀN]:  "hội thợ điện Hà Nội" · "thợ điều hòa Hà Nội" · "hội thợ sơn bả" ·
+                     "thợ nhôm kính" · "hội thợ xây dựng" · "điện nước [tên quận]"
+[NGHỀ] + [VIỆC]:     "việc làm thợ điện nước" · "tìm thợ - tìm việc xây dựng" · "giao việc thợ"
+[VẬT TƯ/NGHIỆP VỤ]:  "chợ vật tư điện nước" · "hội buôn thiết bị điện" · "kỹ thuật điện lạnh"
+[CẦU - để bắt khách]: "Chợ [tên quận]" · "Cư dân [khu đô thị]" · "review [quận]"
+```
+
+### 1.3 Tiêu chí CHẤM group (chọn 5-7 group để cày, đừng rải 30)
+
+| Tiêu chí | Đạt |
+|---|---|
+| Bài mới/ngày | ≥5 (group sống) |
+| Thành viên | ≥5.000 (dưới thì phải rất đúng nghề+quận) |
+| Tỉ lệ bài của THỢ (khoe việc, hỏi kỹ thuật, tìm việc) | ≥50% — group toàn quảng cáo dịch vụ = bỏ |
+| Admin có duyệt bài | Có duyệt = chất lượng hơn, nhưng phải đọc rule trước khi đăng |
+| Cho phép bài giới thiệu công cụ/miễn phí | Đọc rule; nếu cấm → chỉ dùng để NHẮN RIÊNG thợ |
+
+### 1.4 Kịch bản vào group (đúng thứ tự — đừng đốt group)
+
+```
+Ngày 1-2:  Vào group, ĐỌC RULE. Tương tác thật 3-5 bài (trả lời câu kỹ thuật, khen việc đẹp).
+Ngày 3:    Nhắn riêng 5-10 thợ có bài khoe việc đẹp (mẫu PL-A §1 — theo nghề).
+Ngày 4-5:  Nếu rule cho phép → đăng bài 2A/2B (PL-A §2). Link để comment.
+Hằng ngày: 30' lắng nghe (Q3 §8) + nhắn riêng 5-10 thợ. NHẮN RIÊNG hiệu quả hơn đăng bài.
+```
+**Giới hạn an toàn:** ≤3 group đăng bài/buổi, cách nhau ≥5 phút; ngày đầu tài khoản mới KHÔNG đăng hàng loạt (dính checkpoint).
+
+---
+
+## 2. TIKTOK — reach lạnh + tuyển thợ trẻ
+
+### 2.1 Hub nội dung để cày (đã xác minh có hệ sinh thái)
+Hashtag/discover đang hoạt động mạnh: **#thợđiện, #thợđiệnlạnh, #đờithợ, #nghềthợ, #thợsửachữa, #điệnnước** (trang discover "Anh Thợ Điện", "Anh Thợ Điện Lạnh"… nhiều triệu view).
+
+### 2.2 Chiến thuật 3 lớp
+| Lớp | Làm gì | Mục tiêu |
+|---|---|---|
+| **Đăng** | 1-2 reel/ngày từ weekly plan (reel_generator; khuôn Q3 §6) + hashtag trên | Kéo thợ inbox/follow |
+| **Comment-seeding** | Comment giá trị dưới video thợ nổi (mẹo, hỏi nghề — KHÔNG dán link trần) → thợ tò mò vào profile → bio có link | Mượn traffic KOL thợ |
+| **Hợp tác micro-KOL thợ** | Tìm kênh thợ 10-100K follow qua hashtag → đề nghị: làm miễn phí hồ sơ đẹp cho họ + họ kể trải nghiệm (không trả tiền giai đoạn đầu) | 1 video KOL = trăm thợ biết |
+
+**Tìm KOL:** search hashtag → lọc kênh đăng đều + comment là thợ thật hỏi nghề → lưu vào sheet §5.
+
+## 3. ZALO — kênh bản địa của thợ
+
+| Kênh | Cách khai thác |
+|---|---|
+| **Nhóm Zalo thợ theo quận/nghề** | Xin link từ thợ đã quen ("anh cho em vào nhóm anh em thợ với") — nhóm Zalo kín hiệu quả hơn FB vì toàn thợ thật |
+| **Zalo "Tìm quanh đây"** | Quét bán kính quanh cửa hàng vật tư — thợ để nghề trong bio → nhắn mẫu PL-A §1 |
+| **OA + Mini App** | Mỗi thợ tạo hồ sơ → mời quan tâm OA → chạm lại được (Q7 §5) |
+
+## 4. OFFLINE — chuyển đổi cao nhất (đừng bỏ)
+
+| Điểm | Kịch bản | Nhịp |
+|---|---|---|
+| **Cửa hàng vật tư điện nước** (thợ tụ 6h30-8h30 sáng) | PL-A §3 nói trực tiếp; xin phép chủ tiệm dán **QR ThợTốt** ở quầy (đổi lại: làm hồ sơ đẹp cho chính tiệm) | 2-3 buổi sáng/tuần (CTV làm — Q9) |
+| Số dán cột điện/thang máy/chợ | Gọi thẳng — mẫu PL-A §1 rút gọn | 30'/ngày, 10 số |
+| Thợ đang thi công quanh khu | Bắt chuyện + QR | cơ hội |
+| **Referral thợ→thợ** | Sau khi gửi link: "anh giới thiệu em 1 anh thợ nữa, em làm hộ luôn" | mọi thợ |
+
+## 5. SHEET "DANH BẠ KÊNH" (thêm vào PL-B — cột chuẩn)
+
+| Kênh/Group | Loại (FB/TT/Zalo/Off) | Link | Thành viên | Điểm chấm (1.3) | Rule đăng bài? | Ngày vào | Trạng thái (chờ duyệt/đã vào/đang cày) | #thợ đã inbox | #thợ ra hồ sơ | Ghi chú |
+|---|---|---|---|---|---|---|---|---|---|---|
+
+**KPI danh bạ:** tuần 1 có ≥8 kênh "đang cày" (5 FB + 1 TikTok set + 1 Zalo + 1 offline); mỗi kênh ghi #thợ ra hồ sơ → sau 2 tuần **cắt kênh không ra thợ, dồn lực kênh ra thợ**.
+
+## 6. TUYỂN CTV Ở ĐÂU (cho Q9)
+Ybox.vn · FB groups "Việc làm thêm sinh viên Hà Nội" / "Part-time [tên trường]" (Bách Khoa, KTQD, Thương Mại, FTU, Xây dựng) · Chợ Tốt Việc Làm / Việc Làm Tốt · 123job, JobsGO, Joboko (đăng tin part-time) · referral CTV giỏi.
+
+*Nguồn xác minh: tìm kiếm web 07/2026 (facebook.com/groups/hoithiconglapdatsuachuadiennuoctaihanoi, facebook.com/groups/hoithodiennuoc, tiktok.com/discover các hub thợ điện; nền tảng việc làm 123job/JobsGO/Joboko). Link group có thể đổi — kiểm lại khi vào.*
+
+</script>
+<script type="text/markdown" id="vol-9">
+# QUYỂN 9 — TUYỂN DỤNG CTV: JD · SCORECARD · KPI · PHƯƠNG ÁN TÀI CHÍNH
+
+> Bổ khuyết cho Quyển 4 (vận hành CTV) bằng bộ hồ sơ tuyển dụng bài bản: JD copy-paste được,
+> scorecard chấm ứng viên, KPI theo vòng đời, và mô hình tài chính 3 kịch bản.
+> Mô hình gốc (Q4): **trả theo kết quả, không lương cứng. Tệp: sinh viên.**
+
+---
+
+## 1. JD — BẢN MÔ TẢ CÔNG VIỆC (dán lên Ybox/nhóm SV/Chợ Tốt)
+
+```
+📌 CỘNG TÁC VIÊN PHÁT TRIỂN MẠNG LƯỚI THỢ — ThợTốt (doitay.vn) · Hà Nội
+
+VỀ DỰ ÁN
+ThợTốt là ứng dụng Zalo giúp thợ (điện, nước, điều hoà…) có một trang hồ sơ nghề
+chuyên nghiệp MIỄN PHÍ — có ảnh việc, bảng giá, mã QR để gửi khách. Vận hành bởi
+Hộ kinh doanh Ground Truth (nền tảng doitay.vn).
+
+CÔNG VIỆC CỦA BẠN
+• Ra cửa hàng vật tư điện nước / khu dân cư / nhóm thợ online, mời các anh thợ tạo
+  hồ sơ nghề miễn phí (có kịch bản + training sẵn, nói chuyện 2-5 phút/thợ).
+• Xin 4 thứ: tên + nghề, khu vực nhận việc, 3-5 ảnh công việc, SĐT/Zalo.
+• Nộp thông tin vào Google Form — đội kỹ thuật dựng hồ sơ, bạn gửi lại link cho thợ
+  và hướng dẫn thợ gửi thẻ cho khách quen.
+
+THU NHẬP (trả theo kết quả, chuyển khoản CUỐI MỖI TUẦN)
+• 30.000đ / hồ sơ thợ HỢP LỆ (xác minh SĐT thành công + ảnh việc thật).
+• +10.000đ thưởng khi thợ đó CHIA SẺ thẻ cho khách trong 7 ngày.
+• CTV chăm: 1 buổi sáng 3-5 thợ → 90.000-200.000đ/buổi. Không giới hạn số lượng.
+• Thưởng nóng tuần: CTV nhiều hồ sơ hợp lệ nhất +100.000đ (khi đội ≥3 CTV).
+
+YÊU CẦU
+• Sinh viên/người cần việc linh hoạt tại Hà Nội; giao tiếp tự nhiên, chịu đi, không ngại bắt chuyện.
+• Có smartphone + Zalo. KHÔNG cần kinh nghiệm — có training 30 phút + kịch bản in sẵn.
+• Trung thực tuyệt đối (mọi hồ sơ đều được gọi xác minh).
+
+QUYỀN LỢI KHÁC
+• Thời gian hoàn toàn tự do, làm theo buổi. Giấy xác nhận CTV dự án (làm đẹp CV).
+• Được đào tạo kỹ năng sales thực địa; CTV tốt được mời làm trưởng nhóm địa bàn (phụ cấp riêng).
+
+ỨNG TUYỂN: Inbox hoặc để lại SĐT — phỏng vấn nhanh 10 phút qua Zalo, nhận việc trong 24h.
+```
+
+*(Đơn giá 30k là mức giữa của khung 20-40k trong Q4 — điều chỉnh sau tuần pilot: ra thợ dễ → hạ 25k; khó → nâng 35-40k.)*
+
+---
+
+## 2. SCORECARD TUYỂN (phỏng vấn 10 phút qua Zalo call)
+
+Chấm 1-5 mỗi mục. **Nhận: ≥18/25 và không mục nào ≤2.**
+
+| # | Tiêu chí | Câu hỏi kiểm | 1 điểm | 5 điểm |
+|---|---|---|---|---|
+| 1 | Giao tiếp tự nhiên | "Em thử mời anh tạo hồ sơ như nói với thợ thật xem" (roleplay 1 phút) | Ấp úng, đọc thuộc lòng | Nói như trò chuyện, biết cười, xử lý khi bị cắt lời |
+| 2 | Chịu đi thực địa | "Lịch tuần này em rảnh buổi sáng nào? Cửa hàng vật tư mở 6h30-8h30" | Chỉ rảnh tối / ngại đi sớm | Rõ 2-3 buổi sáng/tuần, biết địa bàn |
+| 3 | Động lực đúng | "Vì sao em chọn việc trả theo kết quả thay vì lương cứng?" | "Thử xem sao" | Hiểu làm nhiều hưởng nhiều, có mục tiêu thu nhập cụ thể |
+| 4 | Trung thực | "Nếu 1 thợ không muốn cho ảnh thật, em làm gì?" | "Lấy tạm ảnh trên mạng" ← LOẠI NGAY | "Bỏ qua thợ đó / thuyết phục chụp việc đang làm" |
+| 5 | Bền bỉ | "Chào 10 người mà 8 người từ chối, em nghĩ gì?" | Nản, đổ lỗi | Coi là tỉ lệ bình thường (10-20 chào → 3-5 gật) |
+
+**Cờ đỏ loại thẳng:** gợi ý làm khống dữ liệu (mục 4) · hỏi "có lương cứng không" quá 2 lần · không có xe/không thể đến địa bàn.
+
+## 3. KPI CTV THEO VÒNG ĐỜI
+
+### 3.1 Tuần thử việc (tuần đầu — pass/fail)
+| KPI | Pass |
+|---|---|
+| Hoàn thành training + roleplay | ✔ |
+| Ra thực địa ≥2 buổi | ✔ |
+| ≥5 hồ sơ hợp lệ | ✔ (3-4 = cho thêm 1 tuần; <3 = dừng) |
+| Tỉ lệ loại (ảo/trùng/ảnh giả) | ≤20% |
+
+### 3.2 CTV chính thức (đo mỗi tuần — sheet nghiệm thu PL-B §6)
+| KPI | Chuẩn | Xuất sắc |
+|---|---|---|
+| Hồ sơ hợp lệ/tuần | ≥10 | ≥20 |
+| % thợ share trong 7 ngày (được thưởng) | ≥40% | ≥60% |
+| % hồ sơ bị loại | ≤15% | ≤5% |
+| Buổi thực địa/tuần | ≥3 | ≥5 |
+**2 tuần liên tiếp <50% chuẩn → dừng hợp tác (nói rõ từ đầu, không nợ nần cảm xúc).**
+
+### 3.3 Trưởng nhóm địa bàn (khi ≥5 CTV)
+Phụ cấp 500k/tháng + 5.000đ override/hồ sơ hợp lệ của nhóm. KPI: nhóm ≥40 hồ sơ hợp lệ/tuần, tự training CTV mới, họp nhóm Zalo 1 lần/tuần.
+
+## 4. PHƯƠNG ÁN TÀI CHÍNH
+
+### 4.1 Đơn giá chuẩn
+| Khoản | Mức |
+|---|---|
+| Hồ sơ hợp lệ | 30.000đ |
+| Thưởng thợ share ≤7 ngày | 10.000đ |
+| Thưởng nóng tuần (đội ≥3 CTV) | 100.000đ/tuần |
+| Trưởng nhóm (giai đoạn sau) | 500k/tháng + 5k/hồ sơ nhóm |
+
+### 4.2 Ba kịch bản tháng đầu (30 ngày)
+
+| | **Tiết kiệm** | **Chuẩn (khuyến nghị)** | **Tăng tốc** |
+|---|---|---|---|
+| Số CTV hoạt động | 2 | 4 | 8 |
+| Hồ sơ hợp lệ/CTV/tuần | 8 | 10 | 12 |
+| **Hồ sơ hợp lệ/tháng** | **64** | **160** | **384** |
+| Trong đó share (45%) | 29 | 72 | 173 |
+| Chi hồ sơ (30k) | 1.920.000 | 4.800.000 | 11.520.000 |
+| Chi thưởng share (10k) | 290.000 | 720.000 | 1.730.000 |
+| Thưởng nóng (4 tuần) | 0 | 400.000 | 400.000 |
+| Training + in ấn + QR standee | 300.000 | 500.000 | 800.000 |
+| Dự phòng 10% | 250.000 | 640.000 | 1.450.000 |
+| **TỔNG/tháng** | **≈2,8 triệu** | **≈7,1 triệu** | **≈15,9 triệu** |
+| **Chi phí/thợ hợp lệ (CAC cung)** | ~43k | ~44k | ~41k |
+| **Chi phí/thợ CÓ SHARE** (tài sản thật) | ~96k | ~98k | ~92k |
+
+### 4.3 Vì sao mô hình này thắng ads
+- Ads FB nhắm thợ: CPM cao, thợ ít bấm form → CAC thực tế thường **150-400k/thợ đăng ký** (chưa chắc thật, chưa chắc share). CTV: **~44k/thợ hợp lệ đã xác minh SĐT** — rẻ 3-9× và chất lượng cao hơn.
+- **100% chi phí biến đổi** — không ra hồ sơ = không mất tiền. Rủi ro nằm ở CTV, không ở ngân sách.
+- Điểm gãy cần theo dõi: nếu chi phí/thợ-có-share vượt **150k** liên tục 2 tuần → dừng scale, sửa phễu (training/kênh/kịch bản) trước.
+
+### 4.4 Quy tắc chi & chống gian lận tài chính
+1. Chỉ trả theo **sheet nghiệm thu** (PL-B §6): xác minh SĐT gọi thật + check trùng số toàn hệ + soi ảnh (không stock/AI).
+2. Chuyển khoản **thứ 6 hằng tuần**, có bảng kê gửi CTV — đúng hẹn tuyệt đối (uy tín với CTV = uy tín hệ thống).
+3. Hồ sơ bị phát hiện khống SAU khi trả → trừ vào kỳ sau; 2 lần khống → dừng + không trả phần nghi vấn.
+4. Ngân sách tháng chốt trước, vượt 20% phải duyệt lại (không "thêm tí nữa" giữa chừng).
+
+## 5. TRAINING KIT 30 PHÚT (checklist buổi đào tạo)
+- [ ] 5': Dự án là gì — nói bằng 1 câu: *"Mình làm hộ thợ 1 trang hồ sơ miễn phí có QR để họ gửi khách."* (KHÔNG nói "sàn/nền tảng/app kiếm khách")
+- [ ] 10': Roleplay kịch bản PL-A §3 (cửa hàng vật tư) + §1 (nhắn Zalo) — mỗi CTV diễn 1 lần
+- [ ] 5': 4 thứ cần xin + cách chụp/xin ảnh đạt (việc thật, có hiện trường)
+- [ ] 5': Nộp Form (đủ trường, tên CTV) + demo 1 hồ sơ mẫu đẹp trên điện thoại
+- [ ] 5': Luật chơi: nghiệm thu, lịch trả tiền, 3 điều cấm (khống SĐT, ảnh mạng, hứa hươu vượn với thợ)
+- Tài liệu sẵn: `salekit/CTV_Training_ThoTot.pptx` + `CTV_Training_Video.mp4` + `SaleKit_CTV_ThoTot.docx`
+
+*Cập nhật: 2026-07. Gắn với Q4 (vận hành) + Q8 §6 (đăng tuyển ở đâu) + PL-B §6 (sheet nghiệm thu).*
+
+</script>
+<script type="text/markdown" id="vol-10">
+# QUYỂN 10 — BLUEPRINT 30 NGÀY (nhìn vào biết HÔM NAY làm gì)
+
+> Lịch ngày-qua-ngày cho tháng ra quân. Mỗi ngày: **Việc chính (sáng/chiều/tối) → Sản phẩm cuối ngày → Số phải ghi.**
+> Nhịp giờ chi tiết từng khối việc: Q5 §A1. Thao tác cụ thể: Q3 (digital), Q4+Q9 (CTV), Q8 (kênh).
+> Quy ước: 🔧 việc 1 lần (setup) · 🔁 việc lặp hằng ngày từ đó trở đi · ⭐ gate quyết định.
+> **Ngày 1 = thứ Hai đầu tiên anh bắt đầu.** Mỗi ngày vẫn chạy nền: duyệt bài 9:00, seed comment, đọc báo cáo tối (Q5).
+
+---
+
+## TUẦN 1 — NỀN MÓNG + 30 THỢ ĐẦU (mục tiêu: 30 hồ sơ thật, hệ đo chạy, 5 group đã vào)
+
+### Ngày 1 (T2) — Khai hỏa hệ thống
+- **Sáng** 🔧: `zmp deploy` batch Mini App (tracking + nút Gọi/Zalo) → gửi duyệt Zalo (ghi chú duyệt có sẵn trong ZALO_RESUBMIT.md). 🔧 Chốt **quận atomic** (Q1 §2 — điền tên quận vào Q1) + 3 nghề: điện/nước/điều hoà.
+- **Chiều** 🔧: Lập 3 sheet từ PL-B (Theo dõi thợ · Danh bạ kênh · Nghiệm thu CTV) + Google Form thu info thợ. Xin vào 2 group đã xác minh (Q8 §1.1) + tìm thêm 3 group theo công thức Q8 §1.2.
+- **Tối** 🔧: Duyệt lịch nội dung tuần (agent draft — Q3 §1.1). Liệt kê 5 thợ QUEN sẽ chào ngày mai.
+- **Sản phẩm:** app đã gửi duyệt · quận đã chốt · 3 sheet + form sống · 5 group chờ duyệt · lịch content tuần.
+- **Ghi số:** 0 (baseline).
+
+### Ngày 2 (T3) — 5 thợ quen đầu tiên
+- **Sáng** 🔁: Chào 5 thợ quen (PL-A §1) — concierge: xin 4 thứ, dựng hồ sơ NGAY trong ngày (Q3 §7).
+- **Chiều**: Gửi link + QR cho từng thợ + **câu chốt share** (Q1 §5). 🔧 Đăng JD tuyển CTV (Q9 §1) lên Ybox + 2 nhóm SV (Q8 §6).
+- **Tối** 🔁: Ghi sheet thợ; trả lời ứng viên CTV inbox.
+- **Sản phẩm:** 5 hồ sơ live, 5 thợ đã được dặn share; JD đã đăng 3 nơi.
+- **Ghi số:** #hồ sơ=5 · #đã share=? · #ứng viên CTV.
+
+### Ngày 3 (T4) — Ra thực địa lần đầu
+- **Sáng**: 6h30-8h30 ra 2 cửa hàng vật tư trong quận (kịch bản PL-A §3) — mục tiêu 5 thợ mới; xin chủ tiệm dán QR (Q8 §4).
+- **Chiều**: Dựng hồ sơ đợt sáng. Phỏng vấn 2-3 ứng viên CTV bằng **scorecard Q9 §2**.
+- **Tối**: Group nào được duyệt → bắt đầu tương tác thật (Q8 §1.4 ngày 1-2).
+- **Sản phẩm:** +5 hồ sơ · 1-2 CTV pass scorecard · QR dán ≥1 tiệm.
+
+### Ngày 4 (T5) — Kích hoạt group + CTV training
+- **Sáng**: Nhắn riêng 10 thợ trong group (PL-A §1). Dựng hồ sơ tồn.
+- **Chiều** 🔧: **Training CTV buổi đầu 30'** (checklist Q9 §5) + phát kịch bản in. CTV nhận địa bàn (cửa hàng vật tư nào, buổi nào).
+- **Tối**: Nhắn lại 10 thợ ngày 2-3: *"Anh gửi link cho khách nào chưa?"* (đẩy NSM share).
+- **Sản phẩm:** +3-5 hồ sơ · CTV thứ nhất sẵn sàng ra quân ngày mai.
+
+### Ngày 5 (T6) — CTV ra quân
+- **Sáng**: CTV đi thực địa buổi đầu (mình đi kèm CTV #1 để chỉnh kịch bản tại chỗ). Mình gọi 10 số thợ dán cột điện/thang máy.
+- **Chiều**: Dựng hồ sơ từ Form CTV nộp — **SLA trong ngày**. Gửi link cho CTV chuyển lại thợ.
+- **Tối** 🔧: Nghiệm thu tuần đầu sơ bộ + **chuyển khoản CTV đúng hẹn thứ 6** (dù mới vài hồ sơ — uy tín là số 1, Q9 §4.4).
+- **Sản phẩm:** +5-8 hồ sơ · CTV được trả tiền lần đầu.
+
+### Ngày 6 (T7) — Referral + group post
+- **Sáng**: Xin MỖI thợ đã có hồ sơ giới thiệu 1 thợ bạn (Q8 §4 referral). Group đủ 3-4 ngày tương tác → đăng bài 2A/2B (PL-A §2, tối đa 3 group).
+- **Chiều**: Dựng hồ sơ referral + inbox từ bài group.
+- **Sản phẩm:** +5 hồ sơ.
+
+### Ngày 7 (CN) — ⭐ Review tuần 1 (Q5 §B2: 5 số + 3 câu)
+- Đếm: #hồ sơ thật (mục tiêu **≥30**) · %share (mục tiêu **≥40%**) · #khách thật liên hệ · #CTV hoạt động · #group đang cày.
+- ⭐ **Gate:** <20 hồ sơ → soi phễu (kịch bản? kênh? nghề?) và sửa TRƯỚC khi thêm CTV. ≥30 → tuần 2 scale.
+- Lên lịch content tuần 2 (agent draft). Kiểm trạng thái duyệt Zalo batch app.
+
+---
+
+## TUẦN 2 — NHÂN CTV + MÁY NỘI DUNG CHẠY ĐỀU (mục tiêu: +40 hồ sơ (tổng ~70) · 4 CTV · TikTok đăng đều)
+
+**Nhịp lặp từ tuần này (mỗi ngày, theo Q5 §A1):** 9:00 duyệt bài+seed · 10:30 chào 10 thợ/dựng hồ sơ · 15:00 nghe 3 nhóm thợ · 17:00 xử lý Form CTV · 21:00 đọc báo cáo tối + ghi sheet. Dưới đây chỉ ghi việc **THÊM** của từng ngày.
+
+| Ngày | Việc thêm trong ngày | Sản phẩm/Gate |
+|---|---|---|
+| **8 (T2)** | Tuyển thêm CTV đợt 2 (mục tiêu tổng 4): đăng lại JD + phỏng vấn scorecard. 🔧 Bật đăng TikTok: 1 reel/ngày từ weekly plan (test `tiktok_uploader`, fail thì đăng tay). | 2 ứng viên mới; reel #1 live |
+| **9 (T3)** | Training CTV đợt 2. Giao địa bàn không trùng (chia quận theo cụm cửa hàng vật tư). | 4 CTV hoạt động |
+| **10 (T4)** | 🔧 Chốt **SLA duyệt hồ sơ <2h** (Q7 backlog #2): đặt 2 khung duyệt 11h30 & 17h. Agent rút "bảng nghe thợ" tuần (Q3 §8). | SLA công bố nội bộ |
+| **11 (T5)** | TikTok comment-seeding: 30' comment giá trị dưới 5 video hub thợ (Q8 §2.2). Lập danh sách 10 micro-KOL thợ vào sheet. | Danh sách KOL |
+| **12 (T6)** | **Nghiệm thu CTV tuần** (sheet PL-B §6) + chuyển khoản. Chấm KPI từng CTV (Q9 §3.2): ai <50% chuẩn → nhắc; ai xuất sắc → nhân bản kịch bản của họ cho cả đội. | Bảng lương tuần + xếp hạng CTV |
+| **13 (T7)** | Nhắn 3 micro-KOL đầu tiên (đề nghị làm hồ sơ miễn phí — Q8 §2.2). Đăng bài group đợt 2. | ≥1 KOL trả lời |
+| **14 (CN)** | ⭐ **Review tuần 2**: tổng hồ sơ ~70? %share ≥40%? **Khách thật đầu tiên đã xuất hiện chưa** (`/metrics/bac-dau`)? CTV nào dừng/giữ. Content: engine nào nổ (>15% inbox) → nhân bản tuần 3. | 5 số + 3 điều chỉnh |
+
+---
+
+## TUẦN 3 — ĐẨY BẮC ĐẨU: TỪ HỒ SƠ SANG KHÁCH THẬT (mục tiêu: tổng ~110 hồ sơ · ≥50% share · **5-10 khách thật** ⭐)
+
+| Ngày | Việc thêm trong ngày | Sản phẩm/Gate |
+|---|---|---|
+| **15 (T2)** | Chiến dịch "share lại": gọi/nhắn TẤT CẢ thợ chưa share (danh sách từ sheet) — kịch bản: *"Em thấy hồ sơ anh đẹp mà khách chưa thấy, anh gửi thử 2 khách quen giúp em, có khách hỏi là anh có việc ngay."* | %share +10 điểm |
+| **16 (T3)** | Nếu app đã qua duyệt → **publish bản tracking**; verify events chảy: `GET /metrics/bac-dau` thấy `profile_shared`>0. Chưa duyệt → dùng số đếm tay từ sheet. | Đo NSM tự động |
+| **17 (T4)** | Thợ ĐÃ có khách qua link → xin 1 câu nhận xét + chụp màn hình (xin phép) → thành bài **proof** (PL-A 4.5-4.6 với số thật). | 2-3 case proof |
+| **18 (T5)** | Đăng case proof lên group thợ + gửi vào nhóm Zalo CTV ("bằng chứng để chào thợ dễ hơn"). KOL nào nhận lời → dựng hồ sơ cho KOL. | Kịch bản chào có proof |
+| **19 (T6)** | Nghiệm thu + trả CTV. ⭐ Soi **chi phí/thợ-có-share** (Q9 §4.3): >150k 2 tuần liên tiếp → dừng scale, sửa phễu. | Bảng lương + unit economics |
+| **20 (T7)** | Tổng vệ sinh dữ liệu: hồ sơ thiếu ảnh → nhắc thợ bổ sung; **rà seed data cũ** (chuẩn bị điều kiện bật SEO — Q6 gate). | Data sạch |
+| **21 (CN)** | ⭐ **Review tuần 3 — gate quan trọng nhất tháng:** ĐÃ có **5-10 khách thật** liên hệ qua link chưa? • CÓ → tuần 4 chuẩn bị mở rộng + bật SEO. • CHƯA → tuần 4 KHÔNG scale; toàn lực sửa V1 (hồ sơ đủ tin? thợ share thật không? khách quen của thợ có nhu cầu?). | Quyết định hướng tuần 4 |
+
+---
+
+## TUẦN 4 — KHÓA SỔ THÁNG: CỦNG CỐ HOẶC MỞ RỘNG (theo gate ngày 21)
+
+| Ngày | Nhánh A — ĐÃ có khách thật (mở rộng) | Nhánh B — CHƯA (củng cố) |
+|---|---|---|
+| **22 (T2)** | Kiểm điều kiện SEO: seed đã xử + ≥3 thợ thật/cặp nghề-quận → **bật `SEO_INDEX_ENABLED=true`** + gắn Search Console (Q6 §5) | Phỏng vấn 5 thợ đã share mà khách không hỏi: xem hồ sơ của họ như khách xem — thiếu gì? (ảnh? giá? đánh giá?) |
+| **23 (T3)** | Chọn quận atomic #2 (ưu tiên giáp ranh — Q1 §9); lặp checklist Q1 §2 | Sửa 10 hồ sơ yếu nhất (ảnh/bảng giá/bio) — chuẩn checklist Q3 §7.2 |
+| **24 (T4)** | Tuyển 2 CTV cho quận mới (JD Q9); CTV giỏi nhất → đề bạt **trưởng nhóm** (Q9 §3.3) | Thử kịch bản share MỚI: in QR card cứng phát thợ dán thùng đồ nghề |
+| **25 (T5)** | Case study quận 1 → bài chào thợ quận 2 ("thợ bên [quận] đã có khách qua link") | A/B: 10 thợ được gọi điện hướng dẫn share tận tay vs 10 thợ chỉ nhắn — đo chênh lệch |
+| **26 (T6)** | Nghiệm thu + trả CTV cả 2 quận | Nghiệm thu + trả CTV; đánh giá lại đơn giá (Q9 §1 ghi chú) |
+| **27 (T7)** | Chuẩn hoá "playbook nhân quận" (những gì lặp lại được → checklist mới trong Q1) | Tổng hợp 5 nguyên nhân khách-không-đến + 5 việc sửa tuần sau |
+| **28 (CN)** | ⭐ Review tuần 4 (5 số + 3 câu) | ⭐ Review tuần 4 |
+
+### Ngày 29-30 — ⭐ TỔNG KẾT THÁNG (Q5 §C2 + Q6 §4.3)
+- **Điền bảng DoA** (Q1 §8): mật độ thợ/nghề-quận · %share · #khách thật · ≥1 giao dịch trọn vòng?
+- **Quyết định kill/pivot/continue** từng cấu phần: kênh nào ra thợ (giữ) / kênh nào không (cắt) · CTV nào giữ · content engine nào nhân bản.
+- **Chốt ngân sách tháng 2** theo kịch bản Q9 §4.2 (dựa CAC thực tế tháng 1, không dựa kế hoạch).
+- **Cập nhật Q0 §9** (hiện trạng số) + memory. Viết 1 trang "Bài học tháng 1" vào cuối quyển này.
+- Lên Blueprint tháng 2 (copy khung tuần 1-4, đổi mục tiêu theo số thật).
+
+---
+
+## BẢNG SỐ MỤC TIÊU CẢ THÁNG (dán tường — tô màu mỗi CN)
+
+| Chỉ số | T1 | T2 | T3 | T4 | Nguồn |
+|---|---|---|---|---|---|
+| Hồ sơ thợ THẬT (lũy kế) | 30 | 70 | 110 | 150 | Sheet thợ |
+| % thợ đã share | 40% | 45% | 50% | 55% | Sheet/metrics API |
+| **Khách thật liên hệ (lũy kế)** ⭐ | — | ≥1 | **5-10** | 15+ | `/metrics/bac-dau` |
+| CTV hoạt động | 1-2 | 4 | 4 | 4-6 | Sheet nghiệm thu |
+| Chi phí/thợ hợp lệ | ≤50k | ≤45k | ≤44k | ≤44k | Q9 §4.2 |
+| Kênh "đang cày" ra thợ | 5 | 8 | 8 (đã cắt kênh chết) | 8 | Danh bạ Q8 §5 |
+| Bài inbox-conversion >15% | ≥1 | ≥2 | ≥3 | ≥3 | Cron tối |
+
+**3 việc không được bỏ dù ngày bận nhất (Q5 §A2):** seed comment 30' đầu cho ≥1 bài · chào ≥5 thợ hoặc dựng hồ sơ đã hứa · nhắc ≥3 thợ share.
+
+*Cập nhật: 2026-07. Đây là tài liệu sống — gạch/sửa ngay trên bản in mỗi ngày.*
+
+</script>
+<script type="text/markdown" id="vol-11">
+# QUYỂN 11 — CONTENT SẢN PHẨM: ĐĂNG FEATURE GÌ · TRACK RA SAO · KHÔNG HIỆU QUẢ ĐỔI THẾ NÀO
+
+> PL-A là bài theo **angle cảm xúc** (nuôi lòng tin). Quyển này là bài về **FEATURE sản phẩm**
+> (bán tính năng cụ thể) — kèm hệ tracking từng bài và cây quyết định sửa khi bài chết.
+> Quy tắc vàng: **không đăng "tính năng", đăng "nỗi đau được giải".** Thợ không quan tâm "QR code";
+> thợ quan tâm "khỏi phải giải thích tay nghề lần thứ 100".
+
+---
+
+## 1. BẢN ĐỒ FEATURE → THÔNG ĐIỆP (danh mục 11 feature đáng đăng)
+
+### Nhóm A — cho THỢ (kênh: FB group thợ, TikTok, Zalo, CTV nói miệng)
+
+| # | Feature | Nỗi đau nó giải | Thông điệp 1 câu (đăng cái này, không đăng tên feature) | Angle map | Dạng bài mạnh nhất |
+|---|---|---|---|---|---|
+| F1 | Tạo hồ sơ 2 phút (prefill Zalo, không đăng ký) | Thợ ngại app, sợ rườm rà | *"Không cần biết công nghệ — bấm vào là có, tên ảnh Zalo tự điền, 2 phút xong."* | Cơ Hội | Video demo quay màn hình 30s |
+| F2 | Thẻ QR gửi khách | Giải thích tay nghề mỏi miệng, bị ép giá | *"Khách hỏi 'anh làm được không?' — đưa thẻ ra là xong."* | Sĩ Diện | Trước/Sau + demo quét |
+| F3 | Khách quét là **Gọi/Nhắn Zalo ngay** | Sợ mất khách vào app trung gian | *"Khách bấm là đổ chuông máy ANH — không qua ai, không ai bán số của anh."* | Nhà Nghề (chống nghi ngờ) | FAQ/phản đối |
+| F4 | Bảng giá dịch vụ trên thẻ | Kì kèo giá, khách chê đắt | *"Giá in rõ trên thẻ — khách xem trước, gặp nhau khỏi mặc cả."* | Nhà Nghề | Screenshot bảng giá thật |
+| F5 | Ảnh công trình trên hồ sơ | Không có cách khoe tay nghề | *"10 năm nghề nằm hết trong 5 tấm ảnh — khách tự thấy, khỏi nói nhiều."* | Cái Uy | Carousel ảnh việc đẹp |
+| F6 | Lên chợ doitay.vn (đồng bộ 1 chạm) | Chỉ có khách quen, ế mùa mưa | *"Bật một nút — khách LẠ trên mạng cũng tìm thấy anh."* | Cơ Hội | Case thợ có khách lạ đầu tiên |
+| F7 | Miễn phí + không bán lead | Bị app khác lừa phí/lead | *"Không thu một đồng. Không bán số. Hồ sơ là CỦA ANH, khách là CỦA ANH."* | Hậu Trường | Bài khẳng định + trả lời comment |
+| F8 | Có pháp lý rõ (điều khoản, Zalo duyệt) | Sợ app ma | *"App được Zalo kiểm duyệt, điều khoản công khai — không phải app trôi nổi."* | Cái Uy | Kèm trong mọi bài (1 dòng) |
+
+### Nhóm B — cho KHÁCH (kênh: FB group cư dân, SEO, khách quen của thợ)
+
+| # | Feature | Nỗi đau | Thông điệp 1 câu | Dạng bài |
+|---|---|---|---|---|
+| F9 | Đặt lịch KHÔNG cần đăng ký | Ghét tạo tài khoản | *"Điền tên + SĐT là xong — 1 phút, thợ gọi lại ngay, không bắt đăng nhập."* | Demo 3 bước |
+| F10 | Hồ sơ minh bạch (ảnh + giá + đánh giá thật) | Sợ thợ tay ngang, sợ chặt chém | *"Xem tay nghề và giá TRƯỚC khi gọi — hết cảnh gọi bừa theo tờ rơi."* | So sánh: gọi số cột điện vs xem hồ sơ |
+| F11 | Thợ theo quận (gần nhà) | Thợ xa, chờ lâu | *"Thợ ngay quận mình — có việc gấp không phải chờ nửa ngày."* | Kèm demand_capture group cư dân |
+
+**Ưu tiên đăng (theo phase Bắc Đẩu):** tháng ra quân đẩy **F7 → F1 → F2 → F3** (gỡ nghi ngờ, kéo thợ vào, kích share). F4-F6 sau khi có ~50 thợ. F9-F11 chỉ đẩy mạnh khi mật độ thợ đủ (Q1 §3 — cung trước cầu).
+
+---
+
+## 2. NĂM KHUÔN BÀI FEATURE (khác PL-A — đây là bài SẢN PHẨM)
+
+| Khuôn | Cấu trúc | Dùng khi |
+|---|---|---|
+| **K1. Demo 30 giây** | Hook nỗi đau (3s) → quay màn hình thao tác thật → kết quả → CTA | Ra mắt feature (F1, F2, F9) |
+| **K2. Trước/Sau** | Cảnh khổ cũ (nhắn 10 tin giải thích) → cảnh mới (đưa 1 thẻ) → 1 câu chốt | F2, F4, F10 |
+| **K3. Case thật** | Tên thợ thật + tình huống + con số ("anh Cường Đống Đa, 3 khách quét QR tuần đầu") → cách làm theo | Sau khi có kết quả thật (F6) |
+| **K4. Hướng dẫn 3 bước** | "Cách có X trong 2 phút: 1… 2… 3…" + ảnh từng bước | F1, F9 — bài ghim group |
+| **K5. FAQ/Phản đối** | Nêu thẳng nghi ngờ ("Lại bán lead à?") → trả lời thật → bằng chứng | F3, F7 — khi comment tiêu cực xuất hiện |
+
+### Bài mẫu viết sẵn (copy-paste)
+
+**F2 × K2 (Trước/Sau — group thợ):**
+> Trước đây khách hỏi "anh làm được không, có ảnh việc không?" — em ngồi lục Zalo gửi từng tấm, giải thích 15 phút, xong khách im.
+> Giờ em đưa đúng 1 cái thẻ. Khách quét — thấy hết: ảnh việc, bảng giá, số năm nghề. Muốn gọi thì bấm 1 nút là đổ chuông máy em.
+> Làm thẻ mất 2 phút, không tốn đồng nào. Anh nào muốn em làm hộ, thả số dưới comment.
+> *(3 seed comments theo chuẩn Q3 §1.2; link ở comment ghim)*
+
+**F9 × K4 (3 bước — group cư dân, khi đủ thợ):**
+> Nhà hỏng điện/nước mà ngại gọi số dán cột điện? Thử cách này: (1) Vào xem hồ sơ thợ khu mình — có ảnh việc + giá + đánh giá thật. (2) Điền tên + SĐT, chọn giờ. KHÔNG cần tạo tài khoản. (3) Thợ gọi lại xác nhận trong 15 phút. Cả quá trình 1 phút, miễn phí.
+
+**F7 × K5 (Phản đối — trả lời cố định khi bị nghi):**
+> Hỏi thật đấy, app này kiếm gì? — Bọn em nói thẳng: giai đoạn này KHÔNG kiếm gì từ thợ. Không phí, không bán lead, không ăn % việc. Hồ sơ là của anh, khách quét là gọi thẳng máy anh. Bọn em cần nhiều thợ giỏi dùng trước đã; sau này có bán gì thì là bán VẬT TƯ GIÁ TỐT cho anh em — mua hay không tuỳ anh. Điều khoản ghi công khai trong app, Zalo duyệt rồi.
+
+---
+
+## 3. MINI-CAMPAIGN: mỗi feature = chuỗi 3 bài / 1 tuần (đừng đăng 1 bài rồi bỏ)
+
+```
+Ngày 1: K1 Demo (giới thiệu)  →  Ngày 3: K2 Trước/Sau hoặc K4 3-bước (đào sâu)
+→  Ngày 6: K3 Case thật hoặc K5 FAQ (bằng chứng/gỡ nghi ngờ)
+```
+Ghép vào lịch tuần Q3 §1.1: các slot `proof`/`utility` trong tuần = slot bài feature. Bơm cho agent qua `extra_context` khi chạy weekly plan: *"Tuần này mini-campaign F2 (thẻ QR): 1 bài demo, 1 bài trước/sau, 1 bài case."*
+
+**Lịch feature 4 tuần tháng ra quân (khớp Q10):** T1: F7+F1 · T2: F2 · T3: F3+F5 · T4: F6 (case khách lạ đầu tiên) — khách-side F9-F11 để tháng 2 trừ khi mật độ thợ vượt kế hoạch.
+
+---
+
+## 4. TRACKING TỪNG BÀI — biết bài nào ra thợ, bài nào chết
+
+### 4.1 Quy ước UTM (bắt buộc cho MỌI link trong comment ghim)
+```
+https://doitay.vn/...?utm_source={fb|tiktok|zalo}&utm_medium={group|page|reel|bio}&utm_campaign={f2_qr|f7_mienphi|...}&utm_content={k1demo|k2truocsau|...}
+```
+→ `profile_viewed`/`contact_clicked` trên web đã tự ghi meta — thêm utm vào meta bằng cách dán link đủ tham số. Với bài kéo thợ inbox (không link): **hỏi nguồn 1 câu khi thợ inbox** ("anh thấy bài ở nhóm nào ạ?") và ghi vào sheet.
+
+### 4.2 SHEET "NHẬT KÝ BÀI ĐĂNG" (thêm vào PL-B — mỗi bài 1 dòng, điền sau 48h)
+
+| Ngày | Kênh/Group | Feature | Khuôn | Hook (10 chữ đầu) | Link bài | Reach* | Cmt | Inbox | **Hồ sơ mới quy về** | **Share/khách quy về** | Verdict (48h) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+*Reach chỉ để tham khảo — verdict KHÔNG dựa vào reach (Q6).*
+
+### 4.3 Ngưỡng verdict sau 48h (cho bài feature hướng thợ, group 5-10K thành viên)
+
+| Verdict | Tiêu chí | Hành động |
+|---|---|---|
+| 🟢 **Ăn** | ≥5 inbox HOẶC ≥2 hồ sơ mới quy về | Nhân bản: đăng biến thể sang group khác, đưa vào kịch bản CTV |
+| 🟡 **Lửng** | 3+ comment thật nhưng <2 inbox | Giữ thông điệp, sửa CTA/khuôn (cây quyết định §5) |
+| 🔴 **Chết** | <3 comment thật, 0 inbox | Chạy nhánh chẩn đoán §5 |
+
+### 4.4 FEATURE SCOREBOARD (review CN hằng tuần — gộp theo feature, không theo bài)
+
+| Feature | #bài đã thử | #biến thể hook | Tổng inbox | Tổng hồ sơ quy về | Chi phí thời gian | Trạng thái (đang thử/ăn/loại) |
+|---|---|---|---|---|---|---|
+
+---
+
+## 5. CÂY QUYẾT ĐỊNH — BÀI KHÔNG HIỆU QUẢ THÌ ĐỔI GÌ (đổi đúng 1 biến mỗi lần)
+
+```
+Bài 🔴 sau 48h → hỏi lần lượt:
+
+1) CÓ AI XEM KHÔNG? (reach ~0, group không duyệt/bóp)
+   → Lỗi PHÂN PHỐI, chưa nói được gì về nội dung.
+   → Đổi: giờ đăng / group khác / nhờ tài khoản khác đăng. GIỮ nguyên bài.
+
+2) Xem mà KHÔNG tương tác? (reach ok, <3 comment)
+   → Lỗi HOOK hoặc INSIGHT — nỗi đau chưa trúng.
+   → Đổi: hook theo framework khác (C1) HOẶC đổi angle map (VD F2 từ Sĩ Diện → Nhà Nghề).
+     Thông điệp gốc giữ. Thử tối đa 2 hook mới.
+
+3) Tương tác mà KHÔNG inbox/click?
+   → Lỗi CTA hoặc MA SÁT ("hay đấy" rồi lướt).
+   → Đổi: CTA sang keyword-trigger ("thả số em làm hộ") / thêm demo 30s / chuyển sang
+     NHẮN RIÊNG những người đã comment (chuyển đổi tay — luôn làm).
+
+4) Inbox mà KHÔNG ra hồ sơ?
+   → Lỗi PHỄU SAU BÀI, không phải bài. → Sửa kịch bản trả lời inbox (PL-A §6),
+     concierge nhanh hơn (làm hộ ngay trong hội thoại, đừng gửi hướng dẫn).
+
+5) Ra hồ sơ mà KHÔNG share? → Không phải lỗi content — về V1 (Q2): nhắc share + chất lượng hồ sơ.
+```
+
+**Quy tắc 3 lần:** 1 feature được thử tối đa **3 biến thể** (khác hook / khác khuôn / khác kênh). 3/3 chết → feature đó **không phải điểm bán với tệp này** → chuyển feature khác, ghi 1 dòng vào "Bảng học được" (dưới). KHÔNG kết luận sau 1 bài.
+**Quy tắc 1 biến:** mỗi lần thử lại chỉ đổi MỘT thứ (hook hoặc khuôn hoặc kênh) — đổi 2 thứ thì không biết cái nào ăn.
+
+### Bảng "HỌC ĐƯỢC" (cuối quyển này — ghi tay, tài sản quý nhất)
+| Ngày | Điều học được | Bằng chứng | Đổi gì từ nay |
+|---|---|---|---|
+| *(vd)* | *Thợ dị ứng chữ "app", phản ứng tốt với "thẻ"* | *2 bài chữ "thẻ" 8 inbox vs 2 bài chữ "app" 1 inbox* | *Mọi bài dùng "thẻ thợ", cấm chữ "app"* |
+
+---
+
+## 6. NHỊP VẬN HÀNH (gắn vào Q5/Q10 — không thêm giờ mới)
+- **Mỗi bài đăng:** +1 dòng Nhật ký bài đăng (lúc 21:00 cùng checklist đóng ngày).
+- **48h sau mỗi bài:** điền verdict → nếu 🔴 chạy cây §5 ngay hôm sau.
+- **CN (review tuần Q5 §B2):** cập nhật Feature Scoreboard + quyết định feature tuần sau + 1 dòng "học được".
+- **Agent hỗ trợ:** weekly plan nhận mini-campaign qua `extra_context` (§3); cron tối đã tự đo comment/inbox keyword — chỉ cần đối chiếu sang sheet.
+
+*Cập nhật: 2026-07. Gắn với: PL-A (bài angle), Q3 §1-2 (sản xuất/seed), Q6 (nguyên tắc đo), Q10 (lịch 30 ngày — lịch feature §3 khớp tuần 1-4).*
+
+</script>
+<script type="text/markdown" id="vol-a">
+# PHỤ LỤC A — NGÂN HÀNG BÀI VIẾT CTV & TEAM (theo 5 Angle)
+
+> Bài **copy-paste** cho CTV và team dùng: chào thợ, đăng nhóm thợ, comment kéo tương tác.
+> Gắn thẳng với 5 content angle trong `project.yaml`. Giọng thợ, không corporate.
+> Quy tắc: link để ở **comment #1 rồi ghim**, không để trong body. CTA cuối bài.
+> Dùng cùng: Quyển 3 §1-2 (nội dung & seed), Quyển 5 (lịch) · kịch bản gốc: `../playbooks/tuyen_30_tho_dau_tien.md`, `../playbooks/thue_ctv_tuyen_tho.md`.
+
+---
+
+## CÁCH DÙNG NHANH
+
+| Tình huống | Dùng mục | Kênh |
+|---|---|---|
+| Nhắn riêng 1 thợ | §1 | Zalo / Messenger |
+| Đăng nhóm FB thợ kéo inbox | §2 | Nhóm thợ điện/nước/điều hoà |
+| Chào trực tiếp ở cửa hàng vật tư | §3 (kịch bản nói) | Offline |
+| Bài nuôi lòng tin (đăng đều) | §4 theo angle | Fanpage / group |
+| Comment mồi kéo thread | §5 | Dưới bài mình |
+| Xử lý thợ từ chối | §6 | Mọi kênh |
+
+**5 Angle:** Cái Uy (tự hào nghề) · Sĩ Diện (được nhìn nhận) · Cơ Hội (FOMO việc) · Nhà Nghề (học được ngay) · Hậu Trường (đồng cảm).
+
+---
+
+## 1. NHẮN RIÊNG 1 THỢ (4 biến thể theo nghề)
+
+**Thợ điện**
+```
+Chào anh, em xem anh làm điện khu [quận] đúng không ạ?
+Em đang làm miễn phí trang hồ sơ thợ (name card online có mã QR) cho mấy anh thợ giỏi ở Hà Nội,
+để gửi khách xem tay nghề cho tiện. Anh cho em xin 3-4 ảnh công việc + số điện thoại,
+em làm xong gửi anh link với QR trong hôm nay, dùng thoải mái, miễn phí ạ.
+```
+
+**Thợ nước** — thay câu 2: *"…sự cố nước hay gấp, khách cần là gọi liền, có sẵn cái link gửi khách xem tay nghề là chốt nhanh hơn hẳn."*
+
+**Thợ điều hoà** — thêm: *"…nhất là vào mùa nóng khách hỏi dồn, anh gửi link đỡ phải giải thích từng người."*
+
+**Thợ xây/ốp lát/mộc** — nhấn portfolio: *"…nghề anh nhìn ảnh công trình là khách tin, em gom ảnh anh làm thành 1 trang đẹp để anh khoe khách."*
+
+> Sau khi gửi link, LUÔN nói câu chốt: *"Anh gửi thử link này cho 2-3 khách quen xem nha, khách bấm vào thấy hết tay nghề với đánh giá, đỡ phải giải thích."*
+
+---
+
+## 2. ĐĂNG NHÓM FB THỢ (kéo inbox)
+
+**2A — Ngắn, gọn (mặc định)**
+```
+Em đang làm MIỄN PHÍ trang hồ sơ thợ có mã QR cho anh em thợ điện – nước – điều hoà ở Hà Nội
+(để gửi khách xem tay nghề, báo giá cho chuyên nghiệp).
+Anh nào muốn có một cái để gửi khách thì thả số hoặc inbox em, em làm hộ luôn, khỏi phải tự làm gì ạ. 🙌
+```
+Comment #1 (ghim): *"Xem mẫu 1 trang hồ sơ thợ đây nha: [LINK] — có ảnh việc, bảng giá, đánh giá khách."*
+
+**2B — Angle Sĩ Diện**
+```
+Anh có 10 năm nghề nhưng khách mới nào cũng phải giải thích lại từ đầu — mệt không?
+Em làm miễn phí cho anh 1 trang hồ sơ có QR: khách bấm 1 cái là thấy hết ảnh việc + đánh giá.
+Gửi khách trông chuyên nghiệp hơn hẳn thợ gửi mấy tấm ảnh lẻ trong Zalo.
+Anh nào cần thả số em làm cho, miễn phí ạ.
+```
+
+---
+
+## 3. CHÀO TRỰC TIẾP Ở CỬA HÀNG VẬT TƯ (kịch bản nói)
+
+> *"Anh ơi anh làm điều hoà đúng không? Em đang làm miễn phí trang hồ sơ có QR cho mấy anh thợ để gửi khách. Anh gửi em vài ảnh công việc là em làm xong cho anh luôn, không mất phí gì. Anh thử không, mất gì đâu?"*
+
+Nếu thợ ngần ngừ → *"Hay để em làm thử cho anh 1 cái, anh xem ổn thì dùng, không thì thôi, không mất gì mà anh."* (cứ làm rồi gửi — làm rồi ít ai từ chối).
+
+---
+
+## 4. BÀI NUÔI LÒNG TIN — theo 5 ANGLE (đăng Fanpage/group đều)
+
+> Mỗi angle 2 mẫu. Điền `[ ]`. Giữ giọng đồng nghiệp. Link → comment #1.
+
+### 🏅 CÁI UY — tự hào nghề (narrative)
+**4.1**
+```
+Anh [Hùng], thợ điện 15 năm ở [Thanh Xuân], nói một câu em nhớ mãi:
+"Tôi tự hào nhất là mỗi khi khách gọi lại lần 2 — nghĩa là lần 1 mình làm tử tế."
+Nghề thợ giỏi không phải làm nhanh, là làm để người ta còn gọi lại.
+```
+**4.2**
+```
+Người ta hay gọi "thợ vặt". Nhưng thợ giỏi là NGHỆ NHÂN:
+nhìn vết ẩm đoán được đường ống, nghe tiếng máy biết bệnh gì.
+Cái nghề tích cả chục năm mới có. Đáng được gọi đúng tên: THỢ GIỎI.
+```
+
+### 🎖️ SĨ DIỆN — được nhìn nhận (proof)
+**4.3**
+```
+Hai thợ cùng tay nghề. Một người gửi khách 5 tấm ảnh lộn xộn trong Zalo.
+Một người gửi 1 cái link: ảnh việc gọn gàng, bảng giá rõ, đánh giá khách thật.
+Khách chọn ai? — Không phải người giỏi hơn. Là người TRÔNG chuyên nghiệp hơn.
+```
+**4.4**
+```
+Bạn có 10 năm kinh nghiệm. Nhưng khách mới không biết điều đó —
+họ chỉ thấy một người lạ đến báo giá. Một trang hồ sơ đẹp = 10 năm đó được nhìn thấy.
+```
+
+### 🚀 CƠ HỘI — FOMO việc (proof/conversion)
+**4.5**
+```
+1.200 khách đã đặt lịch trên Doitay.vn. 105 thợ đang nhận việc.
+Con số không biết nói dối: khách đang tìm thợ mỗi ngày.
+Câu hỏi là họ có tìm thấy ANH không — hay thấy thợ khác trước.
+```
+**4.6**
+```
+Thợ [Minh] tạo hồ sơ tuần trước, tuần này khách tự bấm vào hỏi.
+Không phải may — là vì anh ấy CÓ MẶT ở nơi khách đang tìm.
+Thợ giỏi mà khách không thấy thì cũng như không.
+```
+
+### 🔧 NHÀ NGHỀ — học được ngay (utility — data-first, brand để cuối)
+**4.7**
+```
+BẢNG GIÁ SỬA ĐIỆN 2026 – Hà Nội (tham khảo):
+• Thay công tắc: 80k  • Thay ổ cắm: 120k  • Aptomat: 250–450k tuỳ loại
+• Đi lại 1 đường dây nổi: 150–250k/điểm
+Lưu về để khỏi bị hớ khi báo giá. Anh em bổ sung giá khu mình ở comment nha.
+```
+**4.8**
+```
+CHECKLIST BÁO GIÁ SỬA BỒN CẦU — đừng quên 7 dòng kẻo lỗ:
+1. Công tháo-lắp  2. Gioăng/phớt  3. Ống mềm  4. Keo/silicon
+5. Xử lý nghẹt (nếu có)  6. Đi lại  7. Bảo hành mấy ngày
+Thiếu 1 dòng là ăn vào tiền công. Anh em còn dòng nào bổ sung không?
+```
+
+### 🎬 HẬU TRƯỜNG — đồng cảm (narrative, không sugarcoat)
+**4.9**
+```
+Đi kèo 500k, ngồi 4 tiếng. Xong khách bảo: "Thôi anh về đi, em gọi người khác."
+Nghề này ai cũng từng nuốt cái đấy. Không phải mình dở — là bom kèo.
+Anh em từng gặp chưa, kể em nghe với.
+```
+**4.10**
+```
+Khách trả 3 triệu, tưởng lãi to? Trừ vật tư 1,2tr, đi lại, công 2 người, bảo hành…
+còn lại chả bao nhiêu. Người ngoài nhìn con số, chỉ thợ mới hiểu chi phí thật.
+```
+
+---
+
+## 5. COMMENT MỒI — kéo thread 30' đầu (G12)
+
+Đăng xong, tự seed theo thứ tự, cách nhau 2-3':
+- **Mở rộng:** *"Bổ sung: khu em giá aptomat còn tuỳ hãng, LS với Panasonic chênh cả trăm k."*
+- **Tương phản:** *"Có bác lại tính theo điểm, có bác tính trọn gói — anh em hay tính kiểu nào?"*
+- **Hỏi mồi:** *"Ai làm lâu năm cho xin 1 mẹo báo giá không bị khách kì kèo với?"*
+- **Ghim link:** *"👉 Xem/tạo trang hồ sơ thợ miễn phí: [LINK] — có bảng giá, ảnh việc, đánh giá."*
+
+---
+
+## 6. XỬ LÝ TỪ CHỐI (thợ hay nói gì)
+
+| Thợ nói | Trả lời |
+|---|---|
+| "Mất phí không?" | "Dạ hoàn toàn miễn phí anh, em không thu gì. Anh cứ dùng." |
+| "Lại bán lead à, dính app rồi mệt" | "Không anh ơi, đây không phải app bán lead. Đây là trang hồ sơ RIÊNG của anh để anh gửi khách của anh. Anh không phải trả tiền cho khách nào." |
+| "Bận lắm" | "Anh không phải làm gì hết, em làm hộ. Anh gửi em vài ảnh với số điện thoại, 2 phút thôi." |
+| "Làm để làm gì?" | "Để khi khách hỏi, thay vì giải thích tay nghề, anh gửi 1 link là khách thấy hết ảnh việc + đánh giá. Chốt nhanh hơn, đỡ bị ép giá." |
+| "Ừ để xem đã" | "Vâng để em làm thử cho anh 1 cái, xem ổn thì dùng, không thì thôi, không mất gì mà anh." |
+
+---
+
+## 7. BÀI TUYỂN CTV (đăng nhóm SV / việc làm thêm)
+
+> Bản đầy đủ + danh sách trang đăng: `thue_ctv_tuyen_tho.md` §1-2. Mẫu nhanh:
+```
+🔥 TUYỂN CTV CHẠY DỰ ÁN – LÀM THÊM LINH HOẠT (Hà Nội)
+Công việc: Ra cửa hàng vật tư / khu dân cư, mời các anh thợ (điện, nước, điều hoà)
+tạo hồ sơ nghề MIỄN PHÍ trên app ThợTốt. Chỉ cần xin vài ảnh việc + SĐT, hướng dẫn 2 phút.
+✅ Không cần kinh nghiệm, có training + kịch bản sẵn.
+✅ Thời gian tự do. Thu nhập theo kết quả: 20–40k/thợ tạo hồ sơ thành công (3-5 thợ/buổi = 100-200k).
+✅ Thưởng thêm khi thợ chia sẻ hồ sơ cho khách.
+Phù hợp sinh viên, người cần việc linh hoạt. Quan tâm inbox / để lại SĐT nhé!
+```
+
+</script>
+<script type="text/markdown" id="vol-b">
+# PHỤ LỤC B — THƯ VIỆN TEMPLATE & SHEET
+
+> Setup 1 lần, dùng mãi. Copy cấu trúc cột sang Google Sheet/Form. Đơn giản là ưu tiên — đừng làm phức tạp.
+
+---
+
+## 1. GOOGLE FORM — thu info thợ (CTV nộp)
+
+**Tên form:** "ThợTốt — Nộp hồ sơ thợ mới". Các field:
+
+| Field | Loại | Bắt buộc |
+|---|---|---|
+| Tên thợ | Text | ✅ |
+| Nghề chính | Chọn (điện/nước/điều hoà/xây/sơn/ốp lát/mộc/hàn/vệ sinh/tổng hợp) | ✅ |
+| Khu vực nhận việc (quận) | Text | ✅ |
+| Số điện thoại (+ Zalo) | Text | ✅ |
+| Ảnh công việc (3-5 tấm) | Upload | ✅ |
+| Kinh nghiệm (năm) | Số | — |
+| Giới thiệu ngắn / dịch vụ | Đoạn văn | — |
+| **Tên CTV nộp** | Text | ✅ (để nghiệm thu) |
+
+> Ảnh phải là **việc thật của thợ** (không stock/AI). Ghi rõ dòng lưu ý này ngay đầu form.
+
+---
+
+## 2. SHEET "THEO DÕI THỢ" (Bắc Đẩu)
+
+| Cột | Ghi |
+|---|---|
+| Tên thợ | |
+| Nghề / Quận | |
+| SĐT (đã xác minh?) | ✅/❌ |
+| Nguồn (founder/CTV tên…) | |
+| Đã dựng hồ sơ? | ✅/❌ + link |
+| Đã gửi link cho thợ? | ✅/❌ |
+| **Thợ đã share cho khách?** ⭐ | ✅/❌ |
+| **Khách nào bấm/liên hệ?** ⭐⭐ | ghi tên/số |
+| Thợ giới thiệu thợ khác? | tên |
+| Ghi chú | |
+
+> 2 cột ⭐ là thứ quyết định. Đừng bỏ trống.
+
+---
+
+## 3. SHEET "KEYWORD RADAR" (SEO — Q3 §5)
+
+| Cột | Ví dụ |
+|---|---|
+| Keyword | thợ điện thanh xuân giá rẻ |
+| Nghề | điện |
+| Khu vực | Thanh Xuân |
+| Nguồn | autocomplete / "mọi người cũng hỏi" / group |
+| Volume cảm nhận | cao / vừa / thấp |
+| Intent | thuê gấp / tham khảo giá / tìm hiểu |
+| Đã dùng ở đâu | title bài / FAQ trang /dich-vu / chưa |
+
+---
+
+## 4. SHEET "VIRAL SWIPE" (Q3 §6)
+
+| Cột | Ví dụ |
+|---|---|
+| Link gốc | (url TikTok/Reels/bài group) |
+| Nền tảng | TikTok |
+| Format | before-after / drama / liệt kê |
+| Hook pattern | "Đừng gọi thợ trước khi biết…" |
+| Vì sao nổ | số sốc / xung đột / đồng cảm |
+| Angle map | Nhà Nghề |
+| Đã nhái? | link bài mình / chưa |
+
+---
+
+## 5. SHEET "LỊCH NỘI DUNG TUẦN" (Q3 §1.1)
+
+| Cột | Ví dụ |
+|---|---|
+| Ngày | T3 |
+| Pillar | Tips nghề |
+| Angle | Nhà Nghề |
+| Engine | utility |
+| Hook | "Bảng giá sửa điện 2026…" |
+| Trạng thái | draft / **approved** / posted |
+| Kênh | Page / +group / +Zalo / +TikTok |
+| fb_post_id | (điền sau đăng) |
+| Kết quả | #comment / inbox conv |
+
+---
+
+## 6. SHEET "NGHIỆM THU CTV" (Q4 §2, cuối tuần)
+
+| Cột | Ghi |
+|---|---|
+| CTV | tên |
+| Tuần | |
+| #hồ sơ nộp | |
+| #hợp lệ (đã xác minh SĐT, ảnh thật, không trùng) | |
+| #bị loại + lý do | |
+| #thợ đã share (thưởng) | |
+| Tiền công (hợp lệ×đơn giá + thưởng) | |
+| Đã chuyển khoản? | ✅/❌ |
+
+---
+
+## 7. CHECKLIST IN ĐƯỢC (dán tường)
+
+### 7.1 Checklist 1 bài đạt (trước duyệt)
+```
+[ ] Hook 2 dòng đầu có móc   [ ] Giọng thợ, không corporate
+[ ] Body ≤120 chữ (demand ≤80)   [ ] KHÔNG link trong body (→ comment#1 ghim)
+[ ] CTA rõ   [ ] 3 seed comment sẵn   [ ] Không bịa số / hứa quá / chê thợ khác
+```
+
+### 7.2 Checklist hồ sơ thợ (trước gửi thợ)
+```
+[ ] Tên/nghề/quận đúng, không lộ brand thừa   [ ] ≥3 ảnh việc THẬT
+[ ] Bảng giá đúng nghề + mục "khác"   [ ] Bio giọng thợ
+[ ] Test điện thoại: mở nhanh, QR đúng, nút đặt lịch chạy
+```
+
+### 7.3 Câu chốt phải nói (mỗi lần gửi link thợ)
+```
+"Anh gửi thử link này cho 2-3 khách quen xem nha, khách bấm vào
+thấy hết tay nghề với đánh giá, đỡ phải giải thích."
+```
+
+---
+
+## 8. PROMPT MẪU GIAO AGENT (copy nhanh)
+
+- **Draft nội dung tuần:** *"Draft 10 bài tuần theo lịch [dán bảng], giọng project.yaml, mỗi bài hook + body ≤120 chữ + CTA, link để comment, kèm 3 seed comment."*
+- **Dựng nội dung hồ sơ:** *"Từ info thợ này [dán], viết bio giọng thợ + bảng giá dịch vụ đúng nghề [nghề] + 5 tags. Không bịa đánh giá."*
+- **Rút mẫu viral:** *"Rút cấu trúc bài này [link]: hook pattern, nhịp, điểm cảm xúc. Map về 1 trong 5 angle. Viết lại 1 bản cho nghề thợ Hà Nội."*
+- **Gom keyword:** *"Sinh keyword nghề [x] × các quận đang có thợ qua keywordsFor, gợi ý modifier mới nghe từ group, đề xuất bổ sung vào seo-content."*
+- **Bảng nghe thợ tuần:** *"Từ log 3 nhóm thợ tuần này, rút pain/language/intent signal theo bảng Q3 §8."*
+
+---
+
+*Cập nhật lần cuối: 2026-07.*
+
+</script>
+<script>
+/* Minimal, purpose-built Markdown -> HTML for the doitay handbook. */
+(function (root) {
+  var SENT = String.fromCharCode(0xE000);
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function inline(raw) {
+    var s = esc(raw);
+    var codes = [];
+    s = s.replace(/`([^`]+)`/g, function (m, c) {
+      codes.push(c);
+      return SENT + (codes.length - 1) + SENT;
+    });
+    s = s.replace(/\[\[([^\]]+)\]\]/g, function (m, n) {
+      return '<span class="xref">' + n + "</span>";
+    });
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, t, u) {
+      var ext = /^https?:/.test(u);
+      return '<a href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + t + "</a>";
+    });
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(new RegExp(SENT + "(\\d+)" + SENT, "g"), function (m, i) {
+      return "<code>" + codes[+i] + "</code>";
+    });
+    return s;
+  }
+
+  function isTableSep(line) {
+    return /^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/.test(line) && line.indexOf("-") > -1;
+  }
+  function splitRow(line) {
+    var t = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+    return t.split("|").map(function (c) { return c.trim(); });
+  }
+
+  function parseList(lines) {
+    var idx = 0;
+    function build(minIndent) {
+      var items = [];
+      var ordered = null;
+      while (idx < lines.length) {
+        var line = lines[idx];
+        var m = line.match(/^(\s*)([-*]|\d+[.)])\s+(.*)$/);
+        if (!m) break;
+        var indent = m[1].length;
+        if (indent < minIndent) break;
+        if (items.length === 0) ordered = /\d/.test(m[2]);
+        if (indent > minIndent) {
+          var sub = build(indent);
+          if (items.length) items[items.length - 1].children = sub;
+          continue;
+        }
+        idx++;
+        var text = m[3];
+        var task = null;
+        var cb = text.match(/^\[([ xX])\]\s+(.*)$/);
+        if (cb) { task = cb[1].toLowerCase() === "x"; text = cb[2]; }
+        items.push({ text: text, task: task, children: null });
+      }
+      var hasTask = items.some(function (it) { return it.task !== null; });
+      var tag = ordered ? "ol" : "ul";
+      var out = "<" + tag + (!ordered && hasTask ? ' class="tasks"' : "") + ">";
+      items.forEach(function (it) {
+        var cls = it.task !== null ? ' class="task"' : "";
+        var mark = "";
+        if (it.task !== null) {
+          mark = '<span class="cb ' + (it.task ? "on" : "") + '" aria-hidden="true">' + (it.task ? "✓" : "") + "</span>";
+        }
+        out += "<li" + cls + ">" + mark + "<span>" + inline(it.text) + "</span>";
+        if (it.children) out += it.children;
+        out += "</li>";
+      });
+      out += "</" + tag + ">";
+      return out;
+    }
+    return build(0);
+  }
+
+  function render(md) {
+    var lines = md.replace(/\r\n/g, "\n").split("\n");
+    var i = 0, out = [];
+    while (i < lines.length) {
+      var line = lines[i];
+      var fence = line.match(/^```(.*)$/);
+      if (fence) {
+        var buf = [];
+        i++;
+        while (i < lines.length && !/^```\s*$/.test(lines[i])) { buf.push(lines[i]); i++; }
+        i++;
+        out.push('<pre><code>' + esc(buf.join("\n")) + "</code></pre>");
+        continue;
+      }
+      if (/^\s*$/.test(line)) { i++; continue; }
+      var h = line.match(/^(#{1,6})\s+(.*)$/);
+      if (h) { out.push("<h" + h[1].length + ">" + inline(h[2]) + "</h" + h[1].length + ">"); i++; continue; }
+      if (/^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) { out.push("<hr>"); i++; continue; }
+      if (line.indexOf("|") > -1 && i + 1 < lines.length && isTableSep(lines[i + 1])) {
+        var header = splitRow(line);
+        i += 2;
+        var rows = [];
+        while (i < lines.length && lines[i].indexOf("|") > -1 && !/^\s*$/.test(lines[i])) { rows.push(splitRow(lines[i])); i++; }
+        var t = '<div class="tbl"><table><thead><tr>';
+        header.forEach(function (c) { t += "<th>" + inline(c) + "</th>"; });
+        t += "</tr></thead><tbody>";
+        rows.forEach(function (r) {
+          t += "<tr>";
+          for (var c = 0; c < header.length; c++) t += "<td>" + inline(r[c] || "") + "</td>";
+          t += "</tr>";
+        });
+        t += "</tbody></table></div>";
+        out.push(t);
+        continue;
+      }
+      if (/^\s*>/.test(line)) {
+        var qb = [];
+        while (i < lines.length && /^\s*>/.test(lines[i])) { qb.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+        var qhtml = qb.join("\n").split(/\n{2,}/).map(function (p) {
+          return "<p>" + inline(p.replace(/\n/g, " ").trim()) + "</p>";
+        }).join("");
+        out.push("<blockquote>" + qhtml + "</blockquote>");
+        continue;
+      }
+      if (/^(\s*)([-*]|\d+[.)])\s+/.test(line)) {
+        var lb = [];
+        while (i < lines.length && /^(\s*)([-*]|\d+[.)])\s+/.test(lines[i])) { lb.push(lines[i]); i++; }
+        out.push(parseList(lb));
+        continue;
+      }
+      var pb = [];
+      while (
+        i < lines.length &&
+        !/^\s*$/.test(lines[i]) &&
+        !/^(#{1,6})\s/.test(lines[i]) &&
+        !/^\s*>/.test(lines[i]) &&
+        !/^```/.test(lines[i]) &&
+        !/^(\s*)([-*]|\d+[.)])\s+/.test(lines[i]) &&
+        !/^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(lines[i]) &&
+        !(lines[i].indexOf("|") > -1 && i + 1 < lines.length && isTableSep(lines[i + 1]))
+      ) { pb.push(lines[i]); i++; }
+      if (pb.length) out.push("<p>" + inline(pb.join(" ")) + "</p>");
+    }
+    return out.join("\n");
+  }
+
+  root.mdRender = render;
+  if (typeof module !== "undefined" && module.exports) module.exports = { mdRender: render };
+})(typeof window !== "undefined" ? window : this);
+
+(function () {
+  var NAV = [
+    { id: "cover", n: "", t: "Bìa &amp; Mở đầu", s: "Cách đọc bộ sách", grp: "" },
+    { id: "vol-0", n: "00", t: "Tổng quan &amp; La bàn", s: "Thesis · Bắc Đẩu · nguyên tắc", grp: "Quyển" },
+    { id: "vol-1", n: "01", t: "Go-To-Market", s: "Atomic network · 30 thợ đầu" },
+    { id: "vol-2", n: "02", t: "Growth", s: "5 vòng tăng trưởng" },
+    { id: "vol-3", n: "03", t: "Vận hành Digital", s: "Thao tác từng ngày" },
+    { id: "vol-4", n: "04", t: "Vận hành CTV", s: "Tuyển · train · nghiệm thu" },
+    { id: "vol-5", n: "05", t: "Lịch vận hành", s: "Daily · Weekly · Monthly" },
+    { id: "vol-6", n: "06", t: "Đo lường &amp; Quyết định", s: "KPI · kill / pivot / continue" },
+    { id: "vol-7", n: "07", t: "Kênh × Metrics × Features", s: "North star từng kênh + feature" },
+    { id: "vol-8", n: "08", t: "Danh bạ kênh seed", s: "FB · TikTok · Zalo · offline" },
+    { id: "vol-9", n: "09", t: "CTV: JD · Scorecard · Tài chính", s: "Tuyển · KPI · ngân sách 3 kịch bản" },
+    { id: "vol-10", n: "10", t: "Blueprint 30 ngày", s: "Lịch ngày-qua-ngày tháng ra quân" },
+    { id: "vol-11", n: "11", t: "Content sản phẩm: Feature · Tracking", s: "Đăng gì · đo gì · đổi gì" },
+    { id: "vol-a", n: "A", t: "Ngân hàng bài viết", s: "Bài chào thợ theo angle", grp: "Phụ lục" },
+    { id: "vol-b", n: "B", t: "Template &amp; Sheet", s: "Form · sheet · checklist" }
+  ];
+
+  var view = document.getElementById("view");
+  var toc = document.getElementById("toc");
+  var pager = document.getElementById("pager");
+  var main = document.getElementById("main");
+  var sidebar = document.getElementById("sidebar");
+  var scrim = document.getElementById("scrim");
+  var progbar = document.getElementById("progbar");
+  var cache = {};
+
+  // build TOC
+  var lastGrp = null;
+  NAV.forEach(function (item) {
+    if (item.grp && item.grp !== lastGrp) {
+      var sep = document.createElement("div");
+      sep.className = "toc-sep";
+      sep.textContent = item.grp;
+      toc.appendChild(sep);
+      lastGrp = item.grp;
+    }
+    var b = document.createElement("button");
+    b.className = "toc-item";
+    b.setAttribute("data-id", item.id);
+    b.innerHTML = '<span class="n">' + item.n + '</span><span class="t"><b>' + item.t + "</b><small>" + item.s + "</small></span>";
+    b.addEventListener("click", function () { go(item.id); closeNav(); });
+    toc.appendChild(b);
+  });
+
+  function renderVol(id) {
+    if (cache[id]) return cache[id];
+    var html;
+    if (id === "cover") {
+      html = document.getElementById("tpl-cover").innerHTML;
+    } else {
+      var src = document.getElementById(id);
+      html = window.mdRender(src.textContent);
+    }
+    cache[id] = html;
+    return html;
+  }
+
+  function go(id) {
+    var idx = NAV.map(function (x) { return x.id; }).indexOf(id);
+    if (idx < 0) idx = 0, id = "cover";
+
+    view.innerHTML = renderVol(id);
+    view.classList.remove("swap"); void view.offsetWidth; view.classList.add("swap");
+
+    // cover internal jump buttons
+    var jumps = view.querySelectorAll("[data-go]");
+    Array.prototype.forEach.call(jumps, function (btn) {
+      btn.addEventListener("click", function () { go(btn.getAttribute("data-go")); });
+    });
+
+    // toc active
+    Array.prototype.forEach.call(toc.querySelectorAll(".toc-item"), function (el) {
+      var on = el.getAttribute("data-id") === id;
+      el.classList.toggle("active", on);
+      if (on && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
+    });
+
+    buildPager(idx);
+    if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    updateProgress();
+  }
+
+  function pgHTML(item, dir) {
+    var lab = dir === "prev" ? "◂ Trước" : "Tiếp ▸";
+    return '<span class="lab">' + lab + '</span><span class="ti">' + (item.n ? item.n + " · " : "") + item.t + "</span>";
+  }
+  function buildPager(idx) {
+    pager.innerHTML = "";
+    var prev = NAV[idx - 1], next = NAV[idx + 1];
+    var pb = document.createElement("button");
+    pb.className = "pg-btn prev";
+    if (prev) { pb.innerHTML = pgHTML(prev, "prev"); pb.onclick = function () { go(prev.id); }; }
+    else pb.setAttribute("disabled", "");
+    var nb = document.createElement("button");
+    nb.className = "pg-btn next";
+    if (next) { nb.innerHTML = pgHTML(next, "next"); nb.onclick = function () { go(next.id); }; }
+    else nb.setAttribute("disabled", "");
+    pager.appendChild(pb); pager.appendChild(nb);
+  }
+
+  function updateProgress() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    progbar.style.width = Math.max(0, Math.min(1, p)) * 100 + "%";
+  }
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+
+  // nav (mobile)
+  function openNav() { sidebar.classList.add("open"); scrim.classList.add("show"); }
+  function closeNav() { sidebar.classList.remove("open"); scrim.classList.remove("show"); }
+  document.getElementById("menuBtn").addEventListener("click", openNav);
+  scrim.addEventListener("click", closeNav);
+
+  // theme is owned by the artifact viewer (it stamps data-theme). When opened
+  // standalone, an optional in-page toggle can drive it; guard if absent.
+  var themeBtn = document.getElementById("themeBtn");
+  if (themeBtn) {
+    try {
+      var saved = localStorage.getItem("dt-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    } catch (e) {}
+    themeBtn.addEventListener("click", function () {
+      var cur = document.documentElement.getAttribute("data-theme");
+      var isDark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme:dark)").matches;
+      var next = isDark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("dt-theme", next); } catch (e) {}
+    });
+  }
+
+  // keyboard nav
+  document.addEventListener("keydown", function (e) {
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    var idx = NAV.map(function (x) { return x.id; }).indexOf(currentId());
+    if (e.key === "ArrowRight" && NAV[idx + 1]) go(NAV[idx + 1].id);
+    if (e.key === "ArrowLeft" && NAV[idx - 1]) go(NAV[idx - 1].id);
+  });
+  function currentId() {
+    var a = toc.querySelector(".toc-item.active");
+    return a ? a.getAttribute("data-id") : "cover";
+  }
+
+  // initial
+  var start = (location.hash || "").replace("#", "");
+  if (!NAV.some(function (x) { return x.id === start; })) start = "cover";
+  go(start);
+})();
+
+</script>

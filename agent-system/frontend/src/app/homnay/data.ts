@@ -3,8 +3,7 @@
 
 export const DEFAULT_START = "2026-08-03"; // Ngày 1 = thứ Hai ra quân (đổi được trong app)
 
-export const BOOK_URL =
-  "https://claude.ai/code/artifact/e2ed3149-b0c1-4a84-b010-94e670f4122b";
+export const BOOK_URL = "/sach.html"; // sách self-host ngay trong app — chạy cả local lẫn tunnel
 
 export interface Step {
   t: "sáng" | "chiều" | "tối";
