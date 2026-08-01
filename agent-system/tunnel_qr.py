@@ -59,18 +59,19 @@ def main():
     bar = "=" * 60
     print("\n" + bar)
     print("  HỆ MARKETING — TRUY CẬP MỌI NƠI")
-    print("  " + link)
+    print("  Hôm nay làm gì:  " + link + "/homnay")
+    print("  Dashboard:       " + link)
     print(bar + "\n")
 
     png = os.path.join(os.path.dirname(os.path.abspath(__file__)), "marketing_qr.png")
-    if make_qr_local(link, png):
+    if make_qr_local(link + "/homnay", png):
         print(f"\n[QR] Đã lưu: {png}  — quét bằng camera điện thoại.")
         try:
             os.startfile(png)  # mở ảnh QR (Windows)
         except Exception:
             pass
     else:
-        q = "https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=" + urllib.parse.quote(link, safe="")
+        q = "https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=" + urllib.parse.quote(link + "/homnay", safe="")
         print("\n[QR] Không tạo được QR cục bộ → mở QR online trên trình duyệt:")
         print("  " + q)
         try:
